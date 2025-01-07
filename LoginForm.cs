@@ -49,6 +49,7 @@ namespace Gestion_de_stock
             this.Hide();
         }
 
+        // Afficher Le Password :
         private void showpsw_CheckedChanged(object sender, EventArgs e)
         {
             password.PasswordChar = showpsw.Checked ? '\0' : '*';
