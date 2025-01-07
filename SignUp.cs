@@ -38,5 +38,20 @@ namespace Gestion_de_stock
         {
             password.PasswordChar = showpsw.Checked ? '\0' : '*';
         }
+
+        //Configuration de Hover sur Le Bouton Login :
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            signupbtn.BackColor = Color.DarkSlateBlue; // Couleur hover 
+        }
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            signupbtn.BackColor = Color.SlateBlue; // Couleur Originale
+        }
+
+        private void signupbtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

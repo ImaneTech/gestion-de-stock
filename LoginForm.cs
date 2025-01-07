@@ -49,10 +49,20 @@ namespace Gestion_de_stock
             this.Hide();
         }
 
-        // Afficher Le Password :showpsw
+        // Afficher Le Password :
         private void showpsw_CheckedChanged(object sender, EventArgs e)
         {
             password.PasswordChar = showpsw.Checked ? '\0' : '*';
+        }
+
+        //Configuration de Hover sur Le Bouton Login :
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            loginbtn.BackColor = Color.DarkSlateBlue; // Couleur hover 
+        }
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            loginbtn.BackColor = Color.SlateBlue; // Couleur Originale
         }
     }
 }
