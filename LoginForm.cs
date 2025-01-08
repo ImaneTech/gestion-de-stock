@@ -15,6 +15,11 @@ namespace Gestion_de_stock
         private void button1_Click(object sender, EventArgs e)
         {
 
+
+            HomePage home = new HomePage();
+            home.Show();
+
+            this.Hide();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
