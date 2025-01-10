@@ -1,7 +1,7 @@
 ﻿
 namespace Gestion_de_stock
 {
-    partial class HomePage
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,20 +30,20 @@ namespace Gestion_de_stock
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomePage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel1 = new Panel();
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
             sidebartimer = new System.Windows.Forms.Timer(components);
             sidebar = new Panel();
+            button8 = new Button();
             button6 = new Button();
             panel14 = new Panel();
             button17 = new Button();
             button16 = new Button();
             button18 = new Button();
             panel13 = new Panel();
-            panel12 = new Panel();
             button15 = new Button();
             button7 = new Button();
             panel10 = new Panel();
@@ -55,24 +55,27 @@ namespace Gestion_de_stock
             button11 = new Button();
             button5 = new Button();
             menuButton = new Button();
+            panelchildForm = new Panel();
+            label1 = new Label();
             panel1.SuspendLayout();
             sidebar.SuspendLayout();
             panel14.SuspendLayout();
             panel13.SuspendLayout();
-            panel12.SuspendLayout();
             panel10.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.BackColor = Color.SlateBlue;
+            panel1.Controls.Add(label1);
             panel1.Controls.Add(button3);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
-            panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(995, 0);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(120, 927);
+            panel1.Size = new Size(1366, 53);
             panel1.TabIndex = 0;
             // 
             // button3
@@ -82,7 +85,7 @@ namespace Gestion_de_stock
             button3.BackgroundImageLayout = ImageLayout.Stretch;
             button3.FlatStyle = FlatStyle.Flat;
             button3.ForeColor = Color.SlateBlue;
-            button3.Location = new Point(47, 4);
+            button3.Location = new Point(1288, 12);
             button3.Name = "button3";
             button3.Size = new Size(30, 30);
             button3.TabIndex = 2;
@@ -96,7 +99,7 @@ namespace Gestion_de_stock
             button2.BackgroundImageLayout = ImageLayout.Stretch;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.SlateBlue;
-            button2.Location = new Point(11, 4);
+            button2.Location = new Point(1252, 12);
             button2.Name = "button2";
             button2.Size = new Size(30, 30);
             button2.TabIndex = 1;
@@ -110,7 +113,7 @@ namespace Gestion_de_stock
             button1.BackgroundImageLayout = ImageLayout.Stretch;
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.SlateBlue;
-            button1.Location = new Point(83, 4);
+            button1.Location = new Point(1324, 12);
             button1.Name = "button1";
             button1.Size = new Size(30, 30);
             button1.TabIndex = 0;
@@ -125,6 +128,7 @@ namespace Gestion_de_stock
             // sidebar
             // 
             sidebar.BackColor = Color.SlateBlue;
+            sidebar.Controls.Add(button8);
             sidebar.Controls.Add(button6);
             sidebar.Controls.Add(panel14);
             sidebar.Controls.Add(button18);
@@ -136,13 +140,34 @@ namespace Gestion_de_stock
             sidebar.Controls.Add(button5);
             sidebar.Controls.Add(menuButton);
             sidebar.Dock = DockStyle.Left;
-            sidebar.Location = new Point(0, 0);
+            sidebar.Location = new Point(0, 53);
             sidebar.MaximumSize = new Size(300, 1100);
             sidebar.MinimumSize = new Size(62, 450);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(300, 927);
+            sidebar.Size = new Size(300, 947);
             sidebar.TabIndex = 2;
             sidebar.Paint += sidebar_Paint_1;
+            // 
+            // button8
+            // 
+            button8.AutoSize = true;
+            button8.BackColor = Color.DarkSlateBlue;
+            button8.BackgroundImageLayout = ImageLayout.Zoom;
+            button8.Dock = DockStyle.Bottom;
+            button8.FlatAppearance.BorderSize = 0;
+            button8.FlatStyle = FlatStyle.Flat;
+            button8.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button8.Image = (Image)resources.GetObject("button8.Image");
+            button8.ImageAlign = ContentAlignment.MiddleLeft;
+            button8.Location = new Point(0, 872);
+            button8.Margin = new Padding(0);
+            button8.Name = "button8";
+            button8.RightToLeft = RightToLeft.No;
+            button8.Size = new Size(300, 75);
+            button8.TabIndex = 17;
+            button8.Text = "Deconexion";
+            button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click_1;
             // 
             // button6
             // 
@@ -161,7 +186,7 @@ namespace Gestion_de_stock
             button6.RightToLeft = RightToLeft.No;
             button6.Size = new Size(300, 75);
             button6.TabIndex = 16;
-            button6.Text = "Reports";
+            button6.Text = "Rapports";
             button6.UseVisualStyleBackColor = false;
             // 
             // panel14
@@ -173,10 +198,11 @@ namespace Gestion_de_stock
             panel14.Name = "panel14";
             panel14.Size = new Size(300, 139);
             panel14.TabIndex = 14;
+            panel14.Paint += panel14_Paint;
             // 
             // button17
             // 
-            button17.BackColor = Color.MediumPurple;
+            button17.BackColor = Color.SlateBlue;
             button17.BackgroundImageLayout = ImageLayout.Zoom;
             button17.Dock = DockStyle.Top;
             button17.FlatAppearance.BorderSize = 0;
@@ -196,7 +222,7 @@ namespace Gestion_de_stock
             // 
             // button16
             // 
-            button16.BackColor = Color.MediumPurple;
+            button16.BackColor = Color.SlateBlue;
             button16.BackgroundImageLayout = ImageLayout.Zoom;
             button16.Dock = DockStyle.Top;
             button16.FlatAppearance.BorderSize = 0;
@@ -231,13 +257,13 @@ namespace Gestion_de_stock
             button18.RightToLeft = RightToLeft.No;
             button18.Size = new Size(300, 75);
             button18.TabIndex = 15;
-            button18.Text = "Orders";
+            button18.Text = "Transactions";
             button18.UseVisualStyleBackColor = false;
             button18.Click += button18_Click;
             // 
             // panel13
             // 
-            panel13.Controls.Add(panel12);
+            panel13.Controls.Add(button15);
             panel13.Dock = DockStyle.Top;
             panel13.Location = new Point(0, 573);
             panel13.Margin = new Padding(0);
@@ -245,18 +271,9 @@ namespace Gestion_de_stock
             panel13.Size = new Size(300, 63);
             panel13.TabIndex = 14;
             // 
-            // panel12
-            // 
-            panel12.Controls.Add(button15);
-            panel12.Location = new Point(0, 0);
-            panel12.Margin = new Padding(0);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(300, 61);
-            panel12.TabIndex = 12;
-            // 
             // button15
             // 
-            button15.BackColor = Color.MediumPurple;
+            button15.BackColor = Color.SlateBlue;
             button15.BackgroundImageLayout = ImageLayout.Zoom;
             button15.Dock = DockStyle.Top;
             button15.FlatAppearance.BorderSize = 0;
@@ -308,7 +325,7 @@ namespace Gestion_de_stock
             // 
             // button14
             // 
-            button14.BackColor = Color.MediumPurple;
+            button14.BackColor = Color.SlateBlue;
             button14.BackgroundImageLayout = ImageLayout.Zoom;
             button14.Dock = DockStyle.Top;
             button14.FlatAppearance.BorderSize = 0;
@@ -320,7 +337,7 @@ namespace Gestion_de_stock
             button14.Name = "button14";
             button14.Padding = new Padding(7, 14, 14, 14);
             button14.RightToLeft = RightToLeft.No;
-            button14.Size = new Size(300, 66);
+            button14.Size = new Size(300, 69);
             button14.TabIndex = 0;
             button14.Text = " Fornisseurs\r\n";
             button14.UseVisualStyleBackColor = false;
@@ -328,7 +345,7 @@ namespace Gestion_de_stock
             // 
             // button13
             // 
-            button13.BackColor = Color.MediumPurple;
+            button13.BackColor = Color.SlateBlue;
             button13.BackgroundImageLayout = ImageLayout.Zoom;
             button13.Dock = DockStyle.Top;
             button13.FlatAppearance.BorderSize = 0;
@@ -361,7 +378,7 @@ namespace Gestion_de_stock
             button4.RightToLeft = RightToLeft.No;
             button4.Size = new Size(300, 81);
             button4.TabIndex = 0;
-            button4.Text = "  Accounts\r\n";
+            button4.Text = "Comptes";
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click_1;
             // 
@@ -377,7 +394,7 @@ namespace Gestion_de_stock
             // 
             // button12
             // 
-            button12.BackColor = Color.MediumPurple;
+            button12.BackColor = Color.SlateBlue;
             button12.BackgroundImageLayout = ImageLayout.Zoom;
             button12.Dock = DockStyle.Top;
             button12.FlatAppearance.BorderSize = 0;
@@ -397,7 +414,7 @@ namespace Gestion_de_stock
             // 
             // button11
             // 
-            button11.BackColor = Color.MediumPurple;
+            button11.BackColor = Color.SlateBlue;
             button11.BackgroundImageLayout = ImageLayout.Zoom;
             button11.Dock = DockStyle.Top;
             button11.FlatAppearance.BorderSize = 0;
@@ -431,7 +448,7 @@ namespace Gestion_de_stock
             button5.RightToLeft = RightToLeft.No;
             button5.Size = new Size(300, 73);
             button5.TabIndex = 0;
-            button5.Text = "Home";
+            button5.Text = "Accueil";
             button5.UseVisualStyleBackColor = false;
             button5.Click += button5_Click;
             // 
@@ -456,27 +473,48 @@ namespace Gestion_de_stock
             menuButton.UseVisualStyleBackColor = false;
             menuButton.Click += menuButton_Click;
             // 
-            // HomePage
+            // panelchildForm
+            // 
+            panelchildForm.BackColor = Color.Ivory;
+            panelchildForm.Dock = DockStyle.Fill;
+            panelchildForm.Location = new Point(300, 53);
+            panelchildForm.Name = "panelchildForm";
+            panelchildForm.Size = new Size(1066, 947);
+            panelchildForm.TabIndex = 3;
+            panelchildForm.Paint += panel2_Paint;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(248, 32);
+            label1.TabIndex = 0;
+            label1.Text = "Gestion de Stock";
+            // 
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
             BackColor = Color.Ivory;
-            ClientSize = new Size(1115, 927);
+            ClientSize = new Size(1366, 1000);
+            Controls.Add(panelchildForm);
             Controls.Add(sidebar);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "HomePage";
+            Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += HomePage_Load;
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             sidebar.ResumeLayout(false);
             sidebar.PerformLayout();
             panel14.ResumeLayout(false);
             panel13.ResumeLayout(false);
-            panel12.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel3.ResumeLayout(false);
             ResumeLayout(false);
@@ -499,16 +537,18 @@ namespace Gestion_de_stock
         private Button button12;
         private Button button4;
         private Button button16;
-        private Panel panel12;
-        private Button button15;
         private Panel panel3;
         private Panel panel10;
         private Button button14;
         private Button button13;
-        private Panel panel13;
         private Button button17;
         private Button button18;
         private Panel panel14;
         private Button button6;
+        private Panel panel13;
+        private Button button15;
+        private Button button8;
+        private Panel panelchildForm;
+        private Label label1;
     }
 }
