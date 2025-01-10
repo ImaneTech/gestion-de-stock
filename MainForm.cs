@@ -23,9 +23,11 @@ namespace Gestion_de_stock
             button5.Tag = "Accueil";
             button4.Tag = "Comptes";
             button7.Tag = "Stock";
-            button18.Tag = "Transactions";
-            button6.Tag = "Rapports";
+            button10.Tag = "Rapports";
             button8.Tag = "Deconnexion";
+            button9.Tag = "Factures";
+            button18.Tag = "Transactions";
+
         }
         // ******************** exit button
         private void button1_Click(object sender, EventArgs e)
@@ -52,7 +54,7 @@ namespace Gestion_de_stock
         }
 
         //******************** minimiser le sidebar
-      
+
         private void button4_Click(object sender, EventArgs e)
         {
             if (sidebarExpanded)
@@ -109,7 +111,7 @@ namespace Gestion_de_stock
         private void customizeDesign()
         {
 
-            panel3.Visible = false;
+            panel2.Visible = false;
             panel10.Visible = false;
             panel14.Visible = false;
             panel13.Visible = false;
@@ -118,9 +120,9 @@ namespace Gestion_de_stock
         }
         private void hideSubMenu()
         {
-            if (panel3.Visible == true)
+            if (panel2.Visible == true)
             {
-                panel3.Visible = false;
+                panel2.Visible = false;
             }
             if (panel10.Visible == true)
             {
@@ -158,7 +160,7 @@ namespace Gestion_de_stock
 
         private void button5_Click(object sender, EventArgs e)
         {
-            showSubMenu(panel3);
+
         }
         private void button4_Click_1(object sender, EventArgs e)
         {
@@ -173,6 +175,10 @@ namespace Gestion_de_stock
         private void button8_Click(object sender, EventArgs e)
         {
 
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            showSubMenu(panel2);
         }
 
 
@@ -193,6 +199,10 @@ namespace Gestion_de_stock
             //diriger vers la page ...
             hideSubMenu();
         }
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void button17_Click(object sender, EventArgs e)
         {
@@ -200,13 +210,13 @@ namespace Gestion_de_stock
         }
 
         private void button15_Click(object sender, EventArgs e)
-        {  
+        {
             hideSubMenu();
-          
-            openChildForm(new ProduitForm());   
+
+            openChildForm(new ProduitForm());
 
 
-          
+
         }
 
         private void panel14_Paint(object sender, PaintEventArgs e)
@@ -261,6 +271,13 @@ namespace Gestion_de_stock
         {
 
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
     

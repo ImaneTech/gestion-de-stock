@@ -7,7 +7,7 @@ namespace Gestion_de_stock
 {
     public partial class LoginForm : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=DSERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=False");
+        SqlConnection connect = new SqlConnection(@"Data Source=SERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=False");
         public LoginForm()
         {
             InitializeComponent();
