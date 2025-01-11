@@ -13,7 +13,7 @@ namespace Gestion_de_stock
 {
     public partial class ProduitForm : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=SERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+        SqlConnection connect = new SqlConnection(@"Data Source=SERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=False");
         public ProduitForm()
         {
             InitializeComponent();

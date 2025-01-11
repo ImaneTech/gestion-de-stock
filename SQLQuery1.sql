@@ -44,3 +44,28 @@ INSERT INTO Produit (id, nom, description, categorie, prix_unitaire, qte_stock, 
 (18, 'Carte SD 64GB SanDisk', 'Stockage compact et rapide', 'Stockage', 130, 150, 400, 30),
 (19, 'Enceinte JBL Go', 'Enceinte Bluetooth portable', 'Audio', 400, 80, 200, 10),
 (20, 'Câble HDMI 2.0', 'Câble pour TV et consoles', 'Accessoires', 100, 100, 300, 20);
+
+CREATE TABLE Personne (
+    id INT IDENTITY(1,1) PRIMARY KEY,  
+    nom VARCHAR(100) NOT NULL,
+    adresse VARCHAR(255),
+    telephone VARCHAR(15),
+    email VARCHAR(100),
+    type VARCHAR(20) NOT NULL CHECK (type IN ('fournisseur', 'client'))
+);
+
+
+INSERT INTO Personne (nom, adresse, telephone, email, type)
+VALUES 
+('Alice Dupont', '123 Rue de Paris, 75001 Paris', '0123456789', 'alice.dupont@email.com', 'client'),
+('Bob Martin', '456 Avenue des Champs-Élysées, 75008 Paris', '0987654321', 'bob.martin@email.com', 'client'),
+('Claire Leclerc', '789 Boulevard Saint-Germain, 75005 Paris', '0147258369', 'claire.leclerc@email.com', 'client');
+
+
+INSERT INTO Personne (nom, adresse, telephone, email, type)
+VALUES 
+('Fournisseur A', '12 Rue de la Logistique, 69001 Lyon', '0203040506', 'contact@fournisseura.com', 'fournisseur'),
+('Fournisseur B', '34 Rue des Industriels, 33000 Bordeaux', '0321567890', 'info@fournisseurb.com', 'fournisseur'),
+('Fournisseur C', '56 Boulevard des Commerces, 13001 Marseille', '0478923456', 'service@fournisseure.com', 'fournisseur');
+
+select * from Personne;

@@ -2,7 +2,9 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using System;
 using System.Windows.Forms;
-
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Diagnostics.Metrics;
+using TestStack.White.UIItems.TreeItems;
 namespace Gestion_de_stock
 {
     public partial class LoginForm : Form
@@ -11,10 +13,8 @@ namespace Gestion_de_stock
         public LoginForm()
         {
             InitializeComponent();
-          
         }
-
-private void panel1_Paint(object sender, PaintEventArgs e)
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

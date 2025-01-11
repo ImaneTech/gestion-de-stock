@@ -192,12 +192,15 @@ namespace Gestion_de_stock
         {
             //diriger vers la page ...
             hideSubMenu();
+
+            openChildForm(new ClientForm());
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
             //diriger vers la page ...
             hideSubMenu();
+            openChildForm(new FournisseurForm());
         }
         private void button10_Click(object sender, EventArgs e)
         {
