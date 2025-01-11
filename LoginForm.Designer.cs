@@ -48,7 +48,7 @@
             // 
             username.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             username.Location = new Point(549, 272);
-            username.Margin = new Padding(4, 4, 4, 4);
+            username.Margin = new Padding(4);
             username.Name = "username";
             username.Size = new Size(372, 39);
             username.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             password.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             password.Location = new Point(549, 365);
-            password.Margin = new Padding(4, 4, 4, 4);
+            password.Margin = new Padding(4);
             password.Name = "password";
             password.PasswordChar = '*';
             password.Size = new Size(372, 39);
@@ -70,22 +70,22 @@
             loginbtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             loginbtn.ForeColor = SystemColors.Control;
             loginbtn.Location = new Point(549, 484);
-            loginbtn.Margin = new Padding(4, 4, 4, 4);
+            loginbtn.Margin = new Padding(4);
             loginbtn.Name = "loginbtn";
             loginbtn.Size = new Size(195, 64);
             loginbtn.TabIndex = 3;
             loginbtn.Text = "LOG IN\r\n";
             loginbtn.UseVisualStyleBackColor = false;
             loginbtn.Click += button1_Click;
-            loginbtn.MouseEnter += new EventHandler(Button_MouseEnter);
-            loginbtn.MouseLeave += new EventHandler(Button_MouseLeave);
+            loginbtn.MouseEnter += Button_MouseEnter;
+            loginbtn.MouseLeave += Button_MouseLeave;
             // 
             // signbtn
             // 
             signbtn.BackColor = Color.Ivory;
             signbtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             signbtn.Location = new Point(159, 484);
-            signbtn.Margin = new Padding(4, 4, 4, 4);
+            signbtn.Margin = new Padding(4);
             signbtn.Name = "signbtn";
             signbtn.Size = new Size(195, 64);
             signbtn.TabIndex = 0;
@@ -101,7 +101,7 @@
             panel1.Controls.Add(signbtn);
             panel1.ForeColor = Color.Black;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(4, 4, 4, 4);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
             panel1.Size = new Size(500, 625);
             panel1.TabIndex = 0;
@@ -122,7 +122,7 @@
             // 
             pictureBox1.Image = Properties.Resources.device;
             pictureBox1.Location = new Point(188, 175);
-            pictureBox1.Margin = new Padding(4, 4, 4, 4);
+            pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(125, 125);
             pictureBox1.TabIndex = 1;
@@ -153,7 +153,7 @@
             // 
             showpsw.AutoSize = true;
             showpsw.Location = new Point(756, 429);
-            showpsw.Margin = new Padding(4, 4, 4, 4);
+            showpsw.Margin = new Padding(4);
             showpsw.Name = "showpsw";
             showpsw.Size = new Size(162, 29);
             showpsw.TabIndex = 6;
@@ -171,6 +171,7 @@
             label2.Size = new Size(214, 38);
             label2.TabIndex = 7;
             label2.Text = "Login  Account";
+            label2.Click += label2_Click;
             // 
             // exit
             // 
@@ -202,7 +203,7 @@
             Controls.Add(username);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LoginForm";

@@ -512,11 +512,11 @@ namespace Gestion_de_stock
             // 
             // panelchildForm
             // 
-            panelchildForm.Anchor = AnchorStyles.None;
             panelchildForm.BackColor = Color.Ivory;
-            panelchildForm.Location = new Point(299, 40);
+            panelchildForm.Dock = DockStyle.Fill;
+            panelchildForm.Location = new Point(300, 53);
             panelchildForm.Name = "panelchildForm";
-            panelchildForm.Size = new Size(1067, 982);
+            panelchildForm.Size = new Size(1066, 956);
             panelchildForm.TabIndex = 3;
             panelchildForm.Paint += panel2_Paint;
             // 
