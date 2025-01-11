@@ -169,10 +169,12 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(438, 140);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(176, 31);
             label2.TabIndex = 16;
             label2.Text = "Login  Account";
+            label2.Click += label2_Click;
             // 
             // LoginForm
             // 

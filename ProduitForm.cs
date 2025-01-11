@@ -8,7 +8,7 @@ namespace Gestion_de_stock
 {
     public partial class ProduitForm : Form
     {
-        private readonly string connectionString = @"Data Source=SERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString = @"Data Source=SERVER_NAME ;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
         public ProduitForm()
         {
@@ -119,6 +119,10 @@ namespace Gestion_de_stock
             txtQteStock.Clear();
             txtQteMax.Clear();
             txtQteMin.Clear();
+
+           
+            // lorsque l'utilisateur fait un recherche pour trouve un produit donne apres que le resultat de la recherche s'affiche --> il clique  sur effacer pour revenir a la liste initiale de tout les produits
+            ChargerProduits();
         }
 
 
@@ -128,8 +132,7 @@ namespace Gestion_de_stock
 
 
         }
-        private void button4_Click(object sender, EventArgs e)
-        {
+        private void button4_Click(object sender, EventArgs e) {
             //mettre à jour
 
             // Verifie si l'ID du produit a mettre a jour est vide
@@ -211,45 +214,69 @@ namespace Gestion_de_stock
 
             //chercher
 
-            // Verifie si le champ de recherche est vide
-            if (string.IsNullOrEmpty(txtNom.Text))
-            {
-                MessageBox.Show("Veuillez entrer un nom de produit à rechercher.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             try
             {
-
+               
                 using (SqlConnection connect = new SqlConnection(connectionString))
                 {
                     connect.Open();
-                    //  rechercher un produit par son nom
-                    // on a utiliser ici  LIKE pour  faire une recherche partielle
-                    string query = "SELECT * FROM Produit WHERE nom LIKE @nom";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
+
+                    // Construire la requete SQL dynamiquement
+                    string query = "SELECT * FROM Produit WHERE 1=1"; // 1=1 pour faciliter l'ajout de conditions
+
+                    // Ajouter des conditions en fonction des champs remplis
+                    if (!string.IsNullOrEmpty(txtNom.Text))
                     {
+                        query += " AND nom LIKE @nom";
+                    }
+                    if (!string.IsNullOrEmpty(txtDescription.Text))
+                    {
+                        query += " AND description LIKE @description";
+                    }
+                    if (comboBox1.SelectedItem != null)
+                    {
+                        query += " AND categorie = @categorie";
+                    }
+                    if (!string.IsNullOrEmpty(txtPrix.Text))
+                    {
+                        query += " AND prix_unitaire = @prix";
+                    }
+                    if (!string.IsNullOrEmpty(txtQteStock.Text))
+                    {
+                        query += " AND qte_stock = @qteStock";
+                    }
+                    if (!string.IsNullOrEmpty(txtQteMax.Text))
+                    {
+                        query += " AND qte_stock_max = @qteMax";
+                    }
+                    if (!string.IsNullOrEmpty(txtQteMin.Text))
+                    {
+                        query += " AND qte_stock_min = @qteMin";
+                    }
+
+                    // Executer la requête
+                    using (SqlCommand cmd = new SqlCommand(query, connect))
+                    { 
                         cmd.Parameters.AddWithValue("@nom", "%" + txtNom.Text + "%");
 
-
+                        
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         DataTable dataTable = new DataTable();
                         adapter.Fill(dataTable);
 
-                        // Affiche les resultats dans le DataGridView
+                        // Afficher les resultats dans le DataGridView
                         dataGridView1.DataSource = dataTable;
 
-                        // Verifie si on a trouver des produits ou non
+                 
                         if (dataTable.Rows.Count == 0)
                         {
-                            MessageBox.Show("Aucun produit trouvé avec ce nom.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Aucun produit trouvé avec les critères spécifiés.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Affiche un message d'erreur en cas d'exception
                 MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

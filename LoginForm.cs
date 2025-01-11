@@ -118,5 +118,10 @@ namespace Gestion_de_stock
         {
             loginbtn.BackColor = Color.SlateBlue; // Couleur Originale
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

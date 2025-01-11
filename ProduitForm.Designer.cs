@@ -70,7 +70,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.Location = new Point(537, 186);
-            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(136, 47);
             button1.TabIndex = 0;
@@ -84,7 +84,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button2.Location = new Point(158, 277);
-            button2.Margin = new Padding(2, 2, 2, 2);
+            button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(155, 47);
             button2.TabIndex = 1;
@@ -98,7 +98,7 @@
             button5.FlatStyle = FlatStyle.Flat;
             button5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button5.Location = new Point(467, 277);
-            button5.Margin = new Padding(2, 2, 2, 2);
+            button5.Margin = new Padding(2);
             button5.Name = "button5";
             button5.Size = new Size(155, 47);
             button5.TabIndex = 9;
@@ -112,7 +112,7 @@
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button3.Location = new Point(684, 186);
-            button3.Margin = new Padding(2, 2, 2, 2);
+            button3.Margin = new Padding(2);
             button3.Name = "button3";
             button3.Size = new Size(141, 47);
             button3.TabIndex = 3;
@@ -126,7 +126,7 @@
             button4.FlatStyle = FlatStyle.Flat;
             button4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button4.Location = new Point(318, 277);
-            button4.Margin = new Padding(2, 2, 2, 2);
+            button4.Margin = new Padding(2);
             button4.Name = "button4";
             button4.Size = new Size(145, 47);
             button4.TabIndex = 2;
@@ -157,7 +157,7 @@
             panel2.Controls.Add(label5);
             panel2.Controls.Add(label4);
             panel2.Location = new Point(10, 31);
-            panel2.Margin = new Padding(2, 2, 2, 2);
+            panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
             panel2.Size = new Size(834, 241);
             panel2.TabIndex = 3;
@@ -167,17 +167,15 @@
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Smartphones", "", "Ordinateurs", "", "Téléviseurs", "", "Accessoires", "", "Périphériques", "", "Tablettes", "", "Montres Connectées", "", "Imprimantes", "", "Stockage", "", "Audio", "", "Sécurité", "", "Consoles", "", "Réseaux", "", "Composants" });
-            comboBox1.Location = new Point(132, 109);
-            comboBox1.Margin = new Padding(2, 2, 2, 2);
+            comboBox1.Location = new Point(132, 112);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(198, 28);
             comboBox1.TabIndex = 19;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // txtPrix
             // 
             txtPrix.Location = new Point(132, 142);
-            txtPrix.Margin = new Padding(2, 2, 2, 2);
+            txtPrix.Margin = new Padding(2);
             txtPrix.Name = "txtPrix";
             txtPrix.Size = new Size(198, 27);
             txtPrix.TabIndex = 18;
@@ -209,7 +207,7 @@
             // txtDescription
             // 
             txtDescription.Location = new Point(626, 145);
-            txtDescription.Margin = new Padding(2, 2, 2, 2);
+            txtDescription.Margin = new Padding(2);
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(198, 27);
             txtDescription.TabIndex = 15;
@@ -241,7 +239,7 @@
             // txtQteMin
             // 
             txtQteMin.Location = new Point(626, 113);
-            txtQteMin.Margin = new Padding(2, 2, 2, 2);
+            txtQteMin.Margin = new Padding(2);
             txtQteMin.Name = "txtQteMin";
             txtQteMin.Size = new Size(199, 27);
             txtQteMin.TabIndex = 12;
@@ -249,7 +247,7 @@
             // txtQteMax
             // 
             txtQteMax.Location = new Point(626, 81);
-            txtQteMax.Margin = new Padding(2, 2, 2, 2);
+            txtQteMax.Margin = new Padding(2);
             txtQteMax.Name = "txtQteMax";
             txtQteMax.Size = new Size(198, 27);
             txtQteMax.TabIndex = 10;
@@ -257,7 +255,7 @@
             // txtQteStock
             // 
             txtQteStock.Location = new Point(626, 51);
-            txtQteStock.Margin = new Padding(2, 2, 2, 2);
+            txtQteStock.Margin = new Padding(2);
             txtQteStock.Name = "txtQteStock";
             txtQteStock.Size = new Size(198, 27);
             txtQteStock.TabIndex = 8;
@@ -288,7 +286,7 @@
             // txtNom
             // 
             txtNom.Location = new Point(132, 81);
-            txtNom.Margin = new Padding(2, 2, 2, 2);
+            txtNom.Margin = new Padding(2);
             txtNom.Name = "txtNom";
             txtNom.Size = new Size(198, 27);
             txtNom.TabIndex = 4;
@@ -308,7 +306,7 @@
             // txtId
             // 
             txtId.Location = new Point(132, 51);
-            txtId.Margin = new Padding(2, 2, 2, 2);
+            txtId.Margin = new Padding(2);
             txtId.Name = "txtId";
             txtId.Size = new Size(198, 27);
             txtId.TabIndex = 2;
@@ -340,7 +338,7 @@
             panel3.BackColor = Color.SlateBlue;
             panel3.Controls.Add(label1);
             panel3.Location = new Point(10, 31);
-            panel3.Margin = new Padding(2, 2, 2, 2);
+            panel3.Margin = new Padding(2);
             panel3.Name = "panel3";
             panel3.Size = new Size(831, 41);
             panel3.TabIndex = 0;
@@ -362,7 +360,7 @@
             panel5.BackColor = Color.SlateBlue;
             panel5.Controls.Add(label3);
             panel5.Location = new Point(7, 337);
-            panel5.Margin = new Padding(2, 2, 2, 2);
+            panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
             panel5.Size = new Size(834, 40);
             panel5.TabIndex = 4;
@@ -385,7 +383,7 @@
             panel6.BackColor = Color.FromArgb(192, 192, 255);
             panel6.Controls.Add(dataGridView1);
             panel6.Location = new Point(7, 337);
-            panel6.Margin = new Padding(2, 2, 2, 2);
+            panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
             panel6.Size = new Size(834, 402);
             panel6.TabIndex = 5;
@@ -395,7 +393,7 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(0, 38);
-            dataGridView1.Margin = new Padding(2, 2, 2, 2);
+            dataGridView1.Margin = new Padding(2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.Size = new Size(831, 364);
@@ -416,7 +414,7 @@
             Controls.Add(button2);
             Controls.Add(panel2);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "ProduitForm";
             Text = "ProduitForm";
             Load += ProduitForm_Load;
