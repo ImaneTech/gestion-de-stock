@@ -55,7 +55,7 @@ namespace Gestion_de_stock
                         cmd.Parameters.AddWithValue("@id", txtId.Text);
                         cmd.Parameters.AddWithValue("@nom", txtNom.Text);
                         cmd.Parameters.AddWithValue("@description", txtDescription.Text);
-                        cmd.Parameters.AddWithValue("@categorie",comboBox1.SelectedItem.ToString());
+                        cmd.Parameters.AddWithValue("@categorie", comboBox1.SelectedItem.ToString());
                         cmd.Parameters.AddWithValue("@prix", Convert.ToDecimal(txtPrix.Text));
                         cmd.Parameters.AddWithValue("@qteStock", Convert.ToInt32(txtQteStock.Text));
                         cmd.Parameters.AddWithValue("@qteMax", Convert.ToInt32(txtQteMax.Text));
@@ -121,13 +121,15 @@ namespace Gestion_de_stock
             txtQteMin.Clear();
         }
 
-    
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
-        private void ProduitForm_Load(object sender, EventArgs e) {
-        
-        
+        private void ProduitForm_Load(object sender, EventArgs e)
+        {
+
+
         }
-        private void button4_Click(object sender, EventArgs e) {
+        private void button4_Click(object sender, EventArgs e)
+        {
             //mettre à jour
 
             // Verifie si l'ID du produit a mettre a jour est vide
@@ -171,7 +173,7 @@ namespace Gestion_de_stock
                         cmd.Parameters.AddWithValue("@qteMax", Convert.ToInt32(txtQteMax.Text));
                         cmd.Parameters.AddWithValue("@qteMin", Convert.ToInt32(txtQteMin.Text));
 
-                   
+
                         int rowsAffected = cmd.ExecuteNonQuery();
 
                         // verifie si la mise à jour a reussi
@@ -204,9 +206,10 @@ namespace Gestion_de_stock
         private void panel6_Paint(object sender, PaintEventArgs e) { }
         private void label6_Click(object sender, EventArgs e) { }
         private void panel2_Paint(object sender, PaintEventArgs e) { }
-        private void button5_Click(object sender, EventArgs e) {
+        private void button5_Click(object sender, EventArgs e)
+        {
 
-        //chercher
+            //chercher
 
             // Verifie si le champ de recherche est vide
             if (string.IsNullOrEmpty(txtNom.Text))
@@ -217,7 +220,7 @@ namespace Gestion_de_stock
 
             try
             {
-               
+
                 using (SqlConnection connect = new SqlConnection(connectionString))
                 {
                     connect.Open();
@@ -225,10 +228,10 @@ namespace Gestion_de_stock
                     // on a utiliser ici  LIKE pour  faire une recherche partielle
                     string query = "SELECT * FROM Produit WHERE nom LIKE @nom";
                     using (SqlCommand cmd = new SqlCommand(query, connect))
-                    { 
+                    {
                         cmd.Parameters.AddWithValue("@nom", "%" + txtNom.Text + "%");
 
-                        
+
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         DataTable dataTable = new DataTable();
                         adapter.Fill(dataTable);
@@ -250,8 +253,8 @@ namespace Gestion_de_stock
                 MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
-        
+
+
         private void textBox1_TextChanged(object sender, EventArgs e) { }
         private void label10_Click(object sender, EventArgs e) { }
         private void label9_Click(object sender, EventArgs e) { }
@@ -260,5 +263,10 @@ namespace Gestion_de_stock
         private void label11_Click(object sender, EventArgs e) { }
         private void textBox4_TextChanged(object sender, EventArgs e) { }
         private void label12_Click(object sender, EventArgs e) { }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

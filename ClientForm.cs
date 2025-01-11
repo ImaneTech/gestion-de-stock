@@ -8,7 +8,7 @@ namespace Gestion_de_stock
 {
     public partial class ClientForm : Form
     {
-        private readonly string connectionString = @"Data Source=SERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString = @"Data Source=SERVER_NAME ;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
         public ClientForm()
         {
@@ -83,5 +83,15 @@ namespace Gestion_de_stock
         private void textBox2_TextChanged(object sender, EventArgs e) { }
         private void label5_Click(object sender, EventArgs e) { }
         private void Nom_TextChanged(object sender, EventArgs e) { }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+
+
+        }
     }
 }
