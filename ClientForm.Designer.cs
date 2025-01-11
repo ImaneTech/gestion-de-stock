@@ -257,7 +257,7 @@
             button5.TabIndex = 2;
             button5.Text = "Chercher";
             button5.UseVisualStyleBackColor = false;
-            button5.Click += button5_Click;
+           // button5.Click += button5_Click;
             // 
             // button4
             // 
@@ -317,7 +317,7 @@
             Margin = new Padding(4);
             Name = "ClientForm";
             Text = "ClientForm";
-            Load += ClientForm_Load;
+          //  Load += ClientForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel3.ResumeLayout(false);

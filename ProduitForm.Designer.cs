@@ -34,6 +34,7 @@
             button3 = new Button();
             button4 = new Button();
             panel2 = new Panel();
+            comboBox1 = new ComboBox();
             txtPrix = new TextBox();
             label12 = new Label();
             label11 = new Label();
@@ -56,7 +57,6 @@
             label3 = new Label();
             panel6 = new Panel();
             dataGridView1 = new DataGridView();
-            comboBox1 = new ComboBox();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel5.SuspendLayout();
@@ -156,6 +156,15 @@
             panel2.Size = new Size(1042, 301);
             panel2.TabIndex = 3;
             panel2.Paint += panel2_Paint;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Smartphones", "", "Ordinateurs", "", "Téléviseurs", "", "Accessoires", "", "Périphériques", "", "Tablettes", "", "Montres Connectées", "", "Imprimantes", "", "Stockage", "", "Audio", "", "Sécurité", "", "Consoles", "", "Réseaux", "", "Composants" });
+            comboBox1.Location = new Point(165, 136);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(246, 33);
+            comboBox1.TabIndex = 19;
             // 
             // txtPrix
             // 
@@ -362,15 +371,6 @@
             dataGridView1.Size = new Size(1039, 455);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Smartphones", "", "Ordinateurs", "", "Téléviseurs", "", "Accessoires", "", "Périphériques", "", "Tablettes", "", "Montres Connectées", "", "Imprimantes", "", "Stockage", "", "Audio", "", "Sécurité", "", "Consoles", "", "Réseaux", "", "Composants" });
-            comboBox1.Location = new Point(165, 136);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(246, 33);
-            comboBox1.TabIndex = 19;
             // 
             // ProduitForm
             // 

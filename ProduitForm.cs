@@ -119,6 +119,10 @@ namespace Gestion_de_stock
             txtQteStock.Clear();
             txtQteMax.Clear();
             txtQteMin.Clear();
+
+           
+            // lorsque l'utilisateur fait un recherche pour trouve un produit donne apres que le resultat de la recherche s'affiche --> il clique  sur effacer pour revenir a la liste initiale de tout les produits
+            ChargerProduits();
         }
 
     
@@ -128,7 +132,6 @@ namespace Gestion_de_stock
         
         }
         private void button4_Click(object sender, EventArgs e) {
-            //mettre à jour
 
             // Verifie si l'ID du produit a mettre a jour est vide
             if (string.IsNullOrEmpty(txtId.Text))
@@ -206,47 +209,96 @@ namespace Gestion_de_stock
         private void panel2_Paint(object sender, PaintEventArgs e) { }
         private void button5_Click(object sender, EventArgs e) {
 
-        //chercher
-
-            // Verifie si le champ de recherche est vide
-            if (string.IsNullOrEmpty(txtNom.Text))
-            {
-                MessageBox.Show("Veuillez entrer un nom de produit à rechercher.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //chercher
 
             try
             {
-               
                 using (SqlConnection connect = new SqlConnection(connectionString))
                 {
                     connect.Open();
-                    //  rechercher un produit par son nom
-                    // on a utiliser ici  LIKE pour  faire une recherche partielle
-                    string query = "SELECT * FROM Produit WHERE nom LIKE @nom";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    { 
-                        cmd.Parameters.AddWithValue("@nom", "%" + txtNom.Text + "%");
 
-                        
+                    // Construire la requete SQL dynamiquement
+                    string query = "SELECT * FROM Produit WHERE 1=1"; // 1=1 pour faciliter l'ajout de conditions
+
+                    // Ajouter des conditions en fonction des champs remplis
+                    if (!string.IsNullOrEmpty(txtNom.Text))
+                    {
+                        query += " AND nom LIKE @nom";
+                    }
+                    if (!string.IsNullOrEmpty(txtDescription.Text))
+                    {
+                        query += " AND description LIKE @description";
+                    }
+                    if (comboBox1.SelectedItem != null)
+                    {
+                        query += " AND categorie = @categorie";
+                    }
+                    if (!string.IsNullOrEmpty(txtPrix.Text))
+                    {
+                        query += " AND prix_unitaire = @prix";
+                    }
+                    if (!string.IsNullOrEmpty(txtQteStock.Text))
+                    {
+                        query += " AND qte_stock = @qteStock";
+                    }
+                    if (!string.IsNullOrEmpty(txtQteMax.Text))
+                    {
+                        query += " AND qte_stock_max = @qteMax";
+                    }
+                    if (!string.IsNullOrEmpty(txtQteMin.Text))
+                    {
+                        query += " AND qte_stock_min = @qteMin";
+                    }
+
+                    // Executer la requête
+                    using (SqlCommand cmd = new SqlCommand(query, connect))
+                    {
+                        // Ajouter les parametres en fonction des champs remplis
+                        if (!string.IsNullOrEmpty(txtNom.Text))
+                        {
+                            cmd.Parameters.AddWithValue("@nom", "%" + txtNom.Text + "%");
+                        }
+                        if (!string.IsNullOrEmpty(txtDescription.Text))
+                        {
+                            cmd.Parameters.AddWithValue("@description", "%" + txtDescription.Text + "%");
+                        }
+                        if (comboBox1.SelectedItem != null)
+                        {
+                            cmd.Parameters.AddWithValue("@categorie", comboBox1.SelectedItem.ToString());
+                        }
+                        if (!string.IsNullOrEmpty(txtPrix.Text))
+                        {
+                            cmd.Parameters.AddWithValue("@prix", Convert.ToDecimal(txtPrix.Text));
+                        }
+                        if (!string.IsNullOrEmpty(txtQteStock.Text))
+                        {
+                            cmd.Parameters.AddWithValue("@qteStock", Convert.ToInt32(txtQteStock.Text));
+                        }
+                        if (!string.IsNullOrEmpty(txtQteMax.Text))
+                        {
+                            cmd.Parameters.AddWithValue("@qteMax", Convert.ToInt32(txtQteMax.Text));
+                        }
+                        if (!string.IsNullOrEmpty(txtQteMin.Text))
+                        {
+                            cmd.Parameters.AddWithValue("@qteMin", Convert.ToInt32(txtQteMin.Text));
+                        }
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         DataTable dataTable = new DataTable();
                         adapter.Fill(dataTable);
 
-                        // Affiche les resultats dans le DataGridView
+                        // Afficher les resultats dans le DataGridView
                         dataGridView1.DataSource = dataTable;
 
-                        // Verifie si on a trouver des produits ou non
+                 
                         if (dataTable.Rows.Count == 0)
                         {
-                            MessageBox.Show("Aucun produit trouvé avec ce nom.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Aucun produit trouvé avec les critères spécifiés.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Affiche un message d'erreur en cas d'exception
                 MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

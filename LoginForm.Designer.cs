@@ -171,7 +171,7 @@
             label2.Size = new Size(214, 38);
             label2.TabIndex = 7;
             label2.Text = "Login  Account";
-            label2.Click += label2_Click;
+           // label2.Click += label2_Click;
             // 
             // exit
             // 
