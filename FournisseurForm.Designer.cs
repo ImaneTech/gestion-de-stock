@@ -233,7 +233,7 @@
             Email.Location = new Point(32, 372);
             Email.Multiline = true;
             Email.Name = "Email";
-            Email.Size = new Size(225, 34);
+            Email.Size = new Size(225, 35);
             Email.TabIndex = 4;
             // 
             // Tele
@@ -241,7 +241,7 @@
             Tele.Location = new Point(35, 287);
             Tele.Multiline = true;
             Tele.Name = "Tele";
-            Tele.Size = new Size(222, 34);
+            Tele.Size = new Size(222, 35);
             Tele.TabIndex = 3;
             // 
             // Adresse
