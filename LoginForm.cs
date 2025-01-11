@@ -1,18 +1,20 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System;
+using System.Windows.Forms;
 
 namespace Gestion_de_stock
 {
     public partial class LoginForm : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=Houssam7\SQLEXPRESS;Initial Catalog=master;Integrated Security=True;Encrypt=False");
+        SqlConnection connect = new SqlConnection(@"Data Source=SERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=False");
         public LoginForm()
         {
             InitializeComponent();
+          
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
@@ -44,7 +46,7 @@ namespace Gestion_de_stock
                         if (count == 1)
                         {
                             // Login successful
-                            HomePage home = new HomePage();
+                            MainForm home = new MainForm();
                             home.Show();
                             this.Hide();
                         }

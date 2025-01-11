@@ -13,7 +13,7 @@ namespace Gestion_de_stock
 {
     public partial class SignUp : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=Houssam7\SQLEXPRESS;Initial Catalog=master;Integrated Security=True;Encrypt=False");
+        SqlConnection connect = new SqlConnection(@"Data Source=SERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=False");
         public SignUp()
         {
             InitializeComponent();
