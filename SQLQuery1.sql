@@ -1,15 +1,15 @@
-﻿CREATE TABLE users (
+﻿CREATE TABLE userss(
     id INT IDENTITY(1,1) PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     mail VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
 );
 
-SELECT * FROM users ;
+SELECT * FROM userss ;
 
 
 
-CREATE TABLE Produit (
+CREATE TABLE Produits (
     id INT PRIMARY KEY ,
     nom VARCHAR(255),
     description TEXT,
@@ -21,9 +21,9 @@ CREATE TABLE Produit (
 );
 
 
-select * from produit;
+select * from produits;
 
-INSERT INTO Produit (id, nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES
+INSERT INTO Produits (id, nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES
 (1, 'Smartphone Samsung A12', 'Téléphone abordable et performant', 'Smartphones', 2000, 100, 300, 20),
 (2, 'Laptop HP 15', 'PC portable pour bureautique', 'Ordinateurs', 5000, 50, 150, 10),
 (3, 'TV LED 32"', 'Téléviseur compact et HD', 'Téléviseurs', 2500, 30, 80, 5),
@@ -45,7 +45,7 @@ INSERT INTO Produit (id, nom, description, categorie, prix_unitaire, qte_stock, 
 (19, 'Enceinte JBL Go', 'Enceinte Bluetooth portable', 'Audio', 400, 80, 200, 10),
 (20, 'Câble HDMI 2.0', 'Câble pour TV et consoles', 'Accessoires', 100, 100, 300, 20);
 
-CREATE TABLE Personne (
+CREATE TABLE Personnes (
     id INT IDENTITY(1,1) PRIMARY KEY,  
     nom VARCHAR(100) NOT NULL,
     adresse VARCHAR(255),
@@ -55,19 +55,20 @@ CREATE TABLE Personne (
 );
 
 
-INSERT INTO Personne (nom, adresse, telephone, email, type)
+INSERT INTO Personnes (nom, adresse, telephone, email, type)
 VALUES 
 ('Alice Dupont', '123 Rue de Paris, 75001 Paris', '0123456789', 'alice.dupont@email.com', 'client'),
 ('Bob Martin', '456 Avenue des Champs-Élysées, 75008 Paris', '0987654321', 'bob.martin@email.com', 'client'),
 ('Claire Leclerc', '789 Boulevard Saint-Germain, 75005 Paris', '0147258369', 'claire.leclerc@email.com', 'client');
 
 
-INSERT INTO Personne (nom, adresse, telephone, email, type)
+INSERT INTO Personnes (nom, adresse, telephone, email, type)
 VALUES 
 ('Fournisseur A', '12 Rue de la Logistique, 69001 Lyon', '0203040506', 'contact@fournisseura.com', 'fournisseur'),
 ('Fournisseur B', '34 Rue des Industriels, 33000 Bordeaux', '0321567890', 'info@fournisseurb.com', 'fournisseur'),
 ('Fournisseur C', '56 Boulevard des Commerces, 13001 Marseille', '0478923456', 'service@fournisseure.com', 'fournisseur');
 
+<<<<<<< HEAD
 select * from Personne;
 
 create table Factures (
@@ -78,3 +79,46 @@ create table Factures (
     statut VARCHAR(20) NOT NULL CHECK (statut IN ('payée', 'non payée'))
 
 );
+=======
+select * from Personnes;
+
+
+
+
+CREATE TABLE Operations (
+    id_Operation INT IDENTITY(1,1) PRIMARY KEY,
+    type VARCHAR(255),
+    id_personne INT NOT NULL,
+    id_produit INT NOT NULL,
+    quantite INT NOT NULL,
+    CONSTRAINT FK_Operation_Personne FOREIGN KEY (id_personne) REFERENCES Personne(id) ON DELETE CASCADE,
+    CONSTRAINT FK_Operation_Produit FOREIGN KEY (id_produit) REFERENCES Produit(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE LigneOperations (
+    id_Operation INT NOT NULL,
+    id_produit INT NOT NULL,
+    quantite INT NOT NULL,
+    prix_total DECIMAL(10, 2),
+    PRIMARY KEY (id_Operation, id_produit),
+    CONSTRAINT FK_LigneOperation_Operation FOREIGN KEY (id_Operation) REFERENCES Operation(id_Operation) ON DELETE CASCADE,
+    CONSTRAINT FK_LigneOperation_Produit FOREIGN KEY (id_produit) REFERENCES Produit(id) ON DELETE CASCADE
+);
+
+
+INSERT INTO LigneOperations (id_Operation, id_produit, quantite, prix_total) VALUES
+(1, 1, 2, 4000),  
+(2, 5, 3, 600),   
+(3, 2, 1, 5000),
+(4, 8, 1, 700),  
+(5, 10, 2, 1200); 
+
+INSERT INTO Operations (type, id_personne, id_produit, quantite) VALUES
+('COMMANDE', 1, 1, 2),  
+('COMMANDE', 2, 5, 3),  
+('vente', 4, 2, 1),  
+('COMMANDE', 3, 8, 1),  
+('vente', 5, 10, 2); 
+ 
+>>>>>>> d507c9a (operation de vente et commande)

@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
@@ -6,11 +9,12 @@ using Microsoft.Data.SqlClient;
 
 namespace Gestion_de_stock
 {
-    public partial class ClientForm : Form
+    public partial class VenteForm: Form
     {
-        private readonly string connectionString = @"Data Source=SERVER_NAME ;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString = @"Data Source=DESKTOP-10A38RQ\SQLEXPRESS;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
-        public ClientForm()
+        public public partial class VenteForm : Form
+()
         {
             InitializeComponent();
             ChargerClients();
@@ -78,20 +82,10 @@ namespace Gestion_de_stock
             Nom.Focus();
         }
 
-
+        // Event handlers
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         private void textBox2_TextChanged(object sender, EventArgs e) { }
         private void label5_Click(object sender, EventArgs e) { }
         private void Nom_TextChanged(object sender, EventArgs e) { }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void ClientForm_Load(object sender, EventArgs e)
-        {
-
-
-        }
     }
 }
