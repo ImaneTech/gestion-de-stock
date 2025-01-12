@@ -88,5 +88,10 @@ namespace Gestion_de_stock
                 MessageBox.Show(errorMessage + "\n" + ex.StackTrace, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void FournisseurForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

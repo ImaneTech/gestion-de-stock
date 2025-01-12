@@ -160,7 +160,7 @@ namespace Gestion_de_stock
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            openChildForm(new AccueilForm());
         }
         private void button4_Click_1(object sender, EventArgs e)
         {
@@ -267,7 +267,7 @@ namespace Gestion_de_stock
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-
+            
 
         }
         private void HomePage_Load(object sender, EventArgs e)

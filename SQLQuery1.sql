@@ -69,3 +69,12 @@ VALUES
 ('Fournisseur C', '56 Boulevard des Commerces, 13001 Marseille', '0478923456', 'service@fournisseure.com', 'fournisseur');
 
 select * from Personne;
+
+create table Factures (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    date_facture DATE NOT NULL,
+    id_personne INT NOT NULL,
+    FOREIGN KEY (id_personne) REFERENCES Personne(id),
+    statut VARCHAR(20) NOT NULL CHECK (statut IN ('payée', 'non payée'))
+
+);
