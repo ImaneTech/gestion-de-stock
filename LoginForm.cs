@@ -9,7 +9,7 @@ namespace Gestion_de_stock
 {
     public partial class LoginForm : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=SERVER_NAME;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+        SqlConnection connect = new SqlConnection(@"Data Source=SERVER_NAME ;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         public LoginForm()
         {
             InitializeComponent();
@@ -117,6 +117,11 @@ namespace Gestion_de_stock
         private void Button_MouseLeave(object sender, EventArgs e)
         {
             loginbtn.BackColor = Color.SlateBlue; // Couleur Originale
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
