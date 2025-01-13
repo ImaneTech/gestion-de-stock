@@ -14,7 +14,9 @@ namespace Gestion_de_stock
         {
             InitializeComponent();
             ChargerProduits();
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
         }
+
 
         private void ChargerProduits()
         {
@@ -36,6 +38,7 @@ namespace Gestion_de_stock
             }
         }
 
+        //bouton ajouter
         private void button1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtNom.Text) || string.IsNullOrEmpty(txtDescription.Text) || comboBox1.SelectedItem == null || string.IsNullOrEmpty(txtPrix.Text) || string.IsNullOrEmpty(txtQteStock.Text) || string.IsNullOrEmpty(txtQteMax.Text) || string.IsNullOrEmpty(txtQteMin.Text))
@@ -73,15 +76,20 @@ namespace Gestion_de_stock
             }
         }
 
-        //confirmation
+        //bouton supprimer
         private void button2_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtId.Text))
+            // Verifier si une ligne est selectionnee dans le DataGridView
+            if (dataGridView1.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Veuillez entrer l'ID du produit à supprimer.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Veuillez sélectionner un produit à supprimer.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            // Recuperer l'ID du produit selectionne
+            int idProduit = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["id"].Value);
+
+            // confirmation avant de supprimer
             DialogResult result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer ce produit ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No)
             {
@@ -96,9 +104,12 @@ namespace Gestion_de_stock
                     string query = "DELETE FROM Produit WHERE id = @id";
                     using (SqlCommand cmd = new SqlCommand(query, connect))
                     {
-                        cmd.Parameters.AddWithValue("@id", txtId.Text);
+                        cmd.Parameters.AddWithValue("@id", idProduit);
                         cmd.ExecuteNonQuery();
+
+                        // Recharger les produits dans le DataGridView
                         ChargerProduits();
+
                         MessageBox.Show("Produit supprimé avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -119,36 +130,48 @@ namespace Gestion_de_stock
             txtQteStock.Clear();
             txtQteMax.Clear();
             txtQteMin.Clear();
-
-           
-            // lorsque l'utilisateur fait un recherche pour trouve un produit donne apres que le resultat de la recherche s'affiche --> il clique  sur effacer pour revenir a la liste initiale de tout les produits
+            // Reinitialiser la liste totale des produits apres une recherche
             ChargerProduits();
         }
 
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
-        private void ProduitForm_Load(object sender, EventArgs e)
+        // cette methode permet de remplir les champs de texte avec les données de la ligne selectionnée pour que l'utilisateur puisse modifier uniquement les champs qu'il souhaite
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                // Récupérer la ligne sélectionnée
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
 
-
+                // Afficher les données dans les TextBox et ComboBox
+                txtId.Text = selectedRow.Cells["id"].Value.ToString();
+                txtNom.Text = selectedRow.Cells["nom"].Value.ToString();
+                txtDescription.Text = selectedRow.Cells["description"].Value.ToString();
+                comboBox1.SelectedItem = selectedRow.Cells["categorie"].Value.ToString();
+                txtPrix.Text = selectedRow.Cells["prix_unitaire"].Value.ToString();
+                txtQteStock.Text = selectedRow.Cells["qte_stock"].Value.ToString();
+                txtQteMax.Text = selectedRow.Cells["qte_stock_max"].Value.ToString();
+                txtQteMin.Text = selectedRow.Cells["qte_stock_min"].Value.ToString();
+            }
         }
-        private void button4_Click(object sender, EventArgs e) {
-            //mettre à jour
 
-            // Verifie si l'ID du produit a mettre a jour est vide
+
+        private void button4_Click(object sender, EventArgs e) {
+            //mettre a jour
+
+            // Vérifier si un ID est sélectionné
             if (string.IsNullOrEmpty(txtId.Text))
             {
-                MessageBox.Show("Veuillez entrer l'ID du produit à mettre à jour.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Veuillez sélectionner un produit à mettre à jour.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Verifie que tous les champs obligatoires sont remplis
+            // Validation des champs
             if (string.IsNullOrEmpty(txtNom.Text) || string.IsNullOrEmpty(txtDescription.Text) || comboBox1.SelectedItem == null || string.IsNullOrEmpty(txtPrix.Text) || string.IsNullOrEmpty(txtQteStock.Text) || string.IsNullOrEmpty(txtQteMax.Text) || string.IsNullOrEmpty(txtQteMin.Text))
             {
                 MessageBox.Show("Veuillez remplir tous les champs.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
 
             // Confirmation 
             DialogResult result = MessageBox.Show("Êtes-vous sûr de vouloir mettre à jour ce produit ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -199,24 +222,11 @@ namespace Gestion_de_stock
                 MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void label1_Click(object sender, EventArgs e) { }
-        private void label2_Click(object sender, EventArgs e) { }
-        private void label3_Click(object sender, EventArgs e) { }
-        private void panel1_Paint(object sender, PaintEventArgs e) { }
-        private void panel4_Paint(object sender, PaintEventArgs e) { }
-        private void panel5_Paint(object sender, PaintEventArgs e) { }
-        private void panel6_Paint(object sender, PaintEventArgs e) { }
-        private void label6_Click(object sender, EventArgs e) { }
-        private void panel2_Paint(object sender, PaintEventArgs e) { }
         private void button5_Click(object sender, EventArgs e)
         {
-
             //chercher
-
             try
             {
-               
                 using (SqlConnection connect = new SqlConnection(connectionString))
                 {
                     connect.Open();
@@ -295,5 +305,21 @@ namespace Gestion_de_stock
         {
 
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+        private void ProduitForm_Load(object sender, EventArgs e)
+        {
+
+
+        }
+        private void label1_Click(object sender, EventArgs e) { }
+        private void label2_Click(object sender, EventArgs e) { }
+        private void label3_Click(object sender, EventArgs e) { }
+        private void panel1_Paint(object sender, PaintEventArgs e) { }
+        private void panel4_Paint(object sender, PaintEventArgs e) { }
+        private void panel5_Paint(object sender, PaintEventArgs e) { }
+        private void panel6_Paint(object sender, PaintEventArgs e) { }
+        private void label6_Click(object sender, EventArgs e) { }
+        private void panel2_Paint(object sender, PaintEventArgs e) { }
     }
 }

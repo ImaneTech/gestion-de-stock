@@ -1,16 +1,16 @@
-﻿CREATE TABLE userss(
+﻿CREATE TABLE users(
     id INT IDENTITY(1,1) PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     mail VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
 );
 
-SELECT * FROM userss ;
+SELECT * FROM users ;
 
 
 
-CREATE TABLE Produits (
-    id INT PRIMARY KEY ,
+CREATE TABLE Produit (
+    id INT IDENTITY (1,1) PRIMARY KEY ,
     nom VARCHAR(255),
     description TEXT,
     categorie VARCHAR(255),
@@ -21,31 +21,35 @@ CREATE TABLE Produits (
 );
 
 
-select * from produits;
+INSERT INTO Produit(nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES
+('Smartphone Samsung A12', 'Téléphone abordable et performant', 'Smartphones', 2000, 100, 300, 20),
+('Laptop HP 15', 'PC portable pour bureautique', 'Ordinateurs', 5000, 50, 150, 10),
+('TV LED 32"', 'Téléviseur compact et HD', 'Téléviseurs', 2500, 30, 80, 5),
+('Écouteurs Xiaomi', 'Écouteurs sans fil simples', 'Accessoires', 300, 200, 500, 50),
+('Clavier Logitech K120', 'Clavier USB basique', 'Périphériques', 200, 150, 400, 30),
+('Souris Logitech M185', 'Souris sans fil compacte', 'Périphériques', 150, 180, 400, 30),
+('Tablette Lenovo M10', 'Tablette pour enfants et famille', 'Tablettes', 1800, 40, 100, 10),
+('Montre Connectée Amazfit', 'Suivi santé et fitness', 'Montres Connectées', 700, 70, 200, 15),
+('Imprimante Canon LBP6030', 'Imprimante laser compacte', 'Imprimantes', 1000, 20, 50, 5),
+('Disque Dur WD 1TB', 'Stockage fiable et rapide', 'Stockage', 600, 120, 300, 20),
+('Barre de Son Sony', 'Son clair et compact', 'Audio', 1500, 25, 60, 5),
+('Caméra IP TP-Link', 'Surveillance simple et efficace', 'Sécurité', 500, 50, 150, 10);
 
-INSERT INTO Produits (id, nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES
-(1, 'Smartphone Samsung A12', 'Téléphone abordable et performant', 'Smartphones', 2000, 100, 300, 20),
-(2, 'Laptop HP 15', 'PC portable pour bureautique', 'Ordinateurs', 5000, 50, 150, 10),
-(3, 'TV LED 32"', 'Téléviseur compact et HD', 'Téléviseurs', 2500, 30, 80, 5),
-(4, 'Écouteurs Xiaomi', 'Écouteurs sans fil simples', 'Accessoires', 300, 200, 500, 50),
-(5, 'Clavier Logitech K120', 'Clavier USB basique', 'Périphériques', 200, 150, 400, 30),
-(6, 'Souris Logitech M185', 'Souris sans fil compacte', 'Périphériques', 150, 180, 400, 30),
-(7, 'Tablette Lenovo M10', 'Tablette pour enfants et famille', 'Tablettes', 1800, 40, 100, 10),
-(8, 'Montre Connectée Amazfit', 'Suivi santé et fitness', 'Montres Connectées', 700, 70, 200, 15),
-(9, 'Imprimante Canon LBP6030', 'Imprimante laser compacte', 'Imprimantes', 1000, 20, 50, 5),
-(10, 'Disque Dur WD 1TB', 'Stockage fiable et rapide', 'Stockage', 600, 120, 300, 20),
-(11, 'Barre de Son Sony', 'Son clair et compact', 'Audio', 1500, 25, 60, 5),
-(12, 'Caméra IP TP-Link', 'Surveillance simple et efficace', 'Sécurité', 500, 50, 150, 10),
-(13, 'Console Nintendo Switch', 'Console portable populaire', 'Consoles', 3500, 15, 40, 5),
-(14, 'Router TP-Link AC750', 'Internet rapide et fiable', 'Réseaux', 350, 60, 200, 15),
-(15, 'Chargeur Rapide Anker', 'Chargeur USB rapide', 'Accessoires', 200, 100, 300, 20),
-(16, 'Power Bank Xiaomi 10,000mAh', 'Batterie portable durable', 'Accessoires', 250, 90, 200, 15),
-(17, 'Processeur Intel i3', 'Entrée de gamme pour PC', 'Composants', 1000, 20, 50, 5),
-(18, 'Carte SD 64GB SanDisk', 'Stockage compact et rapide', 'Stockage', 130, 150, 400, 30),
-(19, 'Enceinte JBL Go', 'Enceinte Bluetooth portable', 'Audio', 400, 80, 200, 10),
-(20, 'Câble HDMI 2.0', 'Câble pour TV et consoles', 'Accessoires', 100, 100, 300, 20);
+select * from Produit;
+-- quantité de stock < qte_stock_min
+INSERT INTO Produit(nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES
+( 'Clavier Mécanique RGB', 'Clavier gaming avec rétroéclairage', 'Périphériques', 800, 8, 50, 10),
+('Souris Gaming RGB', 'Souris haute précision pour gamers', 'Périphériques', 600, 4, 30, 5),
+('Disque Dur Externe 2To', 'Stockage portable USB 3.0', 'Stockage', 1200, 2, 20, 3),
+('Casque Audio Sony WH-1000XM4', 'Casque sans fil avec réduction de bruit', 'Audio', 3000, 3, 15, 5),
+('Écran 27" 4K', 'Écran haute résolution pour professionnels', 'Moniteurs', 5000, 4, 10, 5),
+('Batterie Externe 20,000mAh', 'Batterie portable haute capacité', 'Accessoires', 400, 10, 50, 15),
+('Carte Graphique NVIDIA RTX 3060', 'Carte graphique pour gaming', 'Composants', 7000, 2, 10, 3),
+('Imprimante HP LaserJet', 'Imprimante laser professionnelle', 'Imprimantes', 2500, 3, 10, 5),
+('Routeur Wi-Fi 6', 'Routeur haute vitesse pour gaming', 'Réseaux', 1500, 4, 15, 5),
+('Tablette Graphique Wacom', 'Tablette pour dessin numérique', 'Périphériques', 2000, 2, 10, 3);
 
-CREATE TABLE Personnes (
+CREATE TABLE Personne(
     id INT IDENTITY(1,1) PRIMARY KEY,  
     nom VARCHAR(100) NOT NULL,
     adresse VARCHAR(255),
@@ -53,23 +57,23 @@ CREATE TABLE Personnes (
     email VARCHAR(100),
     type VARCHAR(20) NOT NULL CHECK (type IN ('fournisseur', 'client'))
 );
+select * from Personne;
 
-
-INSERT INTO Personnes (nom, adresse, telephone, email, type)
+INSERT INTO Personne(nom, adresse, telephone, email, type)
 VALUES 
 ('Alice Dupont', '123 Rue de Paris, 75001 Paris', '0123456789', 'alice.dupont@email.com', 'client'),
 ('Bob Martin', '456 Avenue des Champs-Élysées, 75008 Paris', '0987654321', 'bob.martin@email.com', 'client'),
 ('Claire Leclerc', '789 Boulevard Saint-Germain, 75005 Paris', '0147258369', 'claire.leclerc@email.com', 'client');
 
 
-INSERT INTO Personnes (nom, adresse, telephone, email, type)
+INSERT INTO Personne(nom, adresse, telephone, email, type)
 VALUES 
 ('Fournisseur A', '12 Rue de la Logistique, 69001 Lyon', '0203040506', 'contact@fournisseura.com', 'fournisseur'),
 ('Fournisseur B', '34 Rue des Industriels, 33000 Bordeaux', '0321567890', 'info@fournisseurb.com', 'fournisseur'),
 ('Fournisseur C', '56 Boulevard des Commerces, 13001 Marseille', '0478923456', 'service@fournisseure.com', 'fournisseur');
 
-<<<<<<< HEAD
 select * from Personne;
+
 
 create table Factures (
     id INT IDENTITY(1,1) PRIMARY KEY,
@@ -79,13 +83,8 @@ create table Factures (
     statut VARCHAR(20) NOT NULL CHECK (statut IN ('payée', 'non payée'))
 
 );
-=======
-select * from Personnes;
 
-
-
-
-CREATE TABLE Operations (
+CREATE TABLE Operation(
     id_Operation INT IDENTITY(1,1) PRIMARY KEY,
     type VARCHAR(255),
     id_personne INT NOT NULL,
@@ -96,7 +95,7 @@ CREATE TABLE Operations (
 );
 
 
-CREATE TABLE LigneOperations (
+CREATE TABLE LigneOperation(
     id_Operation INT NOT NULL,
     id_produit INT NOT NULL,
     quantite INT NOT NULL,
@@ -107,18 +106,17 @@ CREATE TABLE LigneOperations (
 );
 
 
-INSERT INTO LigneOperations (id_Operation, id_produit, quantite, prix_total) VALUES
+INSERT INTO LigneOperation(id_Operation, id_produit, quantite, prix_total) VALUES
 (1, 1, 2, 4000),  
 (2, 5, 3, 600),   
 (3, 2, 1, 5000),
 (4, 8, 1, 700),  
 (5, 10, 2, 1200); 
 
-INSERT INTO Operations (type, id_personne, id_produit, quantite) VALUES
+INSERT INTO Operation(type, id_personne, id_produit, quantite) VALUES
 ('COMMANDE', 1, 1, 2),  
 ('COMMANDE', 2, 5, 3),  
 ('vente', 4, 2, 1),  
 ('COMMANDE', 3, 8, 1),  
 ('vente', 5, 10, 2); 
- 
->>>>>>> d507c9a (operation de vente et commande)
+

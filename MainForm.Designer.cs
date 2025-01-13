@@ -58,12 +58,16 @@ namespace Gestion_de_stock
             button5 = new Button();
             menuButton = new Button();
             panelchildForm = new Panel();
+            label2 = new Label();
+            pictureBox1 = new PictureBox();
             panel1.SuspendLayout();
             sidebar.SuspendLayout();
             panel2.SuspendLayout();
             panel14.SuspendLayout();
             panel13.SuspendLayout();
             panel10.SuspendLayout();
+            panelchildForm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -85,9 +89,9 @@ namespace Gestion_de_stock
             label1.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(248, 32);
+            label1.Size = new Size(505, 32);
             label1.TabIndex = 0;
-            label1.Text = "Gestion de Stock";
+            label1.Text = "ELECTROSTORE - Gestion de Stock";
             // 
             // button3
             // 
@@ -512,13 +516,37 @@ namespace Gestion_de_stock
             // 
             // panelchildForm
             // 
-            panelchildForm.BackColor = Color.Ivory;
+            panelchildForm.BackColor = Color.FromArgb(192, 192, 255);
+            panelchildForm.BackgroundImageLayout = ImageLayout.Center;
+            panelchildForm.Controls.Add(label2);
+            panelchildForm.Controls.Add(pictureBox1);
             panelchildForm.Dock = DockStyle.Fill;
             panelchildForm.Location = new Point(300, 53);
             panelchildForm.Name = "panelchildForm";
             panelchildForm.Size = new Size(1066, 956);
             panelchildForm.TabIndex = 3;
             panelchildForm.Paint += panel2_Paint;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(62, 112);
+            label2.Name = "label2";
+            label2.Size = new Size(673, 42);
+            label2.TabIndex = 1;
+            label2.Text = "Bienvenue ! Bonne journée de travail.";
+            label2.Click += label2_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.BackgroundImageLayout = ImageLayout.Center;
+            pictureBox1.Location = new Point(103, 175);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(879, 710);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
@@ -544,6 +572,9 @@ namespace Gestion_de_stock
             panel14.ResumeLayout(false);
             panel13.ResumeLayout(false);
             panel10.ResumeLayout(false);
+            panelchildForm.ResumeLayout(false);
+            panelchildForm.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -578,5 +609,7 @@ namespace Gestion_de_stock
         private Panel panel2;
         private Button button11;
         private Button button12;
+        private PictureBox pictureBox1;
+        private Label label2;
     }
 }

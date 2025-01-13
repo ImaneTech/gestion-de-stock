@@ -267,7 +267,7 @@ namespace Gestion_de_stock
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            
+
 
         }
         private void HomePage_Load(object sender, EventArgs e)
@@ -280,7 +280,13 @@ namespace Gestion_de_stock
 
         }
 
-        
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+
+
+
+        }
     }
 }
     

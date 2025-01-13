@@ -30,6 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccueilForm));
             panel1 = new Panel();
+            panel6 = new Panel();
+            pictureBox5 = new PictureBox();
+            label10 = new Label();
+            label11 = new Label();
+            panel2 = new Panel();
+            pictureBox4 = new PictureBox();
+            label7 = new Label();
+            label9 = new Label();
             panel5 = new Panel();
             pictureBox3 = new PictureBox();
             label5 = new Label();
@@ -42,26 +50,118 @@
             pictureBox1 = new PictureBox();
             label2 = new Label();
             label1 = new Label();
-            panel2 = new Panel();
+            panel7 = new Panel();
+            label8 = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             panel1.SuspendLayout();
+            panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel7.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(192, 192, 255);
+            panel1.Controls.Add(panel6);
+            panel1.Controls.Add(panel2);
             panel1.Controls.Add(panel5);
             panel1.Controls.Add(panel4);
             panel1.Controls.Add(panel3);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1038, 229);
+            panel1.Size = new Size(1038, 403);
             panel1.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.SlateBlue;
+            panel6.Controls.Add(pictureBox5);
+            panel6.Controls.Add(label10);
+            panel6.Controls.Add(label11);
+            panel6.Location = new Point(570, 208);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(307, 177);
+            panel6.TabIndex = 4;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackgroundImage = Properties.Resources.supplier;
+            pictureBox5.BackgroundImageLayout = ImageLayout.Center;
+            pictureBox5.Location = new Point(3, 20);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(128, 101);
+            pictureBox5.TabIndex = 2;
+            pictureBox5.TabStop = false;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.Location = new Point(233, 40);
+            label10.Name = "label10";
+            label10.Size = new Size(22, 23);
+            label10.TabIndex = 1;
+            label10.Text = "0";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Location = new Point(137, 137);
+            label11.Name = "label11";
+            label11.Size = new Size(138, 23);
+            label11.TabIndex = 0;
+            label11.Text = "Fournisseurs";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.SlateBlue;
+            panel2.Controls.Add(pictureBox4);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(label9);
+            panel2.Location = new Point(209, 208);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(307, 177);
+            panel2.TabIndex = 3;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackgroundImage = Properties.Resources.client__1_;
+            pictureBox4.BackgroundImageLayout = ImageLayout.Center;
+            pictureBox4.Location = new Point(3, 20);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(128, 101);
+            pictureBox4.TabIndex = 2;
+            pictureBox4.TabStop = false;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(257, 40);
+            label7.Name = "label7";
+            label7.Size = new Size(22, 23);
+            label7.TabIndex = 1;
+            label7.Text = "0";
+            label7.Click += label7_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Location = new Point(160, 137);
+            label9.Name = "label9";
+            label9.Size = new Size(77, 23);
+            label9.TabIndex = 0;
+            label9.Text = "Clients";
             // 
             // panel5
             // 
@@ -69,9 +169,9 @@
             panel5.Controls.Add(pictureBox3);
             panel5.Controls.Add(label5);
             panel5.Controls.Add(label6);
-            panel5.Location = new Point(710, 25);
+            panel5.Location = new Point(718, 16);
             panel5.Name = "panel5";
-            panel5.Size = new Size(301, 184);
+            panel5.Size = new Size(307, 177);
             panel5.TabIndex = 2;
             // 
             // pictureBox3
@@ -89,7 +189,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(137, 40);
+            label5.Location = new Point(263, 40);
             label5.Name = "label5";
             label5.Size = new Size(22, 23);
             label5.TabIndex = 1;
@@ -111,9 +211,9 @@
             panel4.Controls.Add(pictureBox2);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(label4);
-            panel4.Location = new Point(357, 22);
+            panel4.Location = new Point(366, 13);
             panel4.Name = "panel4";
-            panel4.Size = new Size(324, 187);
+            panel4.Size = new Size(318, 180);
             panel4.TabIndex = 1;
             // 
             // pictureBox2
@@ -130,7 +230,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(128, 43);
+            label3.Location = new Point(263, 43);
             label3.Name = "label3";
             label3.Size = new Size(22, 23);
             label3.TabIndex = 1;
@@ -141,7 +241,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(60, 140);
+            label4.Location = new Point(58, 140);
             label4.Name = "label4";
             label4.Size = new Size(251, 23);
             label4.TabIndex = 0;
@@ -153,9 +253,9 @@
             panel3.Controls.Add(pictureBox1);
             panel3.Controls.Add(label2);
             panel3.Controls.Add(label1);
-            panel3.Location = new Point(18, 22);
+            panel3.Location = new Point(18, 13);
             panel3.Name = "panel3";
-            panel3.Size = new Size(309, 187);
+            panel3.Size = new Size(310, 180);
             panel3.TabIndex = 0;
             // 
             // pictureBox1
@@ -172,7 +272,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(126, 43);
+            label2.Location = new Point(136, 43);
             label2.Name = "label2";
             label2.Size = new Size(22, 23);
             label2.TabIndex = 1;
@@ -188,24 +288,55 @@
             label1.TabIndex = 0;
             label1.Text = "Valeur totale du stock ";
             // 
-            // panel2
+            // panel7
             // 
-            panel2.Location = new Point(12, 258);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1038, 418);
-            panel2.TabIndex = 1;
+            panel7.BackColor = Color.SlateBlue;
+            panel7.Controls.Add(label8);
+            panel7.Location = new Point(12, 421);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(1038, 56);
+            panel7.TabIndex = 1;
             // 
-            // AcceuilForm
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.Location = new Point(18, 12);
+            label8.Name = "label8";
+            label8.Size = new Size(96, 28);
+            label8.TabIndex = 0;
+            label8.Text = "Alertes";
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Anchor = AnchorStyles.None;
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.BackColor = Color.FromArgb(192, 192, 255);
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.Location = new Point(12, 475);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(1038, 458);
+            flowLayoutPanel1.TabIndex = 1;
+            flowLayoutPanel1.WrapContents = false;
+            // 
+            // AccueilForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1062, 688);
-            Controls.Add(panel2);
+            ClientSize = new Size(1066, 956);
+            Controls.Add(panel7);
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "AcceuilForm";
+            Name = "AccueilForm";
             Text = "Form1";
             panel1.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -215,6 +346,8 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -222,7 +355,6 @@
 
         private Panel panel1;
         private Panel panel3;
-        private Panel panel2;
         private Label label1;
         private PictureBox pictureBox1;
         private Label label2;
@@ -234,5 +366,16 @@
         private PictureBox pictureBox2;
         private Label label3;
         private Label label4;
+        private Panel panel7;
+        private Label label8;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Panel panel6;
+        private PictureBox pictureBox5;
+        private Label label10;
+        private Label label11;
+        private Panel panel2;
+        private PictureBox pictureBox4;
+        private Label label7;
+        private Label label9;
     }
 }
