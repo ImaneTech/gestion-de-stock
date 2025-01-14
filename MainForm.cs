@@ -202,9 +202,12 @@ namespace Gestion_de_stock
             hideSubMenu();
             openChildForm(new FournisseurForm());
         }
+
+        //Button Rapports
         private void button10_Click(object sender, EventArgs e)
         {
-
+            //Ouvire Form Rapport
+            openChildForm(new RapportForm());
         }
 
         private void button17_Click(object sender, EventArgs e)
