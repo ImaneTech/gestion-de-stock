@@ -102,10 +102,12 @@ namespace Gestion_de_stock
 
         }
 
+        //button Factures Achat :
         private void button11_Click_1(object sender, EventArgs e)
         {
             //diriger vers la page ...
             hideSubMenu();
+            openChildForm(new FactureAchatForm());
         }
 
         private void customizeDesign()
@@ -152,10 +154,12 @@ namespace Gestion_de_stock
             }
         }
 
+        //Button Factures Ventes
         private void button12_Click(object sender, EventArgs e)
         {
             //diriger vers la page ...
             hideSubMenu();
+            openChildForm(new FactureVenteForm());
         }
 
         private void button5_Click(object sender, EventArgs e)

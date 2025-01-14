@@ -32,6 +32,7 @@
             textBox1 = new TextBox();
             comboBox2 = new ComboBox();
             comboBox1 = new ComboBox();
+            label6 = new Label();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
@@ -56,29 +57,31 @@
             panel4.Controls.Add(textBox1);
             panel4.Controls.Add(comboBox2);
             panel4.Controls.Add(comboBox1);
+            panel4.Controls.Add(label6);
             panel4.Controls.Add(label5);
             panel4.Controls.Add(label4);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(label1);
             panel4.Location = new Point(15, 40);
-            panel4.Margin = new Padding(4, 4, 4, 4);
+            panel4.Margin = new Padding(4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(459, 269);
+            panel4.Size = new Size(459, 275);
             panel4.TabIndex = 12;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(185, 210);
-            textBox1.Margin = new Padding(4, 4, 4, 4);
+            textBox1.Margin = new Padding(4);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(252, 31);
             textBox1.TabIndex = 14;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(185, 146);
-            comboBox2.Margin = new Padding(4, 4, 4, 4);
+            comboBox2.Margin = new Padding(4);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(252, 33);
             comboBox2.TabIndex = 13;
@@ -87,10 +90,21 @@
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(185, 82);
-            comboBox1.Margin = new Padding(4, 4, 4, 4);
+            comboBox1.Margin = new Padding(4);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(252, 33);
             comboBox1.TabIndex = 12;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(21, 260);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(0, 30);
+            label6.TabIndex = 11;
             // 
             // label5
             // 
@@ -141,8 +155,8 @@
             panel3.BackColor = Color.Cyan;
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button2);
-            panel3.Location = new Point(15, 342);
-            panel3.Margin = new Padding(4, 4, 4, 4);
+            panel3.Location = new Point(15, 334);
+            panel3.Margin = new Padding(4);
             panel3.Name = "panel3";
             panel3.Size = new Size(459, 95);
             panel3.TabIndex = 11;
@@ -153,12 +167,13 @@
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.Location = new Point(260, 24);
-            button3.Margin = new Padding(4, 4, 4, 4);
+            button3.Margin = new Padding(4);
             button3.Name = "button3";
             button3.Size = new Size(132, 49);
             button3.TabIndex = 2;
             button3.Text = "EFFACER";
             button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // button2
             // 
@@ -166,19 +181,20 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.Location = new Point(49, 24);
-            button2.Margin = new Padding(4, 4, 4, 4);
+            button2.Margin = new Padding(4);
             button2.Name = "button2";
             button2.Size = new Size(150, 49);
             button2.TabIndex = 1;
             button2.Text = "CONFIRMER";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // panel1
             // 
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(dataGridView1);
             panel1.Location = new Point(502, 14);
-            panel1.Margin = new Padding(4, 4, 4, 4);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
             panel1.Size = new Size(526, 478);
             panel1.TabIndex = 10;
@@ -188,7 +204,7 @@
             panel2.BackColor = Color.Cyan;
             panel2.Controls.Add(label2);
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(4, 4, 4, 4);
+            panel2.Margin = new Padding(4);
             panel2.Name = "panel2";
             panel2.Size = new Size(526, 64);
             panel2.TabIndex = 4;
@@ -208,7 +224,7 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(0, 62);
-            dataGridView1.Margin = new Padding(4, 4, 4, 4);
+            dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(526, 411);
@@ -225,7 +241,7 @@
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "AchatForm";
             Text = "AchatForm";
             panel4.ResumeLayout(false);
@@ -255,5 +271,6 @@
         private Panel panel2;
         private Label label2;
         private DataGridView dataGridView1;
+        private Label label6;
     }
 }

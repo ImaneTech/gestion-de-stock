@@ -20,8 +20,42 @@ namespace Gestion_de_stock
         {
             InitializeComponent();
             GetVente();
+            initFormulairevente();
         }
 
+        public void initFormulairevente()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection("Data Source=DELL-NASRO\\SQLEXPRESS;Initial Catalog=GestionStock;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM GestionStock.dbo.Personne WHERE type = 'client'", conn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            comboBox1.Items.Add(dr[0].ToString());
+                        }
+                    }
+
+                    // Fetch and populate products
+                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM GestionStock.dbo.Produit", conn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            comboBox2.Items.Add(dr[0].ToString()); // Assuming you have another ComboBox for products
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         private void GetVente()
         {
@@ -29,22 +63,22 @@ namespace Gestion_de_stock
             try
             {
                 //Connection :
-                conn = new SqlConnection("Data Source=servername;Initial Catalog=GestionStock;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+                conn = new SqlConnection("Data Source=DELL-NASRO\\SQLEXPRESS;Initial Catalog=GestionStock;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
                 //Execution commande :
                 conn.Open();
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT lo.id_Operation, lo.id_produit, p.nom, lo.quantite, lo.prix_total " +
-                                  "FROM LigneOperation lo " +
-                                  "JOIN Operation o ON lo.id_Operation = o.id_Operation " +
-                                  "JOIN Produit p ON lo.id_produit = p.id " +
-                                  "WHERE o.type = 'vente'";
+                cmd.CommandText = "SELECT lo.id_Operation, o.id_personne,lo.id_produit, lo.quantite, lo.prix_total " +
+                  "FROM GestionStock.dbo.LigneOperation lo " +
+                  "JOIN GestionStock.dbo.Operation o ON lo.id_Operation = o.id_Operation " +
+                  "JOIN GestionStock.dbo.Produit p ON lo.id_produit = p.id " +
+                  "WHERE o.type = 'vente'";
                 dr = cmd.ExecuteReader();
                 //init Data GridView :
                 dataGridView1.DataSource = null;
                 dataGridView1.Columns.Clear();
                 dataGridView1.ColumnCount = 5;
                 dataGridView1.Columns[0].Name = "Id Operation";
-                dataGridView1.Columns[1].Name = "Id Produit";
+                dataGridView1.Columns[1].Name = "Id Client";
                 dataGridView1.Columns[2].Name = "Produit";
                 dataGridView1.Columns[3].Name = "Quantite";
                 dataGridView1.Columns[4].Name = "Total Prix(Dh)";
