@@ -253,6 +253,7 @@
             button4.TabIndex = 1;
             button4.Text = "Mettre à Jour";
             button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
             // 
             // button3
             // 
@@ -265,6 +266,7 @@
             button3.TabIndex = 0;
             button3.Text = "Supprimer";
             button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // panel4
             // 

@@ -134,7 +134,7 @@
             // 
             // pictureBox4
             // 
-            pictureBox4.BackgroundImage = Properties.Resources.client__1_;
+            pictureBox4.BackgroundImage = Properties.Resources.client__1_ ;
             pictureBox4.BackgroundImageLayout = ImageLayout.Center;
             pictureBox4.Location = new Point(3, 20);
             pictureBox4.Name = "pictureBox4";

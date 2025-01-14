@@ -209,7 +209,9 @@ namespace Gestion_de_stock
 
         private void button17_Click(object sender, EventArgs e)
         {
+            hideSubMenu();
 
+            openChildForm(new AchatForm());
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -286,6 +288,13 @@ namespace Gestion_de_stock
 
 
 
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            hideSubMenu();
+
+            openChildForm(new VenteForm());
         }
     }
 }

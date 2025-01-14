@@ -79,17 +79,19 @@ namespace Gestion_de_stock
             panel1.Controls.Add(button1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(2, 2, 2, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1366, 53);
+            panel1.Size = new Size(1093, 42);
             panel1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(12, 9);
+            label1.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(10, 7);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(505, 32);
+            label1.Size = new Size(414, 29);
             label1.TabIndex = 0;
             label1.Text = "ELECTROSTORE - Gestion de Stock";
             // 
@@ -101,9 +103,10 @@ namespace Gestion_de_stock
             button3.BackgroundImageLayout = ImageLayout.Stretch;
             button3.FlatStyle = FlatStyle.Flat;
             button3.ForeColor = Color.SlateBlue;
-            button3.Location = new Point(1288, 12);
+            button3.Location = new Point(1030, 10);
+            button3.Margin = new Padding(2, 2, 2, 2);
             button3.Name = "button3";
-            button3.Size = new Size(30, 30);
+            button3.Size = new Size(24, 24);
             button3.TabIndex = 2;
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
@@ -116,9 +119,10 @@ namespace Gestion_de_stock
             button2.BackgroundImageLayout = ImageLayout.Stretch;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.SlateBlue;
-            button2.Location = new Point(1252, 12);
+            button2.Location = new Point(1002, 10);
+            button2.Margin = new Padding(2, 2, 2, 2);
             button2.Name = "button2";
-            button2.Size = new Size(30, 30);
+            button2.Size = new Size(24, 24);
             button2.TabIndex = 1;
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
@@ -131,9 +135,10 @@ namespace Gestion_de_stock
             button1.BackgroundImageLayout = ImageLayout.Stretch;
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.SlateBlue;
-            button1.Location = new Point(1324, 12);
+            button1.Location = new Point(1059, 10);
+            button1.Margin = new Padding(2, 2, 2, 2);
             button1.Name = "button1";
-            button1.Size = new Size(30, 30);
+            button1.Size = new Size(24, 24);
             button1.TabIndex = 0;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
@@ -159,11 +164,12 @@ namespace Gestion_de_stock
             sidebar.Controls.Add(button5);
             sidebar.Controls.Add(menuButton);
             sidebar.Dock = DockStyle.Left;
-            sidebar.Location = new Point(0, 53);
-            sidebar.MaximumSize = new Size(300, 1100);
-            sidebar.MinimumSize = new Size(62, 450);
+            sidebar.Location = new Point(0, 42);
+            sidebar.Margin = new Padding(2, 2, 2, 2);
+            sidebar.MaximumSize = new Size(240, 880);
+            sidebar.MinimumSize = new Size(50, 360);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(300, 956);
+            sidebar.Size = new Size(240, 765);
             sidebar.TabIndex = 2;
             sidebar.Paint += sidebar_Paint_1;
             // 
@@ -175,14 +181,14 @@ namespace Gestion_de_stock
             button10.Dock = DockStyle.Top;
             button10.FlatAppearance.BorderSize = 0;
             button10.FlatStyle = FlatStyle.Flat;
-            button10.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button10.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button10.Image = (Image)resources.GetObject("button10.Image");
             button10.ImageAlign = ContentAlignment.MiddleLeft;
-            button10.Location = new Point(0, 859);
+            button10.Location = new Point(0, 688);
             button10.Margin = new Padding(0);
             button10.Name = "button10";
             button10.RightToLeft = RightToLeft.No;
-            button10.Size = new Size(300, 75);
+            button10.Size = new Size(240, 60);
             button10.TabIndex = 19;
             button10.Text = "Rapports";
             button10.UseVisualStyleBackColor = false;
@@ -193,9 +199,10 @@ namespace Gestion_de_stock
             panel2.Controls.Add(button11);
             panel2.Controls.Add(button12);
             panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 742);
+            panel2.Location = new Point(0, 594);
+            panel2.Margin = new Padding(2, 2, 2, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(300, 117);
+            panel2.Size = new Size(240, 94);
             panel2.TabIndex = 18;
             // 
             // button11
@@ -205,14 +212,15 @@ namespace Gestion_de_stock
             button11.Dock = DockStyle.Top;
             button11.FlatAppearance.BorderSize = 0;
             button11.FlatStyle = FlatStyle.Flat;
-            button11.Font = new Font("Arial Rounded MT Bold", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button11.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button11.Image = (Image)resources.GetObject("button11.Image");
             button11.ImageAlign = ContentAlignment.MiddleLeft;
-            button11.Location = new Point(0, 58);
+            button11.Location = new Point(0, 46);
+            button11.Margin = new Padding(2, 2, 2, 2);
             button11.Name = "button11";
-            button11.Padding = new Padding(7, 14, 14, 14);
+            button11.Padding = new Padding(6, 11, 11, 11);
             button11.RightToLeft = RightToLeft.No;
-            button11.Size = new Size(300, 59);
+            button11.Size = new Size(240, 47);
             button11.TabIndex = 0;
             button11.Text = "Factures d'achat";
             button11.UseVisualStyleBackColor = false;
@@ -225,14 +233,15 @@ namespace Gestion_de_stock
             button12.Dock = DockStyle.Top;
             button12.FlatAppearance.BorderSize = 0;
             button12.FlatStyle = FlatStyle.Flat;
-            button12.Font = new Font("Arial Rounded MT Bold", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button12.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button12.Image = (Image)resources.GetObject("button12.Image");
             button12.ImageAlign = ContentAlignment.MiddleLeft;
             button12.Location = new Point(0, 0);
+            button12.Margin = new Padding(2, 2, 2, 2);
             button12.Name = "button12";
-            button12.Padding = new Padding(7, 14, 14, 14);
+            button12.Padding = new Padding(6, 11, 11, 11);
             button12.RightToLeft = RightToLeft.No;
-            button12.Size = new Size(300, 58);
+            button12.Size = new Size(240, 46);
             button12.TabIndex = 0;
             button12.Text = " Factures de vente";
             button12.UseVisualStyleBackColor = false;
@@ -246,14 +255,14 @@ namespace Gestion_de_stock
             button9.Dock = DockStyle.Top;
             button9.FlatAppearance.BorderSize = 0;
             button9.FlatStyle = FlatStyle.Flat;
-            button9.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button9.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button9.Image = (Image)resources.GetObject("button9.Image");
             button9.ImageAlign = ContentAlignment.MiddleLeft;
-            button9.Location = new Point(0, 667);
+            button9.Location = new Point(0, 534);
             button9.Margin = new Padding(0);
             button9.Name = "button9";
             button9.RightToLeft = RightToLeft.No;
-            button9.Size = new Size(300, 75);
+            button9.Size = new Size(240, 60);
             button9.TabIndex = 17;
             button9.Text = "Factures";
             button9.UseVisualStyleBackColor = false;
@@ -267,14 +276,14 @@ namespace Gestion_de_stock
             button8.Dock = DockStyle.Bottom;
             button8.FlatAppearance.BorderSize = 0;
             button8.FlatStyle = FlatStyle.Flat;
-            button8.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button8.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button8.Image = (Image)resources.GetObject("button8.Image");
             button8.ImageAlign = ContentAlignment.MiddleLeft;
-            button8.Location = new Point(0, 881);
+            button8.Location = new Point(0, 705);
             button8.Margin = new Padding(0);
             button8.Name = "button8";
             button8.RightToLeft = RightToLeft.No;
-            button8.Size = new Size(300, 75);
+            button8.Size = new Size(240, 60);
             button8.TabIndex = 17;
             button8.Text = "Deconexion";
             button8.UseVisualStyleBackColor = false;
@@ -285,9 +294,10 @@ namespace Gestion_de_stock
             panel14.Controls.Add(button17);
             panel14.Controls.Add(button16);
             panel14.Dock = DockStyle.Top;
-            panel14.Location = new Point(0, 546);
+            panel14.Location = new Point(0, 437);
+            panel14.Margin = new Padding(2, 2, 2, 2);
             panel14.Name = "panel14";
-            panel14.Size = new Size(300, 121);
+            panel14.Size = new Size(240, 97);
             panel14.TabIndex = 14;
             panel14.Paint += panel14_Paint;
             // 
@@ -298,16 +308,17 @@ namespace Gestion_de_stock
             button17.Dock = DockStyle.Top;
             button17.FlatAppearance.BorderSize = 0;
             button17.FlatStyle = FlatStyle.Flat;
-            button17.Font = new Font("Arial Rounded MT Bold", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button17.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button17.Image = (Image)resources.GetObject("button17.Image");
             button17.ImageAlign = ContentAlignment.MiddleLeft;
-            button17.Location = new Point(0, 61);
+            button17.Location = new Point(0, 49);
+            button17.Margin = new Padding(2, 2, 2, 2);
             button17.Name = "button17";
-            button17.Padding = new Padding(7, 14, 14, 14);
+            button17.Padding = new Padding(6, 11, 11, 11);
             button17.RightToLeft = RightToLeft.No;
-            button17.Size = new Size(300, 62);
+            button17.Size = new Size(240, 50);
             button17.TabIndex = 13;
-            button17.Text = "Ventes";
+            button17.Text = "Achat";
             button17.UseVisualStyleBackColor = false;
             button17.Click += button17_Click;
             // 
@@ -318,18 +329,19 @@ namespace Gestion_de_stock
             button16.Dock = DockStyle.Top;
             button16.FlatAppearance.BorderSize = 0;
             button16.FlatStyle = FlatStyle.Flat;
-            button16.Font = new Font("Arial Rounded MT Bold", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button16.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button16.Image = (Image)resources.GetObject("button16.Image");
             button16.ImageAlign = ContentAlignment.MiddleLeft;
             button16.Location = new Point(0, 0);
             button16.Margin = new Padding(0);
             button16.Name = "button16";
-            button16.Padding = new Padding(7, 14, 14, 14);
+            button16.Padding = new Padding(6, 11, 11, 11);
             button16.RightToLeft = RightToLeft.No;
-            button16.Size = new Size(300, 61);
+            button16.Size = new Size(240, 49);
             button16.TabIndex = 0;
-            button16.Text = " Commandes";
+            button16.Text = "Vente";
             button16.UseVisualStyleBackColor = false;
+            button16.Click += button16_Click;
             // 
             // button18
             // 
@@ -339,14 +351,14 @@ namespace Gestion_de_stock
             button18.Dock = DockStyle.Top;
             button18.FlatAppearance.BorderSize = 0;
             button18.FlatStyle = FlatStyle.Flat;
-            button18.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button18.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button18.Image = (Image)resources.GetObject("button18.Image");
             button18.ImageAlign = ContentAlignment.MiddleLeft;
-            button18.Location = new Point(0, 474);
+            button18.Location = new Point(0, 379);
             button18.Margin = new Padding(0);
             button18.Name = "button18";
             button18.RightToLeft = RightToLeft.No;
-            button18.Size = new Size(300, 72);
+            button18.Size = new Size(240, 58);
             button18.TabIndex = 15;
             button18.Text = "Transactions";
             button18.UseVisualStyleBackColor = false;
@@ -356,10 +368,10 @@ namespace Gestion_de_stock
             // 
             panel13.Controls.Add(button15);
             panel13.Dock = DockStyle.Top;
-            panel13.Location = new Point(0, 411);
+            panel13.Location = new Point(0, 329);
             panel13.Margin = new Padding(0);
             panel13.Name = "panel13";
-            panel13.Size = new Size(300, 63);
+            panel13.Size = new Size(240, 50);
             panel13.TabIndex = 14;
             // 
             // button15
@@ -369,15 +381,15 @@ namespace Gestion_de_stock
             button15.Dock = DockStyle.Top;
             button15.FlatAppearance.BorderSize = 0;
             button15.FlatStyle = FlatStyle.Flat;
-            button15.Font = new Font("Arial Rounded MT Bold", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button15.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button15.Image = (Image)resources.GetObject("button15.Image");
             button15.ImageAlign = ContentAlignment.MiddleLeft;
             button15.Location = new Point(0, 0);
             button15.Margin = new Padding(0);
             button15.Name = "button15";
-            button15.Padding = new Padding(7, 14, 14, 14);
+            button15.Padding = new Padding(6, 11, 11, 11);
             button15.RightToLeft = RightToLeft.No;
-            button15.Size = new Size(300, 63);
+            button15.Size = new Size(240, 50);
             button15.TabIndex = 0;
             button15.Text = "Produits";
             button15.UseVisualStyleBackColor = false;
@@ -391,14 +403,14 @@ namespace Gestion_de_stock
             button7.Dock = DockStyle.Top;
             button7.FlatAppearance.BorderSize = 0;
             button7.FlatStyle = FlatStyle.Flat;
-            button7.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button7.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button7.Image = (Image)resources.GetObject("button7.Image");
             button7.ImageAlign = ContentAlignment.MiddleLeft;
-            button7.Location = new Point(0, 350);
+            button7.Location = new Point(0, 280);
             button7.Margin = new Padding(0);
             button7.Name = "button7";
             button7.RightToLeft = RightToLeft.No;
-            button7.Size = new Size(300, 61);
+            button7.Size = new Size(240, 49);
             button7.TabIndex = 0;
             button7.Text = "Stock";
             button7.UseVisualStyleBackColor = false;
@@ -409,9 +421,10 @@ namespace Gestion_de_stock
             panel10.Controls.Add(button14);
             panel10.Controls.Add(button13);
             panel10.Dock = DockStyle.Top;
-            panel10.Location = new Point(0, 202);
+            panel10.Location = new Point(0, 162);
+            panel10.Margin = new Padding(2, 2, 2, 2);
             panel10.Name = "panel10";
-            panel10.Size = new Size(300, 148);
+            panel10.Size = new Size(240, 118);
             panel10.TabIndex = 2;
             // 
             // button14
@@ -421,14 +434,15 @@ namespace Gestion_de_stock
             button14.Dock = DockStyle.Top;
             button14.FlatAppearance.BorderSize = 0;
             button14.FlatStyle = FlatStyle.Flat;
-            button14.Font = new Font("Arial Rounded MT Bold", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button14.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button14.Image = (Image)resources.GetObject("button14.Image");
             button14.ImageAlign = ContentAlignment.MiddleLeft;
-            button14.Location = new Point(0, 73);
+            button14.Location = new Point(0, 58);
+            button14.Margin = new Padding(2, 2, 2, 2);
             button14.Name = "button14";
-            button14.Padding = new Padding(7, 14, 14, 14);
+            button14.Padding = new Padding(6, 11, 11, 11);
             button14.RightToLeft = RightToLeft.No;
-            button14.Size = new Size(300, 72);
+            button14.Size = new Size(240, 58);
             button14.TabIndex = 0;
             button14.Text = " Fornisseurs\r\n";
             button14.UseVisualStyleBackColor = false;
@@ -441,14 +455,15 @@ namespace Gestion_de_stock
             button13.Dock = DockStyle.Top;
             button13.FlatAppearance.BorderSize = 0;
             button13.FlatStyle = FlatStyle.Flat;
-            button13.Font = new Font("Arial Rounded MT Bold", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button13.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button13.Image = (Image)resources.GetObject("button13.Image");
             button13.ImageAlign = ContentAlignment.MiddleLeft;
             button13.Location = new Point(0, 0);
+            button13.Margin = new Padding(2, 2, 2, 2);
             button13.Name = "button13";
-            button13.Padding = new Padding(7, 14, 14, 14);
+            button13.Padding = new Padding(6, 11, 11, 11);
             button13.RightToLeft = RightToLeft.No;
-            button13.Size = new Size(300, 73);
+            button13.Size = new Size(240, 58);
             button13.TabIndex = 0;
             button13.Text = "Clients";
             button13.UseVisualStyleBackColor = false;
@@ -460,14 +475,14 @@ namespace Gestion_de_stock
             button4.BackgroundImageLayout = ImageLayout.Zoom;
             button4.Dock = DockStyle.Top;
             button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button4.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button4.Image = (Image)resources.GetObject("button4.Image");
             button4.ImageAlign = ContentAlignment.MiddleLeft;
-            button4.Location = new Point(0, 137);
+            button4.Location = new Point(0, 110);
             button4.Margin = new Padding(0);
             button4.Name = "button4";
             button4.RightToLeft = RightToLeft.No;
-            button4.Size = new Size(300, 65);
+            button4.Size = new Size(240, 52);
             button4.TabIndex = 0;
             button4.Text = "Comptes";
             button4.UseVisualStyleBackColor = false;
@@ -480,14 +495,15 @@ namespace Gestion_de_stock
             button5.Dock = DockStyle.Top;
             button5.FlatAppearance.BorderSize = 0;
             button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button5.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button5.Image = (Image)resources.GetObject("button5.Image");
             button5.ImageAlign = ContentAlignment.MiddleLeft;
-            button5.Location = new Point(0, 70);
+            button5.Location = new Point(0, 56);
+            button5.Margin = new Padding(2, 2, 2, 2);
             button5.Name = "button5";
-            button5.Padding = new Padding(7, 14, 14, 14);
+            button5.Padding = new Padding(6, 11, 11, 11);
             button5.RightToLeft = RightToLeft.No;
-            button5.Size = new Size(300, 67);
+            button5.Size = new Size(240, 54);
             button5.TabIndex = 0;
             button5.Text = "Accueil";
             button5.UseVisualStyleBackColor = false;
@@ -500,15 +516,16 @@ namespace Gestion_de_stock
             menuButton.Dock = DockStyle.Top;
             menuButton.FlatAppearance.BorderSize = 0;
             menuButton.FlatStyle = FlatStyle.Flat;
-            menuButton.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            menuButton.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuButton.Image = (Image)resources.GetObject("menuButton.Image");
             menuButton.ImageAlign = ContentAlignment.MiddleLeft;
             menuButton.Location = new Point(0, 0);
-            menuButton.MaximumSize = new Size(300, 76);
+            menuButton.Margin = new Padding(2, 2, 2, 2);
+            menuButton.MaximumSize = new Size(240, 61);
             menuButton.Name = "menuButton";
-            menuButton.Padding = new Padding(7, 14, 14, 14);
+            menuButton.Padding = new Padding(6, 11, 11, 11);
             menuButton.RightToLeft = RightToLeft.No;
-            menuButton.Size = new Size(300, 70);
+            menuButton.Size = new Size(240, 56);
             menuButton.TabIndex = 0;
             menuButton.Text = "Menu";
             menuButton.UseVisualStyleBackColor = false;
@@ -521,19 +538,21 @@ namespace Gestion_de_stock
             panelchildForm.Controls.Add(label2);
             panelchildForm.Controls.Add(pictureBox1);
             panelchildForm.Dock = DockStyle.Fill;
-            panelchildForm.Location = new Point(300, 53);
+            panelchildForm.Location = new Point(240, 42);
+            panelchildForm.Margin = new Padding(2, 2, 2, 2);
             panelchildForm.Name = "panelchildForm";
-            panelchildForm.Size = new Size(1066, 956);
+            panelchildForm.Size = new Size(853, 765);
             panelchildForm.TabIndex = 3;
             panelchildForm.Paint += panel2_Paint;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(62, 112);
+            label2.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(50, 90);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(673, 42);
+            label2.Size = new Size(511, 36);
             label2.TabIndex = 1;
             label2.Text = "Bienvenue ! Bonne journée de travail.";
             label2.Click += label2_Click;
@@ -542,24 +561,26 @@ namespace Gestion_de_stock
             // 
             pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = ImageLayout.Center;
-            pictureBox1.Location = new Point(103, 175);
+            pictureBox1.Location = new Point(82, 140);
+            pictureBox1.Margin = new Padding(2, 2, 2, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(879, 710);
+            pictureBox1.Size = new Size(703, 568);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             AutoSize = true;
             BackColor = Color.Ivory;
-            ClientSize = new Size(1366, 1009);
+            ClientSize = new Size(1093, 807);
             Controls.Add(panelchildForm);
             Controls.Add(sidebar);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
