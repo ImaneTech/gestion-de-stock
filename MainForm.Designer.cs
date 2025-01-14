@@ -79,7 +79,7 @@ namespace Gestion_de_stock
             panel1.Controls.Add(button1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(2, 2, 2, 2);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
             panel1.Size = new Size(1093, 42);
             panel1.TabIndex = 0;
@@ -104,7 +104,7 @@ namespace Gestion_de_stock
             button3.FlatStyle = FlatStyle.Flat;
             button3.ForeColor = Color.SlateBlue;
             button3.Location = new Point(1030, 10);
-            button3.Margin = new Padding(2, 2, 2, 2);
+            button3.Margin = new Padding(2);
             button3.Name = "button3";
             button3.Size = new Size(24, 24);
             button3.TabIndex = 2;
@@ -120,7 +120,7 @@ namespace Gestion_de_stock
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.SlateBlue;
             button2.Location = new Point(1002, 10);
-            button2.Margin = new Padding(2, 2, 2, 2);
+            button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(24, 24);
             button2.TabIndex = 1;
@@ -136,7 +136,7 @@ namespace Gestion_de_stock
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.SlateBlue;
             button1.Location = new Point(1059, 10);
-            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(24, 24);
             button1.TabIndex = 0;
@@ -165,7 +165,7 @@ namespace Gestion_de_stock
             sidebar.Controls.Add(menuButton);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 42);
-            sidebar.Margin = new Padding(2, 2, 2, 2);
+            sidebar.Margin = new Padding(2);
             sidebar.MaximumSize = new Size(240, 880);
             sidebar.MinimumSize = new Size(50, 360);
             sidebar.Name = "sidebar";
@@ -200,7 +200,7 @@ namespace Gestion_de_stock
             panel2.Controls.Add(button12);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 594);
-            panel2.Margin = new Padding(2, 2, 2, 2);
+            panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
             panel2.Size = new Size(240, 94);
             panel2.TabIndex = 18;
@@ -216,7 +216,7 @@ namespace Gestion_de_stock
             button11.Image = (Image)resources.GetObject("button11.Image");
             button11.ImageAlign = ContentAlignment.MiddleLeft;
             button11.Location = new Point(0, 46);
-            button11.Margin = new Padding(2, 2, 2, 2);
+            button11.Margin = new Padding(2);
             button11.Name = "button11";
             button11.Padding = new Padding(6, 11, 11, 11);
             button11.RightToLeft = RightToLeft.No;
@@ -237,7 +237,7 @@ namespace Gestion_de_stock
             button12.Image = (Image)resources.GetObject("button12.Image");
             button12.ImageAlign = ContentAlignment.MiddleLeft;
             button12.Location = new Point(0, 0);
-            button12.Margin = new Padding(2, 2, 2, 2);
+            button12.Margin = new Padding(2);
             button12.Name = "button12";
             button12.Padding = new Padding(6, 11, 11, 11);
             button12.RightToLeft = RightToLeft.No;
@@ -295,7 +295,7 @@ namespace Gestion_de_stock
             panel14.Controls.Add(button16);
             panel14.Dock = DockStyle.Top;
             panel14.Location = new Point(0, 437);
-            panel14.Margin = new Padding(2, 2, 2, 2);
+            panel14.Margin = new Padding(2);
             panel14.Name = "panel14";
             panel14.Size = new Size(240, 97);
             panel14.TabIndex = 14;
@@ -312,7 +312,7 @@ namespace Gestion_de_stock
             button17.Image = (Image)resources.GetObject("button17.Image");
             button17.ImageAlign = ContentAlignment.MiddleLeft;
             button17.Location = new Point(0, 49);
-            button17.Margin = new Padding(2, 2, 2, 2);
+            button17.Margin = new Padding(2);
             button17.Name = "button17";
             button17.Padding = new Padding(6, 11, 11, 11);
             button17.RightToLeft = RightToLeft.No;
@@ -422,7 +422,7 @@ namespace Gestion_de_stock
             panel10.Controls.Add(button13);
             panel10.Dock = DockStyle.Top;
             panel10.Location = new Point(0, 162);
-            panel10.Margin = new Padding(2, 2, 2, 2);
+            panel10.Margin = new Padding(2);
             panel10.Name = "panel10";
             panel10.Size = new Size(240, 118);
             panel10.TabIndex = 2;
@@ -438,7 +438,7 @@ namespace Gestion_de_stock
             button14.Image = (Image)resources.GetObject("button14.Image");
             button14.ImageAlign = ContentAlignment.MiddleLeft;
             button14.Location = new Point(0, 58);
-            button14.Margin = new Padding(2, 2, 2, 2);
+            button14.Margin = new Padding(2);
             button14.Name = "button14";
             button14.Padding = new Padding(6, 11, 11, 11);
             button14.RightToLeft = RightToLeft.No;
@@ -459,7 +459,7 @@ namespace Gestion_de_stock
             button13.Image = (Image)resources.GetObject("button13.Image");
             button13.ImageAlign = ContentAlignment.MiddleLeft;
             button13.Location = new Point(0, 0);
-            button13.Margin = new Padding(2, 2, 2, 2);
+            button13.Margin = new Padding(2);
             button13.Name = "button13";
             button13.Padding = new Padding(6, 11, 11, 11);
             button13.RightToLeft = RightToLeft.No;
@@ -499,7 +499,7 @@ namespace Gestion_de_stock
             button5.Image = (Image)resources.GetObject("button5.Image");
             button5.ImageAlign = ContentAlignment.MiddleLeft;
             button5.Location = new Point(0, 56);
-            button5.Margin = new Padding(2, 2, 2, 2);
+            button5.Margin = new Padding(2);
             button5.Name = "button5";
             button5.Padding = new Padding(6, 11, 11, 11);
             button5.RightToLeft = RightToLeft.No;
@@ -520,7 +520,7 @@ namespace Gestion_de_stock
             menuButton.Image = (Image)resources.GetObject("menuButton.Image");
             menuButton.ImageAlign = ContentAlignment.MiddleLeft;
             menuButton.Location = new Point(0, 0);
-            menuButton.Margin = new Padding(2, 2, 2, 2);
+            menuButton.Margin = new Padding(2);
             menuButton.MaximumSize = new Size(240, 61);
             menuButton.Name = "menuButton";
             menuButton.Padding = new Padding(6, 11, 11, 11);
@@ -539,7 +539,7 @@ namespace Gestion_de_stock
             panelchildForm.Controls.Add(pictureBox1);
             panelchildForm.Dock = DockStyle.Fill;
             panelchildForm.Location = new Point(240, 42);
-            panelchildForm.Margin = new Padding(2, 2, 2, 2);
+            panelchildForm.Margin = new Padding(2);
             panelchildForm.Name = "panelchildForm";
             panelchildForm.Size = new Size(853, 765);
             panelchildForm.TabIndex = 3;
@@ -562,11 +562,12 @@ namespace Gestion_de_stock
             pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = ImageLayout.Center;
             pictureBox1.Location = new Point(82, 140);
-            pictureBox1.Margin = new Padding(2, 2, 2, 2);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(703, 568);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // MainForm
             // 
@@ -580,7 +581,7 @@ namespace Gestion_de_stock
             Controls.Add(sidebar);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

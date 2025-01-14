@@ -13,7 +13,7 @@ namespace Gestion_de_stock
 {
     public partial class AccueilForm : Form
     {
-        private readonly string connectionString = @"Data Source=server ;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString = @"Data Source= servername ;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
         public AccueilForm()
         {
             InitializeComponent();
@@ -85,7 +85,7 @@ namespace Gestion_de_stock
 
         //******************************************   Alertes  *********************************************
         private void AfficherAlertes()
-        { 
+        {
             flowLayoutPanel1.Controls.Clear();
             try
             {
@@ -170,6 +170,11 @@ namespace Gestion_de_stock
 
 
 
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

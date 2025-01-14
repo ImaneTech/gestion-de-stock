@@ -299,6 +299,11 @@ namespace Gestion_de_stock
 
             openChildForm(new VenteForm());
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
     

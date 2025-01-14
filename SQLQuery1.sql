@@ -80,9 +80,24 @@ create table Factures (
     date_facture DATE NOT NULL,
     id_personne INT NOT NULL,
     FOREIGN KEY (id_personne) REFERENCES Personne(id),
-    statut VARCHAR(20) NOT NULL CHECK (statut IN ('payée', 'non payée'))
-
+    statut VARCHAR(20) NOT NULL CHECK (statut IN ('payée', 'non payée'),
+     type VARCHAR(20) NOT NULL CHECK (type IN ('achat', 'vent'))
 );
+
+
+
+-- Insert records into Factures table
+INSERT INTO Factures (date_facture, id_personne, statut, type)
+VALUES 
+('2024-01-10', 1, 'payée', 'vent'),    
+('2024-01-12', 2, 'non payée', 'achat'), 
+('2023-01-14', 3, 'payée', 'vent'),    
+('2025-01-16', 4, 'non payée', 'achat'), 
+('2023-01-18', 5, 'payée', 'vent');   
+
+
+
+
 
 CREATE TABLE Operation(
     id_Operation INT IDENTITY(1,1) PRIMARY KEY,
