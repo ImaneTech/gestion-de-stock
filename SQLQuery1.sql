@@ -86,7 +86,7 @@ create table Factures (
 
 CREATE TABLE Operation(
     id_Operation INT IDENTITY(1,1) PRIMARY KEY,
-    type VARCHAR(255),
+    type VARCHAR(25),
     id_personne INT NOT NULL,
     id_produit INT NOT NULL,
     quantite INT NOT NULL,
@@ -95,14 +95,14 @@ CREATE TABLE Operation(
 );
 
 
-CREATE TABLE LigneOperation(
+CREATE TABLE LigneOperation (
     id_Operation INT NOT NULL,
     id_produit INT NOT NULL,
     quantite INT NOT NULL,
     prix_total DECIMAL(10, 2),
     PRIMARY KEY (id_Operation, id_produit),
     CONSTRAINT FK_LigneOperation_Operation FOREIGN KEY (id_Operation) REFERENCES Operation(id_Operation) ON DELETE CASCADE,
-    CONSTRAINT FK_LigneOperation_Produit FOREIGN KEY (id_produit) REFERENCES Produit(id) ON DELETE CASCADE
+    CONSTRAINT FK_LigneOperation_Produit FOREIGN KEY (id_produit) REFERENCES Produit(id) ON DELETE NO ACTION
 );
 
 
@@ -120,3 +120,16 @@ INSERT INTO Operation(type, id_personne, id_produit, quantite) VALUES
 ('COMMANDE', 3, 8, 1),  
 ('vente', 5, 10, 2); 
 
+-- Créer la table Rapport_Mensuel :
+CREATE TABLE Rapport_Mensuel (
+    id INT PRIMARY KEY IDENTITY(1,1),   -- Identifiant unique, incrémenté automatiquement
+    date DATE NOT NULL,                 -- Date, obligatoire pour chaque enregistrement
+    recettes DECIMAL(15, 2) NOT NULL,   -- Recettes, avec précision pour les valeurs monétaires
+    depenses DECIMAL(15, 2) NOT NULL,   -- Dépenses, avec précision pour les valeurs monétaires
+    benefices AS (recettes - depenses) PERSISTED  -- Calcul automatique des bénéfices
+);
+
+select lo.id_Operation,lo.id_produit,p.nom,lo.quantite,lo.prix_total from LigneOperation lo
+join Operation o on lo.id_Operation = o.id_Operation
+join Produit p on lo.id_produit = p.id
+where o.type = 'COMMANDE';

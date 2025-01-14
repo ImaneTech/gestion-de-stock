@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            dataGridView1 = new DataGridView();
             panel2 = new Panel();
             label2 = new Label();
+            dataGridView1 = new DataGridView();
             panel3 = new Panel();
+            button3 = new Button();
+            button2 = new Button();
             panel4 = new Panel();
             textBox1 = new TextBox();
             comboBox2 = new ComboBox();
@@ -41,11 +43,9 @@
             label4 = new Label();
             label3 = new Label();
             label1 = new Label();
-            button2 = new Button();
-            button3 = new Button();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
             SuspendLayout();
@@ -54,49 +54,83 @@
             // 
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(dataGridView1);
-            panel1.Location = new Point(402, 11);
+            panel1.Location = new Point(502, 14);
+            panel1.Margin = new Padding(4, 4, 4, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(421, 382);
+            panel1.Size = new Size(526, 478);
             panel1.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(0, 50);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(421, 329);
-            dataGridView1.TabIndex = 3;
             // 
             // panel2
             // 
             panel2.BackColor = Color.PaleTurquoise;
             panel2.Controls.Add(label2);
             panel2.Location = new Point(0, 0);
+            panel2.Margin = new Padding(4, 4, 4, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(421, 51);
+            panel2.Size = new Size(526, 64);
             panel2.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(15, 10);
+            label2.Location = new Point(19, 12);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(228, 28);
+            label2.Size = new Size(275, 32);
             label2.TabIndex = 0;
             label2.Text = "Historique des ventes :";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(0, 62);
+            dataGridView1.Margin = new Padding(4, 4, 4, 4);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(526, 411);
+            dataGridView1.TabIndex = 3;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // panel3
             // 
             panel3.BackColor = Color.PaleTurquoise;
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button2);
-            panel3.Location = new Point(12, 274);
+            panel3.Location = new Point(15, 342);
+            panel3.Margin = new Padding(4, 4, 4, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(367, 76);
+            panel3.Size = new Size(459, 95);
             panel3.TabIndex = 8;
             panel3.Paint += panel3_Paint;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.Teal;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button3.Location = new Point(260, 24);
+            button3.Margin = new Padding(4, 4, 4, 4);
+            button3.Name = "button3";
+            button3.Size = new Size(132, 49);
+            button3.TabIndex = 2;
+            button3.Text = "EFFACER";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.Teal;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.Location = new Point(49, 24);
+            button2.Margin = new Padding(4, 4, 4, 4);
+            button2.Name = "button2";
+            button2.Size = new Size(150, 49);
+            button2.TabIndex = 1;
+            button2.Text = "CONFIRMER";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // panel4
             // 
@@ -108,42 +142,47 @@
             panel4.Controls.Add(label4);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(label1);
-            panel4.Location = new Point(12, 32);
+            panel4.Location = new Point(15, 40);
+            panel4.Margin = new Padding(4, 4, 4, 4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(367, 215);
+            panel4.Size = new Size(459, 269);
             panel4.TabIndex = 9;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(148, 168);
+            textBox1.Location = new Point(185, 210);
+            textBox1.Margin = new Padding(4, 4, 4, 4);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(202, 27);
+            textBox1.Size = new Size(252, 31);
             textBox1.TabIndex = 14;
             // 
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(148, 117);
+            comboBox2.Location = new Point(185, 146);
+            comboBox2.Margin = new Padding(4, 4, 4, 4);
             comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(202, 28);
+            comboBox2.Size = new Size(252, 33);
             comboBox2.TabIndex = 13;
             comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged_1;
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(148, 66);
+            comboBox1.Location = new Point(185, 82);
+            comboBox1.Margin = new Padding(4, 4, 4, 4);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(202, 28);
+            comboBox1.Size = new Size(252, 33);
             comboBox1.TabIndex = 12;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(17, 172);
+            label5.Location = new Point(21, 215);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(86, 23);
+            label5.Size = new Size(107, 30);
             label5.TabIndex = 11;
             label5.Text = "Quantite :";
             // 
@@ -151,9 +190,10 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(17, 122);
+            label4.Location = new Point(21, 152);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(92, 23);
+            label4.Size = new Size(116, 30);
             label4.TabIndex = 10;
             label4.Text = "Produit ID:";
             // 
@@ -161,9 +201,10 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(17, 71);
+            label3.Location = new Point(21, 89);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(80, 23);
+            label3.Size = new Size(99, 30);
             label3.TabIndex = 9;
             label3.Text = "Client ID:";
             // 
@@ -171,55 +212,31 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(39, 9);
+            label1.Location = new Point(49, 11);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(185, 28);
+            label1.Size = new Size(223, 32);
             label1.TabIndex = 8;
             label1.Text = "Vente Formulaire :\r\n";
             // 
-            // button2
-            // 
-            button2.BackColor = Color.Teal;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(39, 19);
-            button2.Name = "button2";
-            button2.Size = new Size(120, 39);
-            button2.TabIndex = 1;
-            button2.Text = "CONFIRMER";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.Teal;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.Location = new Point(208, 19);
-            button3.Name = "button3";
-            button3.Size = new Size(106, 39);
-            button3.TabIndex = 2;
-            button3.Text = "EFFACER";
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
-            // 
             // VenteForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightCyan;
-            ClientSize = new Size(835, 405);
+            ClientSize = new Size(1044, 506);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 4, 4, 4);
             Name = "VenteForm";
             Text = "VenteForm";
             Load += VenteForm_Load;
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
