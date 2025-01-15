@@ -28,7 +28,7 @@ namespace Gestion_de_stock
             try
             {
                 //Connection :
-                conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS ;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+                conn = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
                 //Execution commande :
                 conn.Open();
                 cmd = conn.CreateCommand();

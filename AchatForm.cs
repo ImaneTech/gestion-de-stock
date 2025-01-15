@@ -19,13 +19,14 @@ namespace Gestion_de_stock
             dataGridView1.DataSource = bindingSource;
             GetAchat();
             initFormulaireAchat();
+            ChargerAchat();
         }
 
         public void initFormulaireAchat()
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
                 {
                     conn.Open();
 
@@ -58,7 +59,7 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                using (SqlConnection connect = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
                 {
                     connect.Open();
                     string query = "SELECT * FROM Operation WHERE type = 'achat'";
@@ -80,7 +81,7 @@ namespace Gestion_de_stock
         {
             try
             {
-                conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+                conn = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
                 conn.Open();
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT lo.id_Operation, o.id_personne, lo.id_produit, lo.quantite, lo.prix_total " +
@@ -121,7 +122,7 @@ namespace Gestion_de_stock
                 int id_produit = Convert.ToInt32(comboBox2.SelectedItem);
                 int quantite = Convert.ToInt32(textBox1.Text);
 
-                using (SqlConnection conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
                 {
                     conn.Open();
 
@@ -198,6 +199,11 @@ namespace Gestion_de_stock
         }
 
         private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AchatForm_Load(object sender, EventArgs e)
         {
 
         }

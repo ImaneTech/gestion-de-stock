@@ -29,20 +29,15 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            comboBox1 = new ComboBox();
+            dateTimePicker1 = new DateTimePicker();
             buttonQuitter = new Button();
-            buttonModifier = new Button();
-            buttonSupprimer = new Button();
             buttonAjouter = new Button();
             checkNONPAYEE = new CheckBox();
             checkPAYEE = new CheckBox();
-            textDATE = new TextBox();
-            textPERSONNE = new TextBox();
-            textFACTURE = new TextBox();
             STATUS = new Label();
             DATEFACTURE = new Label();
             IDPERSONNE = new Label();
-            IDFACTURE = new Label();
-            label1 = new Label();
             panel2 = new Panel();
             label2 = new Label();
             dataGridView1 = new DataGridView();
@@ -54,69 +49,62 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
+            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(dateTimePicker1);
             panel1.Controls.Add(buttonQuitter);
-            panel1.Controls.Add(buttonModifier);
-            panel1.Controls.Add(buttonSupprimer);
             panel1.Controls.Add(buttonAjouter);
             panel1.Controls.Add(checkNONPAYEE);
             panel1.Controls.Add(checkPAYEE);
-            panel1.Controls.Add(textDATE);
-            panel1.Controls.Add(textPERSONNE);
-            panel1.Controls.Add(textFACTURE);
             panel1.Controls.Add(STATUS);
             panel1.Controls.Add(DATEFACTURE);
             panel1.Controls.Add(IDPERSONNE);
-            panel1.Controls.Add(IDFACTURE);
-            panel1.Location = new Point(1, 58);
+            panel1.Location = new Point(44, 73);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(798, 189);
+            panel1.Size = new Size(983, 298);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(206, 47);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(300, 33);
+            comboBox1.TabIndex = 14;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(206, 104);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(300, 31);
+            dateTimePicker1.TabIndex = 13;
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+            // 
             // buttonQuitter
             // 
-            buttonQuitter.BackColor = SystemColors.AppWorkspace;
-            buttonQuitter.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonQuitter.Location = new Point(620, 132);
+            buttonQuitter.BackColor = Color.SteelBlue;
+            buttonQuitter.FlatStyle = FlatStyle.Flat;
+            buttonQuitter.Font = new Font("Arial Rounded MT Bold", 9F);
+            buttonQuitter.Location = new Point(832, 219);
+            buttonQuitter.Margin = new Padding(4);
             buttonQuitter.Name = "buttonQuitter";
-            buttonQuitter.Size = new Size(94, 46);
+            buttonQuitter.Size = new Size(118, 58);
             buttonQuitter.TabIndex = 12;
-            buttonQuitter.Text = "Quitter";
+            buttonQuitter.Text = "Effacer";
             buttonQuitter.UseVisualStyleBackColor = false;
             buttonQuitter.Click += buttonQuitter_Click;
             // 
-            // buttonModifier
-            // 
-            buttonModifier.BackColor = SystemColors.AppWorkspace;
-            buttonModifier.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonModifier.Location = new Point(450, 132);
-            buttonModifier.Name = "buttonModifier";
-            buttonModifier.Size = new Size(94, 46);
-            buttonModifier.TabIndex = 11;
-            buttonModifier.Text = "Modifier";
-            buttonModifier.UseVisualStyleBackColor = false;
-            buttonModifier.Click += buttonModifier_Click;
-            // 
-            // buttonSupprimer
-            // 
-            buttonSupprimer.BackColor = SystemColors.AppWorkspace;
-            buttonSupprimer.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonSupprimer.Location = new Point(267, 132);
-            buttonSupprimer.Name = "buttonSupprimer";
-            buttonSupprimer.Size = new Size(112, 46);
-            buttonSupprimer.TabIndex = 10;
-            buttonSupprimer.Text = "Supprimer";
-            buttonSupprimer.UseVisualStyleBackColor = false;
-            buttonSupprimer.Click += buttonSupprimer_Click;
-            // 
             // buttonAjouter
             // 
-            buttonAjouter.BackColor = SystemColors.ControlDark;
-            buttonAjouter.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonAjouter.BackColor = Color.SteelBlue;
+            buttonAjouter.FlatStyle = FlatStyle.Flat;
+            buttonAjouter.Font = new Font("Arial Rounded MT Bold", 9F);
             buttonAjouter.ForeColor = SystemColors.ActiveCaptionText;
-            buttonAjouter.Location = new Point(95, 132);
+            buttonAjouter.Location = new Point(668, 219);
+            buttonAjouter.Margin = new Padding(4);
             buttonAjouter.Name = "buttonAjouter";
-            buttonAjouter.Size = new Size(107, 46);
+            buttonAjouter.Size = new Size(134, 58);
             buttonAjouter.TabIndex = 9;
             buttonAjouter.Text = "Ajouter";
             buttonAjouter.UseVisualStyleBackColor = false;
@@ -125,177 +113,135 @@
             // checkNONPAYEE
             // 
             checkNONPAYEE.AutoSize = true;
-            checkNONPAYEE.Font = new Font("Sylfaen", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkNONPAYEE.Location = new Point(658, 88);
+            checkNONPAYEE.Font = new Font("Arial Rounded MT Bold", 9F);
+            checkNONPAYEE.Location = new Point(317, 151);
+            checkNONPAYEE.Margin = new Padding(4);
             checkNONPAYEE.Name = "checkNONPAYEE";
-            checkNONPAYEE.Size = new Size(103, 23);
+            checkNONPAYEE.Size = new Size(128, 25);
             checkNONPAYEE.TabIndex = 8;
-            checkNONPAYEE.Text = "non payee";
+            checkNONPAYEE.Text = "non payée";
             checkNONPAYEE.UseVisualStyleBackColor = true;
             checkNONPAYEE.CheckedChanged += checkNONPAYEE_CheckedChanged;
             // 
             // checkPAYEE
             // 
             checkPAYEE.AutoSize = true;
-            checkPAYEE.Font = new Font("Sylfaen", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkPAYEE.Location = new Point(556, 88);
+            checkPAYEE.Font = new Font("Arial Rounded MT Bold", 9F);
+            checkPAYEE.Location = new Point(216, 151);
+            checkPAYEE.Margin = new Padding(4);
             checkPAYEE.Name = "checkPAYEE";
-            checkPAYEE.Size = new Size(73, 23);
+            checkPAYEE.Size = new Size(90, 25);
             checkPAYEE.TabIndex = 7;
-            checkPAYEE.Text = "payee";
+            checkPAYEE.Text = "payée";
             checkPAYEE.UseVisualStyleBackColor = true;
             checkPAYEE.CheckedChanged += checkPAYEE_CheckedChanged;
-            // 
-            // textDATE
-            // 
-            textDATE.Location = new Point(604, 28);
-            textDATE.Name = "textDATE";
-            textDATE.Size = new Size(125, 27);
-            textDATE.TabIndex = 6;
-            textDATE.TextChanged += textDATE_TextChanged;
-            // 
-            // textPERSONNE
-            // 
-            textPERSONNE.Location = new Point(179, 86);
-            textPERSONNE.Name = "textPERSONNE";
-            textPERSONNE.Size = new Size(125, 27);
-            textPERSONNE.TabIndex = 5;
-            textPERSONNE.TextChanged += textPERSONNE_TextChanged;
-            // 
-            // textFACTURE
-            // 
-            textFACTURE.Location = new Point(179, 24);
-            textFACTURE.Name = "textFACTURE";
-            textFACTURE.Size = new Size(125, 27);
-            textFACTURE.TabIndex = 4;
-            textFACTURE.TextChanged += textFACTURE_TextChanged;
             // 
             // STATUS
             // 
             STATUS.AutoSize = true;
-            STATUS.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            STATUS.Location = new Point(450, 86);
+            STATUS.Font = new Font("Arial Rounded MT Bold", 9F);
+            STATUS.Location = new Point(47, 151);
+            STATUS.Margin = new Padding(4, 0, 4, 0);
             STATUS.Name = "STATUS";
-            STATUS.Size = new Size(67, 23);
+            STATUS.Size = new Size(67, 21);
             STATUS.TabIndex = 3;
-            STATUS.Text = "STATUS";
+            STATUS.Text = "Statue";
             STATUS.Click += STATUS_Click;
             // 
             // DATEFACTURE
             // 
             DATEFACTURE.AutoSize = true;
-            DATEFACTURE.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DATEFACTURE.Location = new Point(439, 28);
+            DATEFACTURE.Font = new Font("Arial Rounded MT Bold", 9F);
+            DATEFACTURE.Location = new Point(47, 105);
+            DATEFACTURE.Margin = new Padding(4, 0, 4, 0);
             DATEFACTURE.Name = "DATEFACTURE";
-            DATEFACTURE.Size = new Size(126, 23);
+            DATEFACTURE.Size = new Size(125, 21);
             DATEFACTURE.TabIndex = 2;
-            DATEFACTURE.Text = "DATE FACTURE";
+            DATEFACTURE.Text = "Date Facture";
             DATEFACTURE.Click += DATEFACTURE_Click;
             // 
             // IDPERSONNE
             // 
             IDPERSONNE.AutoSize = true;
-            IDPERSONNE.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            IDPERSONNE.Location = new Point(32, 86);
+            IDPERSONNE.Font = new Font("Arial Rounded MT Bold", 9F);
+            IDPERSONNE.Location = new Point(47, 61);
+            IDPERSONNE.Margin = new Padding(4, 0, 4, 0);
             IDPERSONNE.Name = "IDPERSONNE";
-            IDPERSONNE.Size = new Size(119, 23);
+            IDPERSONNE.Size = new Size(130, 21);
             IDPERSONNE.TabIndex = 1;
-            IDPERSONNE.Text = "ID PERSONNE";
+            IDPERSONNE.Text = "ID Fornisseur";
             IDPERSONNE.Click += IDPERSONNE_Click;
-            // 
-            // IDFACTURE
-            // 
-            IDFACTURE.AutoSize = true;
-            IDFACTURE.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            IDFACTURE.Location = new Point(32, 28);
-            IDFACTURE.Name = "IDFACTURE";
-            IDFACTURE.Size = new Size(103, 23);
-            IDFACTURE.TabIndex = 0;
-            IDFACTURE.Text = "ID FACTURE";
-            IDFACTURE.Click += IDFACTURE_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Rockwell Nova", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.Navy;
-            label1.Location = new Point(268, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(309, 31);
-            label1.TabIndex = 1;
-            label1.Text = "LES FACTURES D'ACHAT";
-            label1.Click += label1_Click;
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Blue;
+            panel2.BackColor = Color.SteelBlue;
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(1, 277);
+            panel2.Location = new Point(29, 418);
+            panel2.Margin = new Padding(4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(798, 58);
+            panel2.Size = new Size(998, 72);
             panel2.TabIndex = 2;
             panel2.Paint += panel2_Paint;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Sitka Banner", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(323, 10);
+            label2.BackColor = Color.SteelBlue;
+            label2.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ActiveCaptionText;
+            label2.Location = new Point(381, 24);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(158, 29);
+            label2.Size = new Size(224, 28);
             label2.TabIndex = 0;
             label2.Text = "Liste des Factures";
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(1, 334);
+            dataGridView1.Location = new Point(29, 490);
+            dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(798, 220);
+            dataGridView1.Size = new Size(998, 275);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // FactureAchatForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 550);
+            ClientSize = new Size(1066, 956);
             Controls.Add(dataGridView1);
             Controls.Add(panel2);
-            Controls.Add(label1);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "FactureAchatForm";
             Text = "FactureAchatForm";
+            Load += FactureAchatForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private Panel panel1;
-        private TextBox textFACTURE;
         private Label STATUS;
         private Label DATEFACTURE;
         private Label IDPERSONNE;
-        private Label IDFACTURE;
         private CheckBox checkPAYEE;
-        private TextBox textDATE;
-        private TextBox textPERSONNE;
         private CheckBox checkNONPAYEE;
         private Button buttonAjouter;
-        private Label label1;
         private Button buttonQuitter;
-        private Button buttonModifier;
-        private Button buttonSupprimer;
         private Panel panel2;
         private Label label2;
         private DataGridView dataGridView1;
+        private DateTimePicker dateTimePicker1;
+        private ComboBox comboBox1;
     }
 }

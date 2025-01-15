@@ -8,7 +8,7 @@ namespace Gestion_de_stock
 {
     public partial class ProduitForm : Form
     {
-        private readonly string connectionString = @"Data Source=Houssam7\SQLEXPRESS ;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString = @"Data Source=DESKTOP-7P14TAD\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
         public ProduitForm()
         {
@@ -52,10 +52,9 @@ namespace Gestion_de_stock
                 using (SqlConnection connect = new SqlConnection(connectionString))
                 {
                     connect.Open();
-                    string query = "INSERT INTO Produit (id, nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES (@id, @nom, @description, @categorie, @prix, @qteStock, @qteMax, @qteMin)";
+                    string query = "INSERT INTO Produit (nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES ( @nom, @description, @categorie, @prix, @qteStock, @qteMax, @qteMin)";
                     using (SqlCommand cmd = new SqlCommand(query, connect))
                     {
-                        cmd.Parameters.AddWithValue("@id", txtId.Text);
                         cmd.Parameters.AddWithValue("@nom", txtNom.Text);
                         cmd.Parameters.AddWithValue("@description", txtDescription.Text);
                         cmd.Parameters.AddWithValue("@categorie", comboBox1.SelectedItem.ToString());
@@ -122,7 +121,7 @@ namespace Gestion_de_stock
 
         private void button3_Click(object sender, EventArgs e)
         {
-            txtId.Clear();
+
             txtNom.Clear();
             txtDescription.Clear();
             comboBox1.SelectedIndex = -1;
@@ -135,16 +134,13 @@ namespace Gestion_de_stock
         }
 
 
-        // cette methode permet de remplir les champs de texte avec les données de la ligne selectionnée pour que l'utilisateur puisse modifier uniquement les champs qu'il souhaite
+        //  remplir les champs de texte avec les données de la ligne selectionnée pour que l'utilisateur puisse modifier uniquement les champs qu'il souhaite
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                // Récupérer la ligne sélectionnée
                 DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
 
-                // Afficher les données dans les TextBox et ComboBox
-                txtId.Text = selectedRow.Cells["id"].Value.ToString();
                 txtNom.Text = selectedRow.Cells["nom"].Value.ToString();
                 txtDescription.Text = selectedRow.Cells["description"].Value.ToString();
                 comboBox1.SelectedItem = selectedRow.Cells["categorie"].Value.ToString();
@@ -156,11 +152,12 @@ namespace Gestion_de_stock
         }
 
 
-        private void button4_Click(object sender, EventArgs e) {
+        private void button4_Click(object sender, EventArgs e)
+        {
             //mettre a jour
 
             // Vérifier si un ID est sélectionné
-            if (string.IsNullOrEmpty(txtId.Text))
+            if (dataGridView1.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un produit à mettre à jour.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -179,6 +176,7 @@ namespace Gestion_de_stock
             {
                 return; // Annule la mise a jour si l'utilisateur clique sur "Non"
             }
+            int idProduit = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["id"].Value);
 
             try
             {
@@ -186,11 +184,10 @@ namespace Gestion_de_stock
                 {
                     connect.Open();
                     // Requete SQL pour mettre a jour un produit en fonction de son ID
-                    string query = "UPDATE Produit SET nom = @nom, description = @description, categorie = @categorie, prix_unitaire = @prix, qte_stock = @qteStock, qte_stock_max = @qteMax, qte_stock_min = @qteMin WHERE id = @id";
+                    string query = "UPDATE Produit SET nom = @nom, description = @description, categorie = @categorie, prix_unitaire = @prix, qte_stock = @qteStock, qte_stock_max = @qteMax, qte_stock_min = @qteMin where id=@id";
                     using (SqlCommand cmd = new SqlCommand(query, connect))
                     {
-                        cmd.CommandTimeout = 120;
-                        cmd.Parameters.AddWithValue("@id", txtId.Text);
+
                         cmd.Parameters.AddWithValue("@nom", txtNom.Text);
                         cmd.Parameters.AddWithValue("@description", txtDescription.Text);
                         cmd.Parameters.AddWithValue("@categorie", comboBox1.SelectedItem.ToString());
@@ -198,6 +195,7 @@ namespace Gestion_de_stock
                         cmd.Parameters.AddWithValue("@qteStock", Convert.ToInt32(txtQteStock.Text));
                         cmd.Parameters.AddWithValue("@qteMax", Convert.ToInt32(txtQteMax.Text));
                         cmd.Parameters.AddWithValue("@qteMin", Convert.ToInt32(txtQteMin.Text));
+                        cmd.Parameters.AddWithValue("@id", Convert.ToInt32(idProduit));
 
 
                         int rowsAffected = cmd.ExecuteNonQuery();
@@ -266,10 +264,10 @@ namespace Gestion_de_stock
 
                     // Executer la requête
                     using (SqlCommand cmd = new SqlCommand(query, connect))
-                    { 
+                    {
                         cmd.Parameters.AddWithValue("@nom", "%" + txtNom.Text + "%");
 
-                        
+
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         DataTable dataTable = new DataTable();
                         adapter.Fill(dataTable);
@@ -277,7 +275,7 @@ namespace Gestion_de_stock
                         // Afficher les resultats dans le DataGridView
                         dataGridView1.DataSource = dataTable;
 
-                 
+
                         if (dataTable.Rows.Count == 0)
                         {
                             MessageBox.Show("Aucun produit trouvé avec les critères spécifiés.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -321,5 +319,10 @@ namespace Gestion_de_stock
         private void panel6_Paint(object sender, PaintEventArgs e) { }
         private void label6_Click(object sender, EventArgs e) { }
         private void panel2_Paint(object sender, PaintEventArgs e) { }
+
+        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

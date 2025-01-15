@@ -236,7 +236,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Ivory;
-            ClientSize = new Size(1044, 506);
+            ClientSize = new Size(1066, 956);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel1);
@@ -244,6 +244,7 @@
             Margin = new Padding(4);
             Name = "AchatForm";
             Text = "AchatForm";
+            Load += AchatForm_Load;
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel3.ResumeLayout(false);

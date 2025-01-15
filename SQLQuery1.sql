@@ -81,19 +81,22 @@ create table Factures (
     id_personne INT NOT NULL,
     FOREIGN KEY (id_personne) REFERENCES Personne(id),
     statut VARCHAR(20) NOT NULL CHECK (statut IN ('payée', 'non payée')),
-     type VARCHAR(20) NOT NULL CHECK (type IN ('achat', 'vent'))
+     type VARCHAR(20) NOT NULL CHECK (type IN ('achat', 'vente'))
 );
+drop table Factures;
 
 
 
 -- Insert records into Factures table
 INSERT INTO Factures (date_facture, id_personne, statut, type)
 VALUES 
-('2024-01-10', 1, 'payée', 'vent'),    
+('2024-01-10', 1, 'payée', 'vente'),    
 ('2024-01-12', 2, 'non payée', 'achat'), 
-('2023-01-14', 3, 'payée', 'vent'),    
+('2023-01-14', 3, 'payée', 'vente'),    
 ('2025-01-16', 4, 'non payée', 'achat'), 
-('2023-01-18', 5, 'payée', 'vent');   
+('2023-01-18', 5, 'payée', 'vente');   
+
+select * from Factures;
 
 
 
@@ -129,11 +132,11 @@ INSERT INTO LigneOperation(id_Operation, id_produit, quantite, prix_total) VALUE
 (5, 10, 2, 1200); 
 
 INSERT INTO Operation(type, id_personne, id_produit, quantite) VALUES
-('COMMANDE', 1, 1, 2),  
-('COMMANDE', 2, 5, 3),  
+('Achat', 1, 1, 2),  
+('Achat', 2, 5, 3),  
 ('vente', 4, 2, 1),  
-('COMMANDE', 3, 8, 1),  
-('vente', 5, 10, 2); 
+('Achat', 3, 8, 1),  
+('vente', 5, 10, 3); 
 
 -- Créer la table Rapport_Mensuel :
 CREATE TABLE Rapport_Mensuel (

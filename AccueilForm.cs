@@ -13,7 +13,7 @@ namespace Gestion_de_stock
 {
     public partial class AccueilForm : Form
     {
-        private readonly string connectionString = @"Data Source= Houssam7\SQLEXPRESS ;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString = @"Data Source= DESKTOP-7P14TAD\SQLEXPRESS;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
         public AccueilForm()
         {
             InitializeComponent();
@@ -174,6 +174,11 @@ namespace Gestion_de_stock
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void AccueilForm_Load(object sender, EventArgs e)
         {
 
         }

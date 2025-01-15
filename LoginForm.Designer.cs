@@ -69,9 +69,9 @@
             // loginbtn
             // 
             loginbtn.BackColor = Color.SlateBlue;
-            loginbtn.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            loginbtn.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             loginbtn.ForeColor = SystemColors.Control;
-            loginbtn.Location = new Point(734, 488);
+            loginbtn.Location = new Point(756, 488);
             loginbtn.Margin = new Padding(4);
             loginbtn.Name = "loginbtn";
             loginbtn.Size = new Size(217, 64);
@@ -85,8 +85,8 @@
             // signbtn
             // 
             signbtn.BackColor = Color.Ivory;
-            signbtn.Font = new Font("Arial Rounded MT Bold", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            signbtn.Location = new Point(275, 488);
+            signbtn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            signbtn.Location = new Point(288, 488);
             signbtn.Margin = new Padding(4);
             signbtn.Name = "signbtn";
             signbtn.Size = new Size(195, 64);
@@ -114,18 +114,18 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(71, 450);
+            label3.Location = new Point(13, 513);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(399, 21);
+            label3.Size = new Size(220, 21);
             label3.TabIndex = 3;
-            label3.Text = "Vous n'avez pas de compte ? Inscrivez-vous";
+            label3.Text = "Nouveau ici ? S'inscrire";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(105, 336);
+            label1.Location = new Point(114, 358);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(279, 45);
@@ -139,7 +139,7 @@
             pictureBox1.Location = new Point(105, 55);
             pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(281, 274);
+            pictureBox1.Size = new Size(288, 277);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
@@ -172,9 +172,9 @@
             showpsw.Location = new Point(756, 429);
             showpsw.Margin = new Padding(4);
             showpsw.Name = "showpsw";
-            showpsw.Size = new Size(162, 29);
+            showpsw.Size = new Size(230, 29);
             showpsw.TabIndex = 6;
-            showpsw.Text = "Show Password";
+            showpsw.Text = "Afficher le mot de passe";
             showpsw.UseVisualStyleBackColor = true;
             showpsw.CheckedChanged += showpsw_CheckedChanged;
             // 
