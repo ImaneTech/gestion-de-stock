@@ -8,7 +8,7 @@ namespace Gestion_de_stock
 {
     public partial class FournisseurForm : Form
     {
-        private readonly string connectionString = @"Data Source=DESKTOP-7P14TAD\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString = @"Data Source=Houssam7\SQLEXPRESS ;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
         public FournisseurForm()
         {
@@ -213,5 +213,36 @@ namespace Gestion_de_stock
                 MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string rechercheNom = Nom.Text.Trim(); // 'Nom' est le nom de votre TextBox contenant le nom à rechercher
+
+            if (string.IsNullOrEmpty(rechercheNom))
+            {
+                MessageBox.Show("Veuillez saisir un nom de fournisseur pour effectuer la recherche.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection connect = new SqlConnection(connectionString))
+                {
+                    connect.Open();
+                    string query = "SELECT * FROM Personne WHERE type = 'fournisseur' AND nom LIKE @nom";
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
+                    dataAdapter.SelectCommand.Parameters.AddWithValue("@nom", "%" + rechercheNom + "%");
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+                    dataGridView1.DataSource = dataTable;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de la recherche : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
     }
 }
