@@ -1,12 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Gestion_de_stock
@@ -16,22 +10,26 @@ namespace Gestion_de_stock
         private SqlConnection conn;
         private SqlCommand cmd;
         private SqlDataReader dr;
+        private BindingSource bindingSource;
+
         public VenteForm()
         {
             InitializeComponent();
+            bindingSource = new BindingSource();
+            dataGridView1.DataSource = bindingSource;
             GetVente();
-            initFormulairevente();
+            initFormulaireVente();
         }
 
-        public void initFormulairevente()
+        public void initFormulaireVente()
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection("Data Source=DELL-NASRO\\SQLEXPRESS;Initial Catalog=GestionStock;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                using (SqlConnection conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
                 {
                     conn.Open();
 
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM GestionStock.dbo.Personne WHERE type = 'client'", conn))
+                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Personne WHERE type = 'client'", conn))
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -40,13 +38,12 @@ namespace Gestion_de_stock
                         }
                     }
 
-                    // Fetch and populate products
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM GestionStock.dbo.Produit", conn))
+                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Produit", conn))
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
-                            comboBox2.Items.Add(dr[0].ToString()); // Assuming you have another ComboBox for products
+                            comboBox2.Items.Add(dr[0].ToString());
                         }
                     }
                 }
@@ -57,37 +54,55 @@ namespace Gestion_de_stock
             }
         }
 
-        private void GetVente()
+        public void ChargerVente()
         {
-
             try
             {
-                //Connection :
-                conn = new SqlConnection("Data Source=DELL-NASRO\\SQLEXPRESS;Initial Catalog=GestionStock;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-                //Execution commande :
+                using (SqlConnection connect = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                {
+                    connect.Open();
+                    string query = "SELECT * FROM Operation WHERE type = 'vente'";
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
+
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+
+                    bindingSource.DataSource = dataTable;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement des Ventes : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void GetVente()
+        {
+            try
+            {
+                conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
                 conn.Open();
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT lo.id_Operation, o.id_personne,lo.id_produit, lo.quantite, lo.prix_total " +
-                  "FROM GestionStock.dbo.LigneOperation lo " +
-                  "JOIN GestionStock.dbo.Operation o ON lo.id_Operation = o.id_Operation " +
-                  "JOIN GestionStock.dbo.Produit p ON lo.id_produit = p.id " +
-                  "WHERE o.type = 'vente'";
+                cmd.CommandText = "SELECT lo.id_Operation, o.id_personne, lo.id_produit, lo.quantite, lo.prix_total " +
+                                  "FROM LigneOperation lo " +
+                                  "JOIN Operation o ON lo.id_Operation = o.id_Operation " +
+                                  "JOIN Produit p ON lo.id_produit = p.id " +
+                                  "WHERE o.type = 'vente'";
+
                 dr = cmd.ExecuteReader();
-                //init Data GridView :
-                dataGridView1.DataSource = null;
-                dataGridView1.Columns.Clear();
-                dataGridView1.ColumnCount = 5;
-                dataGridView1.Columns[0].Name = "Id Operation";
-                dataGridView1.Columns[1].Name = "Id Client";
-                dataGridView1.Columns[2].Name = "Produit";
-                dataGridView1.Columns[3].Name = "Quantite";
-                dataGridView1.Columns[4].Name = "Total Prix(Dh)";
-                //Ramplir le listview :
+                DataTable dataTable = new DataTable();
+                dataTable.Columns.Add("Id Operation");
+                dataTable.Columns.Add("Id Client");
+                dataTable.Columns.Add("Produit");
+                dataTable.Columns.Add("Quantite");
+                dataTable.Columns.Add("Total Prix(Dh)");
+
                 while (dr.Read())
                 {
-                    dataGridView1.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
+                    dataTable.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
                 }
-                //Fermeture de la connection :
+
+                bindingSource.DataSource = dataTable;
                 dr.Close();
                 conn.Close();
             }
@@ -95,48 +110,102 @@ namespace Gestion_de_stock
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
-        private void VenteForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        // Confirmer Vente
         private void button2_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
+                int id_produit = Convert.ToInt32(comboBox2.SelectedItem);
+                int quantite = Convert.ToInt32(textBox1.Text);
 
+                using (SqlConnection conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                {
+                    conn.Open();
+
+                    // Vérification du stock
+                    int qte_stock = 0;
+                    using (SqlCommand cmd = new SqlCommand("SELECT qte_stock FROM Produit WHERE id = @id_produit", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id_produit", id_produit);
+                        qte_stock = (int)cmd.ExecuteScalar(); // Executer la requête
+                    }
+
+                    if (qte_stock < quantite)
+                    {
+                        MessageBox.Show("Le stock est insuffisant pour cette vente.");
+                        return;
+                    }
+
+                    // Insertion de l'opération
+                    using (SqlCommand cmd = new SqlCommand("INSERT INTO Operation (type, id_personne, id_produit, quantite) VALUES ('vente', @id_personne, @id_produit, @quantite)", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id_personne", id_personne);
+                        cmd.Parameters.AddWithValue("@id_produit", id_produit);
+                        cmd.Parameters.AddWithValue("@quantite", quantite);
+                        cmd.ExecuteNonQuery();
+                        ChargerVente(); // Refresh the DataGridView using the BindingSource
+                    }
+
+                    // Mise à jour du stock du produit
+                    using (SqlCommand cmd = new SqlCommand("UPDATE Produit SET qte_stock = qte_stock - @quantite WHERE id = @id_produit", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@quantite", quantite);
+                        cmd.Parameters.AddWithValue("@id_produit", id_produit);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Vente ajoutée avec succès !");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        private void panel3_Paint(object sender, PaintEventArgs e)
+        // Effacer les champs du formulaire
+        private void button3_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void comboBox2_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
+            comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
+            textBox1.Clear();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+        private void VenteForm_Load(object sender, EventArgs e)
+        {
+            // Empty method
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Empty method
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            // Empty method
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+            // Empty method
+        }
+
+        private void comboBox2_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            // Empty method
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Empty method
         }
     }
 }

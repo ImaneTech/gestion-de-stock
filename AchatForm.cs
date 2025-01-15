@@ -1,12 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Gestion_de_stock
@@ -16,9 +10,13 @@ namespace Gestion_de_stock
         private SqlConnection conn;
         private SqlCommand cmd;
         private SqlDataReader dr;
+        private BindingSource bindingSource;
+
         public AchatForm()
         {
             InitializeComponent();
+            bindingSource = new BindingSource();
+            dataGridView1.DataSource = bindingSource;
             GetAchat();
             initFormulaireAchat();
         }
@@ -27,12 +25,11 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection("Data Source=DELL-NASRO\\SQLEXPRESS;Initial Catalog=GestionStock;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                using (SqlConnection conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
                 {
                     conn.Open();
 
-
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM GestionStock.dbo.Personne WHERE type = 'fournisseur'", conn))
+                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Personne WHERE type = 'fournisseur'", conn))
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -41,8 +38,7 @@ namespace Gestion_de_stock
                         }
                     }
 
-
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM GestionStock.dbo.Produit", conn))
+                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Produit", conn))
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -58,38 +54,55 @@ namespace Gestion_de_stock
             }
         }
 
-        public void GetAchat()
+        public void ChargerAchat()
         {
-
             try
             {
-                //Connection :
-                conn = new SqlConnection("Data Source=DELL-NASRO\\SQLEXPRESS;Initial Catalog=GestionStock;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-                //Execution commande :
+                using (SqlConnection connect = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                {
+                    connect.Open();
+                    string query = "SELECT * FROM Operation WHERE type = 'achat'";
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
+
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+
+                    bindingSource.DataSource = dataTable;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement des Achats : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void GetAchat()
+        {
+            try
+            {
+                conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
                 conn.Open();
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT lo.id_Operation,o.id_personne, lo.id_produit, lo.quantite, lo.prix_total " +
-                  "FROM GestionStock.dbo.LigneOperation lo " +
-                  "JOIN GestionStock.dbo.Operation o ON lo.id_Operation = o.id_Operation " +
-                  "JOIN GestionStock.dbo.Produit p ON lo.id_produit = p.id " +
-                  "WHERE o.type = 'COMMANDE'";
+                cmd.CommandText = "SELECT lo.id_Operation, o.id_personne, lo.id_produit, lo.quantite, lo.prix_total " +
+                                  "FROM LigneOperation lo " +
+                                  "JOIN Operation o ON lo.id_Operation = o.id_Operation " +
+                                  "JOIN Produit p ON lo.id_produit = p.id " +
+                                  "WHERE o.type = 'COMMANDE'";
 
                 dr = cmd.ExecuteReader();
-                //init Data GridView :
-                dataGridView1.DataSource = null;
-                dataGridView1.Columns.Clear();
-                dataGridView1.ColumnCount = 5;
-                dataGridView1.Columns[0].Name = "Id Operation";
-                dataGridView1.Columns[1].Name = "Id Fournisseur";
-                dataGridView1.Columns[2].Name = "Produit";
-                dataGridView1.Columns[3].Name = "Quantite";
-                dataGridView1.Columns[4].Name = "Total Prix(Dh)";
-                //Ramplir le listview :
+                DataTable dataTable = new DataTable();
+                dataTable.Columns.Add("Id Operation");
+                dataTable.Columns.Add("Id Fournisseur");
+                dataTable.Columns.Add("Produit");
+                dataTable.Columns.Add("Quantite");
+                dataTable.Columns.Add("Total Prix(Dh)");
+
                 while (dr.Read())
                 {
-                    dataGridView1.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
+                    dataTable.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
                 }
-                //Fermeture de la connection :
+
+                bindingSource.DataSource = dataTable;
                 dr.Close();
                 conn.Close();
             }
@@ -97,7 +110,76 @@ namespace Gestion_de_stock
             {
                 MessageBox.Show(ex.Message);
             }
+        }
 
+        // Confirmer Achat
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
+                int id_produit = Convert.ToInt32(comboBox2.SelectedItem);
+                int quantite = Convert.ToInt32(textBox1.Text);
+
+                using (SqlConnection conn = new SqlConnection("Data Source=Houssam7\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+                {
+                    conn.Open();
+
+                    // Vérification du stock
+                    int qte_stock = 0;
+                    int qte_stock_max = 0;
+                    using (SqlCommand cmd = new SqlCommand("SELECT qte_stock, qte_stock_max FROM Produit WHERE id = @id_produit", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id_produit", id_produit);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                qte_stock = dr.GetInt32(0);
+                                qte_stock_max = dr.GetInt32(1);
+                            }
+                        }
+                    }
+
+                    if (qte_stock + quantite > qte_stock_max)
+                    {
+                        MessageBox.Show("Le stock dépasse la limite maximale.");
+                        return;
+                    }
+
+                    // Insertion de l'opération
+                    using (SqlCommand cmd = new SqlCommand("INSERT INTO Operation (type, id_personne, id_produit, quantite) VALUES ('achat', @id_personne, @id_produit, @quantite)", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id_personne", id_personne);
+                        cmd.Parameters.AddWithValue("@id_produit", id_produit);
+                        cmd.Parameters.AddWithValue("@quantite", quantite);
+                        cmd.ExecuteNonQuery();
+                        ChargerAchat(); // Refresh the DataGridView using the BindingSource
+                    }
+
+                    // Mise à jour du stock du produit
+                    using (SqlCommand cmd = new SqlCommand("UPDATE Produit SET qte_stock = qte_stock + @quantite WHERE id = @id_produit", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@quantite", quantite);
+                        cmd.Parameters.AddWithValue("@id_produit", id_produit);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Achat ajouté avec succès !");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // Effacer les champs du formulaire
+        private void button3_Click(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
+            textBox1.Clear();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -106,18 +188,6 @@ namespace Gestion_de_stock
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        //confirmer Achat
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        //effacer 
-        private void button3_Click(object sender, EventArgs e)
         {
 
         }

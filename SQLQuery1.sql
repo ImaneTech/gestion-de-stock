@@ -72,7 +72,7 @@ VALUES
 ('Fournisseur B', '34 Rue des Industriels, 33000 Bordeaux', '0321567890', 'info@fournisseurb.com', 'fournisseur'),
 ('Fournisseur C', '56 Boulevard des Commerces, 13001 Marseille', '0478923456', 'service@fournisseure.com', 'fournisseur');
 
-select * from Personne;
+select * from Factures;
 
 
 create table Factures (

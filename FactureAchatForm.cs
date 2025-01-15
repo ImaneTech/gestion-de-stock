@@ -28,7 +28,7 @@ namespace Gestion_de_stock
         }
         private void InitializeDatabaseConnection()
         {
-            string connectionString = @"Data Source =DELL-NASRO\SQLEXPRESS; Initial Catalog = master; Integrated Security = True; Encrypt = True; Trust Server Certificate = True";
+            string connectionString = @"Data Source =Houssam7\SQLEXPRESS ; Initial Catalog = tempdb ; Integrated Security = True; Encrypt = True; Trust Server Certificate = True";
 
             connection = new SqlConnection(connectionString);
         }
@@ -38,7 +38,7 @@ namespace Gestion_de_stock
             try
             {
                 connection.Open();
-                string query = "SELECT * FROM GestionStock.dbo.Factures where type=achat";
+                string query = "SELECT * FROM Factures where type=achat";
                 adapter = new SqlDataAdapter(query, connection);
                 factureTable = new DataTable();
                 adapter.Fill(factureTable);

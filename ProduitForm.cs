@@ -8,7 +8,7 @@ namespace Gestion_de_stock
 {
     public partial class ProduitForm : Form
     {
-        private readonly string connectionString = @"Data Source=servername ;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString = @"Data Source=Houssam7\SQLEXPRESS ;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
         public ProduitForm()
         {

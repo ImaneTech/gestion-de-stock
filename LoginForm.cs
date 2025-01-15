@@ -9,7 +9,7 @@ namespace Gestion_de_stock
 {
     public partial class LoginForm : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=servername;Initial Catalog=master;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+        SqlConnection connect = new SqlConnection(@"Data Source=Houssam7\SQLEXPRESS ;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         public LoginForm()
         {
             InitializeComponent();

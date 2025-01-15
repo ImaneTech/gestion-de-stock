@@ -25,7 +25,7 @@ namespace Gestion_de_stock
 
         private void InitializeDatabaseConnection()
         {
-            string connectionString = @"Data Source = servername; Initial Catalog = master; Integrated Security = True; Encrypt = True; Trust Server Certificate = True";
+            string connectionString = @"Data Source = Houssam7\SQLEXPRESS; Initial Catalog = tempdb; Integrated Security = True; Encrypt = True; Trust Server Certificate = True";
 
             connection = new SqlConnection(connectionString);
         }
