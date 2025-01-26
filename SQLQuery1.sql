@@ -147,6 +147,8 @@ CREATE TABLE Rapport_Mensuel (
     benefices AS (recettes - depenses) PERSISTED  -- Calcul automatique des bénéfices
 );
 
+select * from Rapport_Mensuel;
+
 select lo.id_Operation,o.id_personne,lo.id_produit,p.nom,lo.quantite,lo.prix_total from LigneOperation lo
 join Operation o on lo.id_Operation = o.id_Operation
 join Produit p on lo.id_produit = p.id

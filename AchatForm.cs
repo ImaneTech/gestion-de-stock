@@ -7,11 +7,10 @@ namespace Gestion_de_stock
 {
     public partial class AchatForm : Form
     {
-        private SqlConnection conn;
         private SqlCommand cmd;
         private SqlDataReader dr;
         private BindingSource bindingSource;
-
+       
         public AchatForm()
         {
             InitializeComponent();
@@ -26,11 +25,12 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
-                {
-                    conn.Open();
 
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Personne WHERE type = 'fournisseur'", conn))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
+                {
+                    connect.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Personne WHERE type = 'fournisseur'", connect))
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -39,7 +39,7 @@ namespace Gestion_de_stock
                         }
                     }
 
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Produit", conn))
+                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Produit", connect))
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -59,7 +59,8 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "SELECT * FROM Operation WHERE type = 'achat'";
@@ -81,31 +82,34 @@ namespace Gestion_de_stock
         {
             try
             {
-                conn = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-                conn.Open();
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT lo.id_Operation, o.id_personne, lo.id_produit, lo.quantite, lo.prix_total " +
-                                  "FROM LigneOperation lo " +
-                                  "JOIN Operation o ON lo.id_Operation = o.id_Operation " +
-                                  "JOIN Produit p ON lo.id_produit = p.id " +
-                                  "WHERE o.type = 'COMMANDE'";
 
-                dr = cmd.ExecuteReader();
-                DataTable dataTable = new DataTable();
-                dataTable.Columns.Add("Id Operation");
-                dataTable.Columns.Add("Id Fournisseur");
-                dataTable.Columns.Add("Produit");
-                dataTable.Columns.Add("Quantite");
-                dataTable.Columns.Add("Total Prix(Dh)");
-
-                while (dr.Read())
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
-                    dataTable.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
-                }
+                    connect.Open();
+                    cmd = connect.CreateCommand();
+                    cmd.CommandText = "SELECT lo.id_Operation, o.id_personne, lo.id_produit, lo.quantite, lo.prix_total " +
+                                      "FROM LigneOperation lo " +
+                                      "JOIN Operation o ON lo.id_Operation = o.id_Operation " +
+                                      "JOIN Produit p ON lo.id_produit = p.id " +
+                                      "WHERE o.type = 'COMMANDE'";
 
-                bindingSource.DataSource = dataTable;
-                dr.Close();
-                conn.Close();
+                    dr = cmd.ExecuteReader();
+                    DataTable dataTable = new DataTable();
+                    dataTable.Columns.Add("Id Operation");
+                    dataTable.Columns.Add("Id Fournisseur");
+                    dataTable.Columns.Add("Produit");
+                    dataTable.Columns.Add("Quantite");
+                    dataTable.Columns.Add("Total Prix(Dh)");
+
+                    while (dr.Read())
+                    {
+                        dataTable.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
+                    }
+
+                    bindingSource.DataSource = dataTable;
+                    dr.Close();
+                  
+                }
             }
             catch (Exception ex)
             {
@@ -122,14 +126,15 @@ namespace Gestion_de_stock
                 int id_produit = Convert.ToInt32(comboBox2.SelectedItem);
                 int quantite = Convert.ToInt32(textBox1.Text);
 
-                using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
-                    conn.Open();
+                    connect.Open();
 
                     // Vérification du stock
                     int qte_stock = 0;
                     int qte_stock_max = 0;
-                    using (SqlCommand cmd = new SqlCommand("SELECT qte_stock, qte_stock_max FROM Produit WHERE id = @id_produit", conn))
+                    using (SqlCommand cmd = new SqlCommand("SELECT qte_stock, qte_stock_max FROM Produit WHERE id = @id_produit", connect))
                     {
                         cmd.Parameters.AddWithValue("@id_produit", id_produit);
                         using (SqlDataReader dr = cmd.ExecuteReader())
@@ -149,7 +154,7 @@ namespace Gestion_de_stock
                     }
 
                     // Insertion de l'opération
-                    using (SqlCommand cmd = new SqlCommand("INSERT INTO Operation (type, id_personne, id_produit, quantite) VALUES ('achat', @id_personne, @id_produit, @quantite)", conn))
+                    using (SqlCommand cmd = new SqlCommand("INSERT INTO Operation (type, id_personne, id_produit, quantite) VALUES ('achat', @id_personne, @id_produit, @quantite)", connect))
                     {
                         cmd.Parameters.AddWithValue("@id_personne", id_personne);
                         cmd.Parameters.AddWithValue("@id_produit", id_produit);
@@ -159,7 +164,7 @@ namespace Gestion_de_stock
                     }
 
                     // Mise à jour du stock du produit
-                    using (SqlCommand cmd = new SqlCommand("UPDATE Produit SET qte_stock = qte_stock + @quantite WHERE id = @id_produit", conn))
+                    using (SqlCommand cmd = new SqlCommand("UPDATE Produit SET qte_stock = qte_stock + @quantite WHERE id = @id_produit", connect))
                     {
                         cmd.Parameters.AddWithValue("@quantite", quantite);
                         cmd.Parameters.AddWithValue("@id_produit", id_produit);

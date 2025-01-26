@@ -13,7 +13,6 @@ namespace Gestion_de_stock
 {
     public partial class AccueilForm : Form
     {
-        private readonly string connectionString = @"Data Source= DESKTOP-7P14TAD\SQLEXPRESS;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
         public AccueilForm()
         {
             InitializeComponent();
@@ -22,12 +21,12 @@ namespace Gestion_de_stock
         }
 
 
-        //******************************************   Statistiques  *********************************************
+        //  Statistiques 
         private void ChargerStatistiques()
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
 
@@ -83,13 +82,13 @@ namespace Gestion_de_stock
         }
 
 
-        //******************************************   Alertes  *********************************************
+        // Alertes  
         private void AfficherAlertes()
         {
             flowLayoutPanel1.Controls.Clear();
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     //Extraire les produits en rupture de stock (qte_stock < qte_stock_min)

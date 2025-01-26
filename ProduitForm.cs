@@ -8,8 +8,6 @@ namespace Gestion_de_stock
 {
     public partial class ProduitForm : Form
     {
-        private readonly string connectionString = @"Data Source=DESKTOP-7P14TAD\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
-
         public ProduitForm()
         {
             InitializeComponent();
@@ -22,7 +20,7 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "SELECT * FROM Produit";
@@ -49,7 +47,7 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "INSERT INTO Produit (nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES ( @nom, @description, @categorie, @prix, @qteStock, @qteMax, @qteMin)";
@@ -97,7 +95,7 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "DELETE FROM Produit WHERE id = @id";
@@ -180,7 +178,7 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     // Requete SQL pour mettre a jour un produit en fonction de son ID
@@ -225,7 +223,7 @@ namespace Gestion_de_stock
             //chercher
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
 
@@ -243,6 +241,7 @@ namespace Gestion_de_stock
                     }
                     if (comboBox1.SelectedItem != null)
                     {
+                       
                         query += " AND categorie = @categorie";
                     }
                     if (!string.IsNullOrEmpty(txtPrix.Text))
@@ -265,8 +264,27 @@ namespace Gestion_de_stock
                     // Executer la requête
                     using (SqlCommand cmd = new SqlCommand(query, connect))
                     {
-                        cmd.Parameters.AddWithValue("@nom", "%" + txtNom.Text + "%");
+                        // Ajout des paramètres CONDITIONNELS
+                        if (!string.IsNullOrEmpty(txtNom.Text))
+                            cmd.Parameters.AddWithValue("@nom", "%" + txtNom.Text + "%");
 
+                        if (!string.IsNullOrEmpty(txtDescription.Text))
+                            cmd.Parameters.AddWithValue("@description", "%" + txtDescription.Text + "%");
+
+                        if (comboBox1.SelectedItem != null)
+                            cmd.Parameters.AddWithValue("@categorie", comboBox1.SelectedItem.ToString());
+
+                        if (!string.IsNullOrEmpty(txtPrix.Text))
+                            cmd.Parameters.AddWithValue("@prix", Convert.ToDecimal(txtPrix.Text));
+
+                        if (!string.IsNullOrEmpty(txtQteStock.Text))
+                            cmd.Parameters.AddWithValue("@qteStock", Convert.ToInt32(txtQteStock.Text));
+
+                        if (!string.IsNullOrEmpty(txtQteMax.Text))
+                            cmd.Parameters.AddWithValue("@qteMax", Convert.ToInt32(txtQteMax.Text));
+
+                        if (!string.IsNullOrEmpty(txtQteMin.Text))
+                            cmd.Parameters.AddWithValue("@qteMin", Convert.ToInt32(txtQteMin.Text));
 
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         DataTable dataTable = new DataTable();

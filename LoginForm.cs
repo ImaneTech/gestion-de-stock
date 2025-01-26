@@ -9,7 +9,6 @@ namespace Gestion_de_stock
 {
     public partial class LoginForm : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=Houssam7\SQLEXPRESS ;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         public LoginForm()
         {
             InitializeComponent();
@@ -29,31 +28,31 @@ namespace Gestion_de_stock
             {
                 try
                 {
-                    if (connect.State != ConnectionState.Open)
+                   
+                    // SQL query to check if user exists with the given username and password
+                    using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                     {
                         connect.Open();
-                    }
-
-                    // SQL query to check if user exists with the given username and password
-                    string query = "SELECT COUNT(id) FROM users WHERE username = @username AND password = @password";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-                        cmd.Parameters.AddWithValue("@username", username.Text.Trim());
-                        cmd.Parameters.AddWithValue("@password", password.Text.Trim()); // This should be hashed in real applications
-
-                        int count = (int)cmd.ExecuteScalar();
-
-                        if (count == 1)
+                        string query = "SELECT COUNT(id) FROM users WHERE username = @username AND password = @password";
+                        using (SqlCommand cmd = new SqlCommand(query, connect))
                         {
-                            // Login successful
-                            MainForm home = new MainForm();
-                            home.Show();
-                            this.Hide();
-                        }
-                        else
-                        {
-                            // Invalid credentials
-                            MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            cmd.Parameters.AddWithValue("@username", username.Text.Trim());
+                            cmd.Parameters.AddWithValue("@password", password.Text.Trim()); // This should be hashed in real applications
+
+                            int count = (int)cmd.ExecuteScalar();
+
+                            if (count == 1)
+                            {
+                                // Login successful
+                                MainForm home = new MainForm();
+                                home.Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                // Invalid credentials
+                                MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                 }
@@ -61,13 +60,7 @@ namespace Gestion_de_stock
                 {
                     MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                finally
-                {
-                    if (connect.State == ConnectionState.Open)
-                    {
-                        connect.Close();
-                    }
-                }
+                
             }
         }
 

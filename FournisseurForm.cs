@@ -8,8 +8,6 @@ namespace Gestion_de_stock
 {
     public partial class FournisseurForm : Form
     {
-        private readonly string connectionString = @"Data Source=Houssam7\SQLEXPRESS ;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
-
         public FournisseurForm()
         {
             InitializeComponent();
@@ -20,7 +18,7 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "SELECT * FROM Personne WHERE type = 'fournisseur'";
@@ -60,7 +58,7 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "INSERT INTO Personne (nom, adresse, telephone, email, type) VALUES (@nom, @adresse, @telephone, @email, 'fournisseur')";
@@ -116,7 +114,8 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
 
@@ -185,7 +184,8 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "UPDATE Personne SET nom = @nom, adresse = @adresse, telephone = @telephone, email = @email WHERE id = @id";
@@ -226,7 +226,8 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "SELECT * FROM Personne WHERE type = 'fournisseur' AND nom LIKE @nom";

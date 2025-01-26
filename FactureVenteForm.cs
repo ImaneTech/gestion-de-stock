@@ -14,42 +14,26 @@ namespace Gestion_de_stock
 
     public partial class FactureVenteForm : Form
     {
-        private SqlConnection connection;
+
         private SqlDataAdapter adapter;
         private DataTable factureTable;
         public FactureVenteForm()
         {
             InitializeComponent();
-            InitializeDatabaseConnection();
             LoadFactures();
             initialiser_combobox();
         }
-
-        private void InitializeDatabaseConnection()
-        {
-            string connectionString = @"Data Source =DESKTOP-7P14TAD\SQLEXPRESS; Initial Catalog = tempdb; Integrated Security = True; Encrypt = True; Trust Server Certificate = True";
-
-            connection = new SqlConnection(connectionString);
-        }
-
-
 
         public void initialiser_combobox()
         {
             try
             {
-              
-                string connectionString = "Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
-   
-                string query = "SELECT id FROM Personne where type='client'";
-
-              
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
-                    connection.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    connect.Open();
+                    string query = "SELECT id FROM Personne where type='client'";
+                    using (SqlCommand cmd = new SqlCommand(query, connect))
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         comboBox1.Items.Clear();
@@ -74,11 +58,12 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
-                    connection.Open();
+                    connect.Open();
                     string query = "SELECT * FROM Factures where type='vente'";
-                    adapter = new SqlDataAdapter(query, connection);
+                    adapter = new SqlDataAdapter(query, connect);
                     factureTable = new DataTable();
                     adapter.Fill(factureTable);
                     dataGridView1.DataSource = factureTable;
@@ -106,13 +91,13 @@ namespace Gestion_de_stock
           
             try
             {
-              
-                using (SqlConnection connection = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"))
+
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
-                    connection.Open(); 
+                    connect.Open(); 
                     int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
                     string query = "INSERT INTO Factures (date_facture, id_personne, statut,type) VALUES (@date_facture, @id_personne, @statut,@type)";
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connect))
                     {
                         command.Parameters.AddWithValue("@date_facture", dateTimePicker1.Value);
                         command.Parameters.AddWithValue("@id_personne", id_personne);
@@ -128,10 +113,7 @@ namespace Gestion_de_stock
             {
                 MessageBox.Show($"Error adding facture: {ex.Message}");
             }
-            finally
-            {
-                connection.Close();
-            }
+            
         }
 
         /*

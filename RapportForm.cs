@@ -14,7 +14,6 @@ namespace Gestion_de_stock
     public partial class RapportForm : Form
     {
         //La connection : 
-        private SqlConnection conn;
         private SqlCommand cmd;
         private SqlDataReader dr;
         public RapportForm()
@@ -28,28 +27,29 @@ namespace Gestion_de_stock
             try
             {
                 //Connection :
-                conn = new SqlConnection("Data Source=DESKTOP-7P14TAD\\SQLEXPRESS;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-                //Execution commande :
-                conn.Open();
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT CONVERT(VARCHAR(10), date, 120), recettes, depenses, benefices FROM Rapport_Mensuel";
-                dr = cmd.ExecuteReader();
-                //init Data GridView :
-                dataGridView1.DataSource = null;
-                dataGridView1.Columns.Clear();
-                dataGridView1.ColumnCount = 4;
-                dataGridView1.Columns[0].Name = "Mois";
-                dataGridView1.Columns[1].Name = "Recettes (Dh)";
-                dataGridView1.Columns[2].Name = "Depenses (Dh)";
-                dataGridView1.Columns[3].Name = "Benefices (Dh)";
-                //Ramplir le listview :
-                while (dr.Read())
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
-                    dataGridView1.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
+                    connect.Open();
+                    //Execution commande :
+                    cmd = connect.CreateCommand();
+                    cmd.CommandText = "SELECT CONVERT(VARCHAR(10), date, 120), recettes, depenses, benefices FROM Rapport_Mensuel";
+                    dr = cmd.ExecuteReader();
+                    //init Data GridView :
+                    dataGridView1.DataSource = null;
+                    dataGridView1.Columns.Clear();
+                    dataGridView1.ColumnCount = 4;
+                    dataGridView1.Columns[0].Name = "Mois";
+                    dataGridView1.Columns[1].Name = "Recettes (Dh)";
+                    dataGridView1.Columns[2].Name = "Depenses (Dh)";
+                    dataGridView1.Columns[3].Name = "Benefices (Dh)";
+                    //Remplir le listview :
+                    while (dr.Read())
+                    {
+                        dataGridView1.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
+                    }
+                    //Fermeture de la connection :
+                    dr.Close();
                 }
-                //Fermeture de la connection :
-                dr.Close();
-                conn.Close();
             }
             catch (Exception ex)
             {

@@ -13,7 +13,6 @@ namespace Gestion_de_stock
 {
     public partial class SignUp : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-7P14TAD\SQLEXPRESS;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         public SignUp()
         {
             InitializeComponent();
@@ -59,12 +58,11 @@ namespace Gestion_de_stock
             }
             else
             {
-                if (connect.State != ConnectionState.Open)
+                try
                 {
-                    try
+                    using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                     {
                         connect.Open();
-
                         // Check if user already exists
                         string selectUsername = "SELECT COUNT(id) FROM users WHERE username = @user";
                         using (SqlCommand checkUser = new SqlCommand(selectUsername, connect))
@@ -98,14 +96,10 @@ namespace Gestion_de_stock
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        connect.Close();
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

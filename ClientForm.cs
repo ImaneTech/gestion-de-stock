@@ -8,8 +8,6 @@ namespace Gestion_de_stock
 {
     public partial class ClientForm : Form
     {
-        private readonly string connectionString = @"Data Source=Houssam7\SQLEXPRESS;Initial Catalog=tempdb ;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
-
         public ClientForm()
         {
             InitializeComponent();
@@ -20,8 +18,8 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
-                {
+                 using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
+                 {
                     connect.Open();
                     string query = "SELECT * FROM Personne WHERE type = 'client'";
                     SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
@@ -46,7 +44,7 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "INSERT INTO Personne (nom, adresse, telephone, email, type) VALUES (@nom, @adresse, @telephone, @email, 'client')";
@@ -96,7 +94,7 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
+                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
                     string query = "SELECT * FROM Personne WHERE type = 'client' AND nom LIKE @nom";
@@ -147,8 +145,8 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
-                {
+                using(SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
+                 {
                     connect.Open();
                     string query = "UPDATE Personne SET nom = @nom, adresse = @adresse, telephone = @telephone, email = @email WHERE id = @id";
                     using (SqlCommand cmd = new SqlCommand(query, connect))
@@ -197,8 +195,8 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(connectionString))
-                {
+                using(SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
+                 {
                     connect.Open();
 
                     // Rechercher l'ID de la personne par son nom
