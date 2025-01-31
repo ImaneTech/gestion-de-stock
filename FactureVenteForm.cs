@@ -116,59 +116,6 @@ namespace Gestion_de_stock
             
         }
 
-        /*
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-            try
-            {
-                connection.Open();
-                string query = "DELETE FROM Factures WHERE id = @id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@id_personne", comboBox1.SelectedValue);
-                    command.ExecuteNonQuery();
-                }
-                LoadFactures();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error deleting facture: {ex.Message}");
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        
-        private void buttonModifier_Click(object sender, EventArgs e)
-        {
-
-            try
-            {
-                connection.Open();
-                string query = "UPDATE Factures SET date_facture = @date_facture, id_personne = @id_personne, statut = @statut WHERE id = @id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@date_facture", dateTimePicker1.Value);
-                    command.Parameters.AddWithValue("@id_personne", comboBox1.SelectedValue);
-                    command.Parameters.AddWithValue("@statut", checkPAYEE.Checked ? "payée" : "non payée");
-
-                    command.ExecuteNonQuery();
-                }
-                LoadFactures();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error updating facture: {ex.Message}");
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        */
-
         private void buttonQuitter_Click(object sender, EventArgs e)
         {
 

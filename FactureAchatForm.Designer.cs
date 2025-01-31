@@ -106,7 +106,7 @@
             buttonAjouter.Name = "buttonAjouter";
             buttonAjouter.Size = new Size(134, 58);
             buttonAjouter.TabIndex = 9;
-            buttonAjouter.Text = "Ajouter";
+            buttonAjouter.Text = "Confirmer";
             buttonAjouter.UseVisualStyleBackColor = false;
             buttonAjouter.Click += buttonAjouter_Click;
             // 
