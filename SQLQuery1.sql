@@ -126,8 +126,8 @@ ALTER TABLE Factures ADD montant DECIMAL(15, 2) NOT NULL DEFAULT 0;
 
 INSERT INTO Factures (date_facture, id_personne, statut, type, montant) VALUES
 ('2023-12-05', 1, 'payée', 'achat', 1000.00),
-('2023-12-10', 1, 'payée', 'vente', 2500.00), -- Bénéfice = 1500
-('2024-01-05', 2, 'payée', 'achat', 3000.00),
+('2023-12-10', 1, 'non payée', 'vente', 2500.00), -- Bénéfice = 1500
+('2024-01-05', 2, 'non payée', 'achat', 3000.00),
 ('2024-01-10', 2, 'payée', 'vente', 2000.00), -- Bénéfice = -1000
 ('2024-02-05', 3, 'payée', 'achat', 1500.00),
 ('2024-02-10', 3, 'payée', 'vente', 1500.00),

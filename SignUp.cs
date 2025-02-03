@@ -20,7 +20,7 @@ namespace Gestion_de_stock
 
         private void SignUp_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void exit_Click(object sender, EventArgs e)

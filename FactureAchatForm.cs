@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using TestStack.White.UIItems.TreeItems;
+using System.Reflection.Metadata;
 
 namespace Gestion_de_stock
 {
@@ -132,14 +133,15 @@ namespace Gestion_de_stock
                 {
                     int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
                     connect.Open();
-                    string query = "INSERT INTO Factures (date_facture, id_personne, statut,type) VALUES (@date_facture, @id_personne, @statut,@type)";
+                    string query = "INSERT INTO Factures (date_facture, id_personne, statut,type,montant) VALUES (@date_facture, @id_personne, @statut,@type,@montant)";
                     using (SqlCommand command = new SqlCommand(query, connect))
                     {
                         command.Parameters.AddWithValue("@date_facture", dateTimePicker1.Value);
                         command.Parameters.AddWithValue("@id_personne", id_personne);
                         command.Parameters.AddWithValue("@statut", checkPAYEE.Checked ? "payée" : "non payée");
                         command.Parameters.AddWithValue("@type", "Achat");
-
+                        command.Parameters.AddWithValue("@montant", Convert.ToDecimal(montant.Text));
+                    
                         command.ExecuteNonQuery();
                     }
                     LoadFactures();
@@ -186,6 +188,16 @@ namespace Gestion_de_stock
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

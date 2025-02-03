@@ -96,13 +96,14 @@ namespace Gestion_de_stock
                 {
                     connect.Open();
                     int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
-                    string query = "INSERT INTO Factures (date_facture, id_personne, statut,type) VALUES (@date_facture, @id_personne, @statut,@type)";
+                    string query = "INSERT INTO Factures (date_facture, id_personne, statut,type,montant) VALUES (@date_facture, @id_personne, @statut,@type,@montant)";
                     using (SqlCommand command = new SqlCommand(query, connect))
                     {
                         command.Parameters.AddWithValue("@date_facture", dateTimePicker1.Value);
                         command.Parameters.AddWithValue("@id_personne", id_personne);
                         command.Parameters.AddWithValue("@statut", checkPAYEE.Checked ? "payée" : "non payée");
                         command.Parameters.AddWithValue("@type", "vente");
+                        command.Parameters.AddWithValue("@montant", Convert.ToDecimal(montant.Text));
 
                         command.ExecuteNonQuery();
                     }
@@ -206,6 +207,16 @@ namespace Gestion_de_stock
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void montant_TextChanged(object sender, EventArgs e)
         {
 
         }

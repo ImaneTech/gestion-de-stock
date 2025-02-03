@@ -41,6 +41,8 @@
             dataGridView1 = new DataGridView();
             label2 = new Label();
             panel2 = new Panel();
+            label1 = new Label();
+            montant = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
@@ -50,10 +52,9 @@
             // 
             IDPERSONNE.AutoSize = true;
             IDPERSONNE.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            IDPERSONNE.Location = new Point(67, 33);
-            IDPERSONNE.Margin = new Padding(4, 0, 4, 0);
+            IDPERSONNE.Location = new Point(54, 26);
             IDPERSONNE.Name = "IDPERSONNE";
-            IDPERSONNE.Size = new Size(94, 30);
+            IDPERSONNE.Size = new Size(76, 23);
             IDPERSONNE.TabIndex = 1;
             IDPERSONNE.Text = "ID Client";
             IDPERSONNE.Click += IDPERSONNE_Click;
@@ -62,10 +63,9 @@
             // 
             DATEFACTURE.AutoSize = true;
             DATEFACTURE.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DATEFACTURE.Location = new Point(67, 86);
-            DATEFACTURE.Margin = new Padding(4, 0, 4, 0);
+            DATEFACTURE.Location = new Point(54, 69);
             DATEFACTURE.Name = "DATEFACTURE";
-            DATEFACTURE.Size = new Size(134, 30);
+            DATEFACTURE.Size = new Size(107, 23);
             DATEFACTURE.TabIndex = 3;
             DATEFACTURE.Text = "Date Facture";
             DATEFACTURE.Click += DATEFACTURE_Click;
@@ -74,10 +74,9 @@
             // 
             STATU.AutoSize = true;
             STATU.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            STATU.Location = new Point(67, 139);
-            STATU.Margin = new Padding(4, 0, 4, 0);
+            STATU.Location = new Point(54, 157);
             STATU.Name = "STATU";
-            STATU.Size = new Size(70, 30);
+            STATU.Size = new Size(56, 23);
             STATU.TabIndex = 4;
             STATU.Text = "Statut";
             STATU.Click += STATU_Click;
@@ -87,10 +86,9 @@
             buttonAjouter.BackColor = Color.SlateBlue;
             buttonAjouter.FlatStyle = FlatStyle.Flat;
             buttonAjouter.Font = new Font("Arial Rounded MT Bold", 10F);
-            buttonAjouter.Location = new Point(673, 222);
-            buttonAjouter.Margin = new Padding(4);
+            buttonAjouter.Location = new Point(538, 178);
             buttonAjouter.Name = "buttonAjouter";
-            buttonAjouter.Size = new Size(147, 54);
+            buttonAjouter.Size = new Size(118, 43);
             buttonAjouter.TabIndex = 10;
             buttonAjouter.Text = "Confirmer";
             buttonAjouter.UseVisualStyleBackColor = false;
@@ -101,10 +99,9 @@
             buttonQuitter.BackColor = Color.SlateBlue;
             buttonQuitter.FlatStyle = FlatStyle.Flat;
             buttonQuitter.Font = new Font("Arial Rounded MT Bold", 10F);
-            buttonQuitter.Location = new Point(840, 222);
-            buttonQuitter.Margin = new Padding(4);
+            buttonQuitter.Location = new Point(672, 178);
             buttonQuitter.Name = "buttonQuitter";
-            buttonQuitter.Size = new Size(134, 54);
+            buttonQuitter.Size = new Size(107, 43);
             buttonQuitter.TabIndex = 13;
             buttonQuitter.Text = "Effacer";
             buttonQuitter.UseVisualStyleBackColor = false;
@@ -113,6 +110,8 @@
             // panel1
             // 
             panel1.BackColor = Color.Silver;
+            panel1.Controls.Add(montant);
+            panel1.Controls.Add(label1);
             panel1.Controls.Add(checkNONPAYEE);
             panel1.Controls.Add(checkPAYEE);
             panel1.Controls.Add(comboBox1);
@@ -122,10 +121,9 @@
             panel1.Controls.Add(STATU);
             panel1.Controls.Add(DATEFACTURE);
             panel1.Controls.Add(IDPERSONNE);
-            panel1.Location = new Point(36, 58);
-            panel1.Margin = new Padding(4);
+            panel1.Location = new Point(29, 46);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1002, 297);
+            panel1.Size = new Size(802, 238);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
             // 
@@ -133,9 +131,10 @@
             // 
             checkNONPAYEE.AutoSize = true;
             checkNONPAYEE.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkNONPAYEE.Location = new Point(409, 139);
+            checkNONPAYEE.Location = new Point(323, 153);
+            checkNONPAYEE.Margin = new Padding(2, 2, 2, 2);
             checkNONPAYEE.Name = "checkNONPAYEE";
-            checkNONPAYEE.Size = new Size(135, 32);
+            checkNONPAYEE.Size = new Size(113, 27);
             checkNONPAYEE.TabIndex = 16;
             checkNONPAYEE.TabStop = true;
             checkNONPAYEE.Text = "non payée";
@@ -145,9 +144,10 @@
             // 
             checkPAYEE.AutoSize = true;
             checkPAYEE.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkPAYEE.Location = new Point(236, 137);
+            checkPAYEE.Location = new Point(189, 153);
+            checkPAYEE.Margin = new Padding(2, 2, 2, 2);
             checkPAYEE.Name = "checkPAYEE";
-            checkPAYEE.Size = new Size(93, 32);
+            checkPAYEE.Size = new Size(78, 27);
             checkPAYEE.TabIndex = 15;
             checkPAYEE.TabStop = true;
             checkPAYEE.Text = "payée";
@@ -157,28 +157,29 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(236, 33);
+            comboBox1.Location = new Point(189, 26);
+            comboBox1.Margin = new Padding(2, 2, 2, 2);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(308, 33);
+            comboBox1.Size = new Size(247, 28);
             comboBox1.TabIndex = 14;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(236, 84);
+            dateTimePicker1.Location = new Point(189, 67);
+            dateTimePicker1.Margin = new Padding(2, 2, 2, 2);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(308, 31);
+            dateTimePicker1.Size = new Size(247, 27);
             dateTimePicker1.TabIndex = 14;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(36, 474);
-            dataGridView1.Margin = new Padding(4);
+            dataGridView1.Location = new Point(29, 379);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1002, 357);
+            dataGridView1.Size = new Size(802, 286);
             dataGridView1.TabIndex = 6;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -187,10 +188,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ActiveCaptionText;
-            label2.Location = new Point(385, 22);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(308, 18);
             label2.Name = "label2";
-            label2.Size = new Size(211, 28);
+            label2.Size = new Size(178, 23);
             label2.TabIndex = 0;
             label2.Text = "liste des factures";
             label2.Click += label2_Click;
@@ -199,23 +199,40 @@
             // 
             panel2.BackColor = Color.SlateBlue;
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(36, 404);
-            panel2.Margin = new Padding(4);
+            panel2.Location = new Point(29, 323);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1002, 72);
+            panel2.Size = new Size(802, 58);
             panel2.TabIndex = 5;
             panel2.Paint += panel2_Paint;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(54, 113);
+            label1.Name = "label1";
+            label1.Size = new Size(66, 17);
+            label1.TabIndex = 17;
+            label1.Text = "Montant";
+            label1.Click += label1_Click_1;
+            // 
+            // montant
+            // 
+            montant.Location = new Point(189, 113);
+            montant.Name = "montant";
+            montant.Size = new Size(247, 27);
+            montant.TabIndex = 18;
+            montant.TextChanged += montant_TextChanged;
+            // 
             // FactureVenteForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1066, 956);
+            ClientSize = new Size(853, 765);
             Controls.Add(dataGridView1);
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4);
             Name = "FactureVenteForm";
             Text = "FactureVenteForm";
             Load += FactureVenteForm_Load;
@@ -242,5 +259,7 @@
         private ComboBox comboBox1;
         private RadioButton checkPAYEE;
         private RadioButton checkNONPAYEE;
+        private TextBox montant;
+        private Label label1;
     }
 }
