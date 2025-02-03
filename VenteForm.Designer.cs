@@ -34,8 +34,10 @@
             dataGridView1 = new DataGridView();
             panel3 = new Panel();
             button3 = new Button();
-            button2 = new Button();
+            buttonConfirmer = new Button();
             panel4 = new Panel();
+            button2 = new Button();
+            button1 = new Button();
             textBox1 = new TextBox();
             comboBox2 = new ComboBox();
             comboBox1 = new ComboBox();
@@ -43,31 +45,33 @@
             label4 = new Label();
             label3 = new Label();
             label1 = new Label();
+            dataGridView2 = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(dataGridView1);
-            panel1.Location = new Point(510, 184);
-            panel1.Margin = new Padding(4, 4, 4, 4);
+            panel1.Location = new Point(107, 528);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(526, 478);
+            panel1.Size = new Size(826, 395);
             panel1.TabIndex = 1;
             // 
             // panel2
             // 
-            panel2.BackColor = Color.PaleTurquoise;
+            panel2.BackColor = Color.SlateBlue;
             panel2.Controls.Add(label2);
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(4, 4, 4, 4);
+            panel2.Margin = new Padding(4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(526, 64);
+            panel2.Size = new Size(826, 64);
             panel2.TabIndex = 4;
             // 
             // label2
@@ -85,56 +89,56 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(0, 62);
-            dataGridView1.Margin = new Padding(4, 4, 4, 4);
+            dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(526, 411);
+            dataGridView1.Size = new Size(826, 333);
             dataGridView1.TabIndex = 3;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // panel3
             // 
-            panel3.BackColor = Color.PaleTurquoise;
+            panel3.BackColor = Color.Silver;
             panel3.Controls.Add(button3);
-            panel3.Controls.Add(button2);
-            panel3.Location = new Point(23, 512);
-            panel3.Margin = new Padding(4, 4, 4, 4);
+            panel3.Controls.Add(buttonConfirmer);
+            panel3.Location = new Point(292, 413);
+            panel3.Margin = new Padding(4);
             panel3.Name = "panel3";
             panel3.Size = new Size(459, 95);
             panel3.TabIndex = 8;
-            panel3.Paint += panel3_Paint;
             // 
             // button3
             // 
-            button3.BackColor = Color.Teal;
+            button3.BackColor = Color.SlateBlue;
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.Location = new Point(260, 24);
-            button3.Margin = new Padding(4, 4, 4, 4);
+            button3.Margin = new Padding(4);
             button3.Name = "button3";
-            button3.Size = new Size(132, 49);
+            button3.Size = new Size(123, 49);
             button3.TabIndex = 2;
-            button3.Text = "EFFACER";
+            button3.Text = "Annuler";
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
-            // button2
+            // buttonConfirmer
             // 
-            button2.BackColor = Color.Teal;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(49, 24);
-            button2.Margin = new Padding(4, 4, 4, 4);
-            button2.Name = "button2";
-            button2.Size = new Size(150, 49);
-            button2.TabIndex = 1;
-            button2.Text = "CONFIRMER";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            buttonConfirmer.BackColor = Color.SlateBlue;
+            buttonConfirmer.FlatStyle = FlatStyle.Flat;
+            buttonConfirmer.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonConfirmer.Location = new Point(49, 24);
+            buttonConfirmer.Margin = new Padding(4);
+            buttonConfirmer.Name = "buttonConfirmer";
+            buttonConfirmer.Size = new Size(148, 49);
+            buttonConfirmer.TabIndex = 1;
+            buttonConfirmer.Text = "Confirmer";
+            buttonConfirmer.UseVisualStyleBackColor = false;
+            buttonConfirmer.Click += button2_Click;
             // 
             // panel4
             // 
-            panel4.BackColor = Color.Teal;
+            panel4.BackColor = Color.Silver;
+            panel4.Controls.Add(button2);
+            panel4.Controls.Add(button1);
             panel4.Controls.Add(textBox1);
             panel4.Controls.Add(comboBox2);
             panel4.Controls.Add(comboBox1);
@@ -142,16 +146,44 @@
             panel4.Controls.Add(label4);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(label1);
-            panel4.Location = new Point(23, 210);
-            panel4.Margin = new Padding(4, 4, 4, 4);
+            panel4.Location = new Point(26, 32);
+            panel4.Margin = new Padding(4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(459, 269);
+            panel4.Size = new Size(502, 342);
             panel4.TabIndex = 9;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.SlateBlue;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.Location = new Point(336, 274);
+            button2.Margin = new Padding(4);
+            button2.Name = "button2";
+            button2.Size = new Size(148, 49);
+            button2.TabIndex = 16;
+            button2.Text = "Effacer";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click_1;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.SlateBlue;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(180, 274);
+            button1.Margin = new Padding(4);
+            button1.Name = "button1";
+            button1.Size = new Size(148, 49);
+            button1.TabIndex = 15;
+            button1.Text = "Ajouter";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(185, 210);
-            textBox1.Margin = new Padding(4, 4, 4, 4);
+            textBox1.Location = new Point(155, 214);
+            textBox1.Margin = new Padding(4);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(252, 31);
             textBox1.TabIndex = 14;
@@ -159,22 +191,20 @@
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(185, 146);
-            comboBox2.Margin = new Padding(4, 4, 4, 4);
+            comboBox2.Location = new Point(155, 152);
+            comboBox2.Margin = new Padding(4);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(252, 33);
             comboBox2.TabIndex = 13;
-            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged_1;
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(185, 82);
-            comboBox1.Margin = new Padding(4, 4, 4, 4);
+            comboBox1.Location = new Point(155, 89);
+            comboBox1.Margin = new Padding(4);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(252, 33);
             comboBox1.TabIndex = 12;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label5
             // 
@@ -220,17 +250,28 @@
             label1.TabIndex = 8;
             label1.Text = "Vente Formulaire :\r\n";
             // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(536, 32);
+            dataGridView2.Margin = new Padding(4);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersWidth = 51;
+            dataGridView2.Size = new Size(501, 342);
+            dataGridView2.TabIndex = 10;
+            // 
             // VenteForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.LightCyan;
+            BackColor = Color.GhostWhite;
             ClientSize = new Size(1066, 956);
+            Controls.Add(dataGridView2);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "VenteForm";
             Text = "VenteForm";
             Load += VenteForm_Load;
@@ -241,6 +282,7 @@
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
         }
 
@@ -252,7 +294,7 @@
         private Panel panel3;
         private Panel panel4;
         private Button button3;
-        private Button button2;
+        private Button buttonConfirmer;
         private TextBox textBox1;
         private ComboBox comboBox2;
         private ComboBox comboBox1;
@@ -260,5 +302,9 @@
         private Label label4;
         private Label label3;
         private Label label1;
+        private DataGridView dataGridView2;
+        private Button button1;
+        private Button buttonViderPanier_Click;
+        private Button button2;
     }
 }

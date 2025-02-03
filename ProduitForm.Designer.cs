@@ -134,7 +134,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(192, 192, 255);
+            panel2.BackColor = Color.Silver;
             panel2.Controls.Add(comboBox1);
             panel2.Controls.Add(txtPrix);
             panel2.Controls.Add(label12);

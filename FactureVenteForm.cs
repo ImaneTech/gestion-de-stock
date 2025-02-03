@@ -52,7 +52,7 @@ namespace Gestion_de_stock
                 MessageBox.Show("Erreur lors du chargement des id : " + ex.Message);
             }
         }
-        
+
 
         private void LoadFactures()
         {
@@ -73,7 +73,7 @@ namespace Gestion_de_stock
             {
                 MessageBox.Show($"Error loading factures: {ex.Message}");
             }
-           
+
         }
         private void label3_Click(object sender, EventArgs e)
         {
@@ -88,13 +88,13 @@ namespace Gestion_de_stock
         private void buttonAjouter_Click(object sender, EventArgs e)
         {
 
-          
+
             try
             {
 
                 using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
-                    connect.Open(); 
+                    connect.Open();
                     int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
                     string query = "INSERT INTO Factures (date_facture, id_personne, statut,type) VALUES (@date_facture, @id_personne, @statut,@type)";
                     using (SqlCommand command = new SqlCommand(query, connect))
@@ -113,7 +113,7 @@ namespace Gestion_de_stock
             {
                 MessageBox.Show($"Error adding facture: {ex.Message}");
             }
-            
+
         }
 
         private void buttonQuitter_Click(object sender, EventArgs e)
@@ -122,6 +122,7 @@ namespace Gestion_de_stock
             comboBox1.SelectedIndex = -1;
             dateTimePicker1.Value = DateTime.Now;
             checkPAYEE.Checked = false;
+            checkNONPAYEE.Checked = false;
         }
 
         private void IDPERSONNE_Click(object sender, EventArgs e)
@@ -200,6 +201,11 @@ namespace Gestion_de_stock
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
         }

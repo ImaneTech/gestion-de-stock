@@ -72,8 +72,47 @@ VALUES
 ('Fournisseur B', '34 Rue des Industriels, 33000 Bordeaux', '0321567890', 'info@fournisseurb.com', 'fournisseur'),
 ('Fournisseur C', '56 Boulevard des Commerces, 13001 Marseille', '0478923456', 'service@fournisseure.com', 'fournisseur');
 
-select * from Factures;
+CREATE TABLE Operation (
+    id_Operation INT IDENTITY(1,1) PRIMARY KEY,
+    type VARCHAR(25) CHECK (type IN ('vente', 'achat')),
+    id_personne INT NOT NULL,
+    date_operation DATETIME DEFAULT GETDATE(),
+     montant_total DECIMAL(18,2) DEFAULT 0,
+    CONSTRAINT FK_Operation_Personne FOREIGN KEY (id_personne) 
+        REFERENCES Personne(id) ON DELETE CASCADE
+);
+select * from Operation;
 
+CREATE TABLE LigneOperation (
+    id_Operation INT NOT NULL,
+    id_produit INT NOT NULL,
+    quantite INT NOT NULL CHECK (quantite > 0), -- Vérification que la quantité est positive
+    prix_total DECIMAL(10, 2) CHECK (prix_total >= 0),
+    PRIMARY KEY (id_Operation, id_produit),
+    CONSTRAINT FK_LigneOperation_Operation FOREIGN KEY (id_Operation) 
+        REFERENCES Operation(id_Operation) ON DELETE CASCADE,
+    CONSTRAINT FK_LigneOperation_Produit FOREIGN KEY (id_produit) 
+        REFERENCES Produit(id) ON DELETE CASCADE
+
+);
+select * from LigneOperation;
+
+ INSERT INTO Operation (type, id_personne, date_operation) VALUES
+('achat', 1, DEFAULT),  
+('achat', 2, DEFAULT),  
+('vente', 4, DEFAULT),  
+('achat', 3, DEFAULT),  
+('vente', 5, DEFAULT);  
+
+INSERT INTO LigneOperation (id_Operation, id_produit, quantite, prix_total) VALUES
+(1, 1, 2, 4000.00),  
+(2, 5, 3, 600.00),   
+(3, 2, 1, 5000.00),
+(4, 8, 1, 700.00),  
+(5, 10, 3, 1800.00); 
+
+
+-- Table Factures
 
 create table Factures (
     id INT IDENTITY(1,1) PRIMARY KEY,
@@ -83,73 +122,42 @@ create table Factures (
     statut VARCHAR(20) NOT NULL CHECK (statut IN ('payée', 'non payée')),
      type VARCHAR(20) NOT NULL CHECK (type IN ('achat', 'vente'))
 );
-drop table Factures;
+ALTER TABLE Factures ADD montant DECIMAL(15, 2) NOT NULL DEFAULT 0;
 
-
-
--- Insert records into Factures table
-INSERT INTO Factures (date_facture, id_personne, statut, type)
-VALUES 
-('2024-01-10', 1, 'payée', 'vente'),    
-('2024-01-12', 2, 'non payée', 'achat'), 
-('2023-01-14', 3, 'payée', 'vente'),    
-('2025-01-16', 4, 'non payée', 'achat'), 
-('2023-01-18', 5, 'payée', 'vente');   
+INSERT INTO Factures (date_facture, id_personne, statut, type, montant) VALUES
+('2023-12-05', 1, 'payée', 'achat', 1000.00),
+('2023-12-10', 1, 'payée', 'vente', 2500.00), -- Bénéfice = 1500
+('2024-01-05', 2, 'payée', 'achat', 3000.00),
+('2024-01-10', 2, 'payée', 'vente', 2000.00), -- Bénéfice = -1000
+('2024-02-05', 3, 'payée', 'achat', 1500.00),
+('2024-02-10', 3, 'payée', 'vente', 1500.00),
+('2024-03-05', 4, 'payée', 'achat', 500.00),
+('2024-03-10', 4, 'payée', 'vente', 1000.00), -- Bénéfice = 500 (positif)
+('2024-04-05', 5, 'payée', 'achat', 2000.00),
+('2024-04-10', 5, 'payée', 'vente', 500.00); -- Bénéfice = -1500 (négatif)
 
 select * from Factures;
 
 
 
-
-
-CREATE TABLE Operation(
-    id_Operation INT IDENTITY(1,1) PRIMARY KEY,
-    type VARCHAR(25),
-    id_personne INT NOT NULL,
-    id_produit INT NOT NULL,
-    quantite INT NOT NULL,
-    CONSTRAINT FK_Operation_Personne FOREIGN KEY (id_personne) REFERENCES Personne(id) ON DELETE CASCADE,
-    CONSTRAINT FK_Operation_Produit FOREIGN KEY (id_produit) REFERENCES Produit(id) ON DELETE CASCADE
-);
-
-
-CREATE TABLE LigneOperation (
-    id_Operation INT NOT NULL,
-    id_produit INT NOT NULL,
-    quantite INT NOT NULL,
-    prix_total DECIMAL(10, 2),
-    PRIMARY KEY (id_Operation, id_produit),
-    CONSTRAINT FK_LigneOperation_Operation FOREIGN KEY (id_Operation) REFERENCES Operation(id_Operation) ON DELETE CASCADE,
-    CONSTRAINT FK_LigneOperation_Produit FOREIGN KEY (id_produit) REFERENCES Produit(id) ON DELETE NO ACTION
-);
-
-
-INSERT INTO LigneOperation(id_Operation, id_produit, quantite, prix_total) VALUES
-(1, 1, 2, 4000),  
-(2, 5, 3, 600),   
-(3, 2, 1, 5000),
-(4, 8, 1, 700),  
-(5, 10, 2, 1200); 
-
-INSERT INTO Operation(type, id_personne, id_produit, quantite) VALUES
-('Achat', 1, 1, 2),  
-('Achat', 2, 5, 3),  
-('vente', 4, 2, 1),  
-('Achat', 3, 8, 1),  
-('vente', 5, 10, 3); 
-
 -- Créer la table Rapport_Mensuel :
 CREATE TABLE Rapport_Mensuel (
     id INT PRIMARY KEY IDENTITY(1,1),   -- Identifiant unique, incrémenté automatiquement
-    date DATE NOT NULL,                 -- Date, obligatoire pour chaque enregistrement
+   mois_annee VARCHAR(7) NOT NULL,                 -- Date, obligatoire pour chaque enregistrement
     recettes DECIMAL(15, 2) NOT NULL,   -- Recettes, avec précision pour les valeurs monétaires
     depenses DECIMAL(15, 2) NOT NULL,   -- Dépenses, avec précision pour les valeurs monétaires
     benefices AS (recettes - depenses) PERSISTED  -- Calcul automatique des bénéfices
 );
 
+
+
 select * from Rapport_Mensuel;
+
 
 select lo.id_Operation,o.id_personne,lo.id_produit,p.nom,lo.quantite,lo.prix_total from LigneOperation lo
 join Operation o on lo.id_Operation = o.id_Operation
 join Produit p on lo.id_produit = p.id
 where o.type = 'COMMANDE';
+
+
+

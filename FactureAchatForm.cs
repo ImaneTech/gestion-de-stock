@@ -25,7 +25,7 @@ namespace Gestion_de_stock
             initialiser_combobox();
 
         }
-       
+
         public void initialiser_combobox()
         {
             try
@@ -149,14 +149,14 @@ namespace Gestion_de_stock
             {
                 MessageBox.Show($"Error adding facture: {ex.Message}");
             }
-         
+
         }
 
-          private void buttonQuitter_Click(object sender, EventArgs e)
+        private void buttonQuitter_Click(object sender, EventArgs e)
         {
             dateTimePicker1.Value = DateTime.Now;
             comboBox1.SelectedIndex = -1;
-
+            checkNONPAYEE.Checked = false;
             checkPAYEE.Checked = false;
         }
 
@@ -181,6 +181,11 @@ namespace Gestion_de_stock
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
         }

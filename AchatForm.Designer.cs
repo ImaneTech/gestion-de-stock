@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panel4 = new Panel();
+            button4 = new Button();
+            button1 = new Button();
             textBox1 = new TextBox();
             comboBox2 = new ComboBox();
             comboBox1 = new ComboBox();
@@ -44,16 +46,20 @@
             panel2 = new Panel();
             label2 = new Label();
             dataGridView1 = new DataGridView();
+            dataGridView2 = new DataGridView();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // panel4
             // 
-            panel4.BackColor = Color.LightSeaGreen;
+            panel4.BackColor = Color.Silver;
+            panel4.Controls.Add(button4);
+            panel4.Controls.Add(button1);
             panel4.Controls.Add(textBox1);
             panel4.Controls.Add(comboBox2);
             panel4.Controls.Add(comboBox1);
@@ -62,11 +68,39 @@
             panel4.Controls.Add(label4);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(label1);
-            panel4.Location = new Point(15, 40);
+            panel4.Location = new Point(15, 13);
             panel4.Margin = new Padding(4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(459, 275);
+            panel4.Size = new Size(515, 344);
             panel4.TabIndex = 12;
+            // 
+            // button4
+            // 
+            button4.BackColor = Color.SlateBlue;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button4.Location = new Point(356, 270);
+            button4.Margin = new Padding(4);
+            button4.Name = "button4";
+            button4.Size = new Size(150, 49);
+            button4.TabIndex = 16;
+            button4.Text = "Effacer";
+            button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.SlateBlue;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(198, 270);
+            button1.Margin = new Padding(4);
+            button1.Name = "button1";
+            button1.Size = new Size(150, 49);
+            button1.TabIndex = 15;
+            button1.Text = "Ajouter";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // textBox1
             // 
@@ -75,7 +109,6 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(252, 31);
             textBox1.TabIndex = 14;
-            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // comboBox2
             // 
@@ -94,7 +127,6 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(252, 33);
             comboBox1.TabIndex = 12;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label6
             // 
@@ -152,40 +184,40 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.Cyan;
+            panel3.BackColor = Color.Silver;
             panel3.Controls.Add(button3);
             panel3.Controls.Add(button2);
-            panel3.Location = new Point(15, 334);
+            panel3.Location = new Point(272, 365);
             panel3.Margin = new Padding(4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(459, 95);
+            panel3.Size = new Size(459, 83);
             panel3.TabIndex = 11;
             // 
             // button3
             // 
-            button3.BackColor = Color.LightSeaGreen;
+            button3.BackColor = Color.SlateBlue;
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.Location = new Point(260, 24);
+            button3.Location = new Point(274, 15);
             button3.Margin = new Padding(4);
             button3.Name = "button3";
             button3.Size = new Size(132, 49);
             button3.TabIndex = 2;
-            button3.Text = "EFFACER";
+            button3.Text = "Annuler";
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
             // button2
             // 
-            button2.BackColor = Color.LightSeaGreen;
+            button2.BackColor = Color.SlateBlue;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(49, 24);
+            button2.Location = new Point(43, 15);
             button2.Margin = new Padding(4);
             button2.Name = "button2";
             button2.Size = new Size(150, 49);
             button2.TabIndex = 1;
-            button2.Text = "CONFIRMER";
+            button2.Text = "Confirmer";
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
@@ -193,20 +225,20 @@
             // 
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(dataGridView1);
-            panel1.Location = new Point(502, 14);
+            panel1.Location = new Point(131, 456);
             panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(526, 478);
+            panel1.Size = new Size(786, 478);
             panel1.TabIndex = 10;
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Cyan;
+            panel2.BackColor = Color.SlateBlue;
             panel2.Controls.Add(label2);
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(526, 64);
+            panel2.Size = new Size(786, 66);
             panel2.TabIndex = 4;
             // 
             // label2
@@ -227,9 +259,17 @@
             dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(526, 411);
+            dataGridView1.Size = new Size(786, 411);
             dataGridView1.TabIndex = 3;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(546, 13);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersWidth = 62;
+            dataGridView2.Size = new Size(478, 344);
+            dataGridView2.TabIndex = 13;
             // 
             // AchatForm
             // 
@@ -237,6 +277,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Ivory;
             ClientSize = new Size(1066, 956);
+            Controls.Add(dataGridView2);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel1);
@@ -244,7 +285,6 @@
             Margin = new Padding(4);
             Name = "AchatForm";
             Text = "AchatForm";
-            Load += AchatForm_Load;
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel3.ResumeLayout(false);
@@ -252,6 +292,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
         }
 
@@ -273,5 +314,8 @@
         private Label label2;
         private DataGridView dataGridView1;
         private Label label6;
+        private Button button4;
+        private Button button1;
+        private DataGridView dataGridView2;
     }
 }

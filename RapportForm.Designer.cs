@@ -44,10 +44,9 @@
             dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(894, 282);
+            dataGridView1.Size = new Size(894, 368);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            dataGridView1.RowPrePaint += dataGridView1_rowColor;
             // 
             // label1
             // 
@@ -58,7 +57,6 @@
             label1.Size = new Size(339, 32);
             label1.TabIndex = 2;
             label1.Text = "Liste des Rapports Mensuels";
-            label1.Click += label1_Click_1;
             // 
             // panel1
             // 
@@ -75,9 +73,8 @@
             panel2.Controls.Add(dataGridView1);
             panel2.Location = new Point(46, 239);
             panel2.Name = "panel2";
-            panel2.Size = new Size(970, 337);
+            panel2.Size = new Size(970, 411);
             panel2.TabIndex = 4;
-            panel2.Paint += panel2_Paint;
             // 
             // RapportForm
             // 

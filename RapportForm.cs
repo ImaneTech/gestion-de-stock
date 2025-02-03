@@ -1,107 +1,165 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Gestion_de_stock
 {
     public partial class RapportForm : Form
     {
-        //La connection : 
         private SqlCommand cmd;
         private SqlDataReader dr;
+
         public RapportForm()
         {
             InitializeComponent();
-            GetRapports();
+            AjouterRapportMensuel(); // Ajoute un rapport pour le mois précédent si non existant
+            GetRapports(); // Affiche les rapports existants
+            dataGridView1.Refresh();
+            dataGridView1.RowPrePaint += dataGridView1_RowPrePaint;
+
         }
-       
+
+        /// Récupère et affiche les rapports mensuels dans le DataGridView.
+
         private void GetRapports()
         {
             try
             {
-                //Connection :
                 using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
-                    //Execution commande :
-                    cmd = connect.CreateCommand();
-                    cmd.CommandText = "SELECT CONVERT(VARCHAR(10), date, 120), recettes, depenses, benefices FROM Rapport_Mensuel";
-                    dr = cmd.ExecuteReader();
-                    //init Data GridView :
-                    dataGridView1.DataSource = null;
-                    dataGridView1.Columns.Clear();
-                    dataGridView1.ColumnCount = 4;
-                    dataGridView1.Columns[0].Name = "Mois";
-                    dataGridView1.Columns[1].Name = "Recettes (Dh)";
-                    dataGridView1.Columns[2].Name = "Depenses (Dh)";
-                    dataGridView1.Columns[3].Name = "Benefices (Dh)";
-                    //Remplir le listview :
-                    while (dr.Read())
-                    {
-                        dataGridView1.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
-                    }
-                    //Fermeture de la connection :
-                    dr.Close();
+                    SqlDataAdapter da = new SqlDataAdapter("SELECT mois_annee AS Mois, recettes AS [Recettes (Dh)], depenses AS [Dépenses (Dh)], benefices AS [Bénéfices (Dh)] FROM Rapport_Mensuel", connect);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dataGridView1.DataSource = dt;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Erreur lors du chargement des rapports : " + ex.Message);
             }
         }
-        //Changer couleur des lignes :
-        private void dataGridView1_rowColor(object sender, DataGridViewRowPrePaintEventArgs e)
+
+
+        /// Génère et stocke le rapport du mois précédent si non existant.
+
+        private void AjouterRapportMensuel()
         {
-            int index = e.RowIndex;
-            double x = Convert.ToDouble(dataGridView1.Rows[index].Cells[3].Value);
-            if (x < 0) // Couleur Rouge si benefice < 0
+            using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
             {
-                dataGridView1.Rows[index].DefaultCellStyle.BackColor = Color.LightCoral;
-            }
-            else if(x == 0)// Couleur Jaune si benefice = 0
-            {
-                dataGridView1.Rows[index].DefaultCellStyle.BackColor = Color.LightYellow;
-            }
-            else //couleur verte si benefice > 0
-            {
-                dataGridView1.Rows[index].DefaultCellStyle.BackColor = Color.LightGreen;
-            }
+                connect.Open();
 
+                // Récupérer la première et la dernière date de facture
+                cmd = new SqlCommand("SELECT MIN(date_facture), MAX(date_facture) FROM Factures", connect);
+                SqlDataReader dr = cmd.ExecuteReader();
 
+                DateTime minDate = DateTime.MinValue;
+                DateTime maxDate = DateTime.MinValue;
 
+                if (dr.Read())
+                {
+                    minDate = Convert.ToDateTime(dr[0]);
+                    maxDate = Convert.ToDateTime(dr[1]);
+                }
+                dr.Close();
+
+                if (minDate == DateTime.MinValue || maxDate == DateTime.MinValue)
+                {
+                    MessageBox.Show("Aucune facture trouvée !");
+                    return;
+                }
+
+                // Définir le premier mois à analyser
+                DateTime moisCourant = new DateTime(minDate.Year, minDate.Month, 1);
+                DateTime dernierMois = new DateTime(maxDate.Year, maxDate.Month, 1);
+
+                decimal totalCumulatifRecettes = 0;
+                decimal totalCumulatifDepenses = 0;
+
+                while (moisCourant <= dernierMois)
+                {
+                    // Format du mois et de l'année en "YYYY-MM"
+                    string moisAnnee = moisCourant.ToString("yyyy-MM");
+
+                    DateTime moisDebut = moisCourant;
+                    DateTime moisFin = moisCourant.AddMonths(1).AddDays(-1);
+
+                    // Calcul des dépenses cumulatives (achats payés jusqu'à ce mois)
+                    cmd = new SqlCommand(@"SELECT COALESCE(SUM(montant), 0) 
+                                   FROM Factures 
+                                   WHERE type = 'achat' AND statut = 'payée' 
+                                   AND date_facture <= @moisFin", connect);
+                    cmd.Parameters.AddWithValue("@moisFin", moisFin);
+                    totalCumulatifDepenses = Convert.ToDecimal(cmd.ExecuteScalar());
+
+                    // Calcul des recettes cumulatives (ventes payées jusqu'à ce mois)
+                    cmd = new SqlCommand(@"SELECT COALESCE(SUM(montant), 0) 
+                                   FROM Factures 
+                                   WHERE type = 'vente' AND statut = 'payée' 
+                                   AND date_facture <= @moisFin", connect);
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@moisFin", moisFin);
+                    totalCumulatifRecettes = Convert.ToDecimal(cmd.ExecuteScalar());
+
+                    // Insérer ou mettre à jour le rapport mensuel avec le mois et l'année formatés
+                    cmd = new SqlCommand(@"MERGE INTO Rapport_Mensuel AS target
+                                   USING (SELECT @moisAnnee AS mois_annee, @recettes AS recettes, @depenses AS depenses) AS source
+                                   ON target.mois_annee = source.mois_annee
+                                   WHEN MATCHED THEN 
+                                       UPDATE SET target.recettes = source.recettes, target.depenses = source.depenses
+                                   WHEN NOT MATCHED THEN 
+                                       INSERT (mois_annee, recettes, depenses) VALUES (source.mois_annee, source.recettes, source.depenses);", connect);
+
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@moisAnnee", moisAnnee);
+                    cmd.Parameters.AddWithValue("@recettes", totalCumulatifRecettes);
+                    cmd.Parameters.AddWithValue("@depenses", totalCumulatifDepenses);
+                    cmd.ExecuteNonQuery();
+
+                    // Passer au mois suivant
+                    moisCourant = moisCourant.AddMonths(1);
+                }
+            }
         }
-        private void label1_Click(object sender, EventArgs e)
+
+
+
+        /// Change la couleur des lignes en fonction des bénéfices.
+
+        private void dataGridView1_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
+            if (e.RowIndex < 0) return;
 
+            object cellValue = dataGridView1.Rows[e.RowIndex].Cells[3].Value; // Colonne 3
+
+            double benefice;
+
+            // Vérifier que la valeur n'est ni null ni vide et qu'on peut la convertir en double
+            if (cellValue != null && double.TryParse(cellValue.ToString(), out benefice))
+            {
+                if (benefice < 0)
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral; // Rouge
+                else if (benefice == 0)
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow; // Jaune
+                else
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGreen; // Vert
+            }
+            else
+            {
+                // Si la valeur est invalide, on garde la couleur par défaut
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+            }
         }
 
-        //List des rapports :
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
         private void RapportForm_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
         {
 
         }

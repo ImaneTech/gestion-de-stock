@@ -69,7 +69,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(192, 192, 255);
+            panel1.BackColor = Color.Transparent;
             panel1.Controls.Add(panel6);
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(panel5);
@@ -335,7 +335,7 @@
             // 
             flowLayoutPanel1.Anchor = AnchorStyles.None;
             flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.BackColor = Color.FromArgb(192, 192, 255);
+            flowLayoutPanel1.BackColor = Color.Silver;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(12, 475);
             flowLayoutPanel1.Margin = new Padding(2);

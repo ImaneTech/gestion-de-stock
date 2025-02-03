@@ -31,11 +31,11 @@
             IDPERSONNE = new Label();
             DATEFACTURE = new Label();
             STATU = new Label();
-            checkNONPAYEE = new CheckBox();
-            checkPAYEE = new CheckBox();
             buttonAjouter = new Button();
             buttonQuitter = new Button();
             panel1 = new Panel();
+            checkNONPAYEE = new RadioButton();
+            checkPAYEE = new RadioButton();
             comboBox1 = new ComboBox();
             dateTimePicker1 = new DateTimePicker();
             dataGridView1 = new DataGridView();
@@ -77,40 +77,14 @@
             STATU.Location = new Point(67, 139);
             STATU.Margin = new Padding(4, 0, 4, 0);
             STATU.Name = "STATU";
-            STATU.Size = new Size(73, 30);
+            STATU.Size = new Size(70, 30);
             STATU.TabIndex = 4;
-            STATU.Text = "Statue";
+            STATU.Text = "Statut";
             STATU.Click += STATU_Click;
-            // 
-            // checkNONPAYEE
-            // 
-            checkNONPAYEE.AutoSize = true;
-            checkNONPAYEE.Font = new Font("Sylfaen", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkNONPAYEE.Location = new Point(386, 139);
-            checkNONPAYEE.Margin = new Padding(4);
-            checkNONPAYEE.Name = "checkNONPAYEE";
-            checkNONPAYEE.Size = new Size(110, 27);
-            checkNONPAYEE.TabIndex = 5;
-            checkNONPAYEE.Text = "non payé";
-            checkNONPAYEE.UseVisualStyleBackColor = true;
-            checkNONPAYEE.CheckedChanged += checkNONPAYEE_CheckedChanged;
-            // 
-            // checkPAYEE
-            // 
-            checkPAYEE.AutoSize = true;
-            checkPAYEE.Font = new Font("Sylfaen", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            checkPAYEE.Location = new Point(236, 139);
-            checkPAYEE.Margin = new Padding(4);
-            checkPAYEE.Name = "checkPAYEE";
-            checkPAYEE.Size = new Size(83, 27);
-            checkPAYEE.TabIndex = 6;
-            checkPAYEE.Text = "payée";
-            checkPAYEE.UseVisualStyleBackColor = true;
-            checkPAYEE.CheckedChanged += checkPAYEE_CheckedChanged;
             // 
             // buttonAjouter
             // 
-            buttonAjouter.BackColor = Color.SteelBlue;
+            buttonAjouter.BackColor = Color.SlateBlue;
             buttonAjouter.FlatStyle = FlatStyle.Flat;
             buttonAjouter.Font = new Font("Arial Rounded MT Bold", 10F);
             buttonAjouter.Location = new Point(673, 222);
@@ -124,7 +98,7 @@
             // 
             // buttonQuitter
             // 
-            buttonQuitter.BackColor = Color.SteelBlue;
+            buttonQuitter.BackColor = Color.SlateBlue;
             buttonQuitter.FlatStyle = FlatStyle.Flat;
             buttonQuitter.Font = new Font("Arial Rounded MT Bold", 10F);
             buttonQuitter.Location = new Point(840, 222);
@@ -138,13 +112,13 @@
             // 
             // panel1
             // 
-            panel1.BackColor = SystemColors.ActiveCaption;
+            panel1.BackColor = Color.Silver;
+            panel1.Controls.Add(checkNONPAYEE);
+            panel1.Controls.Add(checkPAYEE);
             panel1.Controls.Add(comboBox1);
             panel1.Controls.Add(dateTimePicker1);
             panel1.Controls.Add(buttonQuitter);
             panel1.Controls.Add(buttonAjouter);
-            panel1.Controls.Add(checkPAYEE);
-            panel1.Controls.Add(checkNONPAYEE);
             panel1.Controls.Add(STATU);
             panel1.Controls.Add(DATEFACTURE);
             panel1.Controls.Add(IDPERSONNE);
@@ -154,6 +128,31 @@
             panel1.Size = new Size(1002, 297);
             panel1.TabIndex = 4;
             panel1.Paint += panel1_Paint;
+            // 
+            // checkNONPAYEE
+            // 
+            checkNONPAYEE.AutoSize = true;
+            checkNONPAYEE.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkNONPAYEE.Location = new Point(409, 139);
+            checkNONPAYEE.Name = "checkNONPAYEE";
+            checkNONPAYEE.Size = new Size(135, 32);
+            checkNONPAYEE.TabIndex = 16;
+            checkNONPAYEE.TabStop = true;
+            checkNONPAYEE.Text = "non payée";
+            checkNONPAYEE.UseVisualStyleBackColor = true;
+            // 
+            // checkPAYEE
+            // 
+            checkPAYEE.AutoSize = true;
+            checkPAYEE.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkPAYEE.Location = new Point(236, 137);
+            checkPAYEE.Name = "checkPAYEE";
+            checkPAYEE.Size = new Size(93, 32);
+            checkPAYEE.TabIndex = 15;
+            checkPAYEE.TabStop = true;
+            checkPAYEE.Text = "payée";
+            checkPAYEE.UseVisualStyleBackColor = true;
+            checkPAYEE.CheckedChanged += radioButton1_CheckedChanged;
             // 
             // comboBox1
             // 
@@ -198,7 +197,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.SteelBlue;
+            panel2.BackColor = Color.SlateBlue;
             panel2.Controls.Add(label2);
             panel2.Location = new Point(36, 404);
             panel2.Margin = new Padding(4);
@@ -233,8 +232,6 @@
         private Label IDPERSONNE;
         private Label DATEFACTURE;
         private Label STATU;
-        private CheckBox checkNONPAYEE;
-        private CheckBox checkPAYEE;
         private Button buttonAjouter;
         private Button buttonQuitter;
         private Panel panel1;
@@ -243,5 +240,7 @@
         private Panel panel2;
         private DateTimePicker dateTimePicker1;
         private ComboBox comboBox1;
+        private RadioButton checkPAYEE;
+        private RadioButton checkNONPAYEE;
     }
 }
