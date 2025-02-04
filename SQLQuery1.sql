@@ -122,7 +122,10 @@ create table Factures (
     statut VARCHAR(20) NOT NULL CHECK (statut IN ('payée', 'non payée')),
      type VARCHAR(20) NOT NULL CHECK (type IN ('achat', 'vente'))
 );
-ALTER TABLE Factures ADD montant DECIMAL(15, 2) NOT NULL DEFAULT 0;
+ALTER TABLE Factures 
+ADD montant DECIMAL(15, 2) NOT NULL CHECK (montant > 0);
+
+
 
 INSERT INTO Factures (date_facture, id_personne, statut, type, montant) VALUES
 ('2023-12-05', 1, 'payée', 'achat', 1000.00),
