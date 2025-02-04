@@ -77,7 +77,7 @@ CREATE TABLE Operation (
     type VARCHAR(25) CHECK (type IN ('vente', 'achat')),
     id_personne INT NOT NULL,
     date_operation DATETIME DEFAULT GETDATE(),
-     montant_total DECIMAL(18,2) DEFAULT 0,
+   montant_total DECIMAL(18,2) NOT NULL CHECK (montant_total > 0),
     CONSTRAINT FK_Operation_Personne FOREIGN KEY (id_personne) 
         REFERENCES Personne(id) ON DELETE CASCADE
 );
@@ -125,7 +125,8 @@ create table Factures (
 ALTER TABLE Factures 
 ADD montant DECIMAL(15, 2) NOT NULL CHECK (montant > 0);
 
-
+DELETE FROM Factures
+WHERE montant = 0 OR montant IS NULL;
 
 INSERT INTO Factures (date_facture, id_personne, statut, type, montant) VALUES
 ('2023-12-05', 1, 'payée', 'achat', 1000.00),
