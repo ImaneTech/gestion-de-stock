@@ -102,8 +102,8 @@ namespace Gestion_de_stock
                 return;
             }
 
-            // Récupérer le nom de la personne sélectionnée
-            string nomPersonne = dataGridView1.SelectedRows[0].Cells["nom"].Value.ToString();
+            // Récupérer l'ID de la personne sélectionnée (le nom n'est pas unique)
+            int idPersonne = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["id"].Value);
 
             // Confirmation avant de supprimer
             DialogResult result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette personne ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -119,34 +119,20 @@ namespace Gestion_de_stock
                 {
                     connect.Open();
 
-                    // Rechercher l'ID de la personne par son nom
-                    string queryId = "SELECT id FROM Personne WHERE nom = @nom";
-                    using (SqlCommand cmdId = new SqlCommand(queryId, connect))
+                    string queryDelete = "DELETE FROM Personne WHERE id = @id AND type = 'fournisseur'";
+                    using (SqlCommand cmdDelete = new SqlCommand(queryDelete, connect))
                     {
-                        cmdId.Parameters.AddWithValue("@nom", nomPersonne);
-
-                        object resultId = cmdId.ExecuteScalar();
-                        if (resultId == null)
+                        cmdDelete.Parameters.AddWithValue("@id", idPersonne);
+                        if (cmdDelete.ExecuteNonQuery() == 0)
                         {
-                            MessageBox.Show("La personne avec ce nom n'a pas été trouvée.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("La personne sélectionnée n'a pas été trouvée.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
 
-                        // Récupérer l'ID
-                        int idPersonne = Convert.ToInt32(resultId);
+                        // Recharger les données dans le DataGridView (optionnel)
+                        ChargerFournisseur();
 
-                        // Supprimer la personne avec l'ID récupéré
-                        string queryDelete = "DELETE FROM Personne WHERE id = @id";
-                        using (SqlCommand cmdDelete = new SqlCommand(queryDelete, connect))
-                        {
-                            cmdDelete.Parameters.AddWithValue("@id", idPersonne);
-                            cmdDelete.ExecuteNonQuery();
-
-                            // Recharger les données dans le DataGridView (optionnel)
-                            ChargerFournisseur();
-
-                            MessageBox.Show("Personne supprimée avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                        MessageBox.Show("Personne supprimée avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }

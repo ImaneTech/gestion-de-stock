@@ -48,6 +48,18 @@ namespace Gestion_de_stock
 
         private void AjouterRapportMensuel()
         {
+            try
+            {
+                GenererRapportsMensuels();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de la génération des rapports : " + ex.Message);
+            }
+        }
+
+        private void GenererRapportsMensuels()
+        {
             using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
             {
                 connect.Open();
@@ -59,7 +71,8 @@ namespace Gestion_de_stock
                 DateTime minDate = DateTime.MinValue;
                 DateTime maxDate = DateTime.MinValue;
 
-                if (dr.Read())
+                // MIN/MAX renvoient NULL lorsque la table Factures est vide
+                if (dr.Read() && dr[0] != DBNull.Value && dr[1] != DBNull.Value)
                 {
                     minDate = Convert.ToDateTime(dr[0]);
                     maxDate = Convert.ToDateTime(dr[1]);

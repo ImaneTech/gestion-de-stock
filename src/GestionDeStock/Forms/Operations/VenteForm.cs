@@ -16,9 +16,9 @@ namespace Gestion_de_stock
             bindingSource = new BindingSource();
             dataGridView1.DataSource = bindingSource;
             panier = new DataTable();
-            panier.Columns.Add("Id Produit");
-            panier.Columns.Add("Quantite");
-            panier.Columns.Add("Prix Total");
+            panier.Columns.Add("Id Produit", typeof(int));
+            panier.Columns.Add("Quantite", typeof(int));
+            panier.Columns.Add("Prix Total", typeof(decimal));
             ChargerVente();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             initFormulaireVente();
@@ -80,8 +80,13 @@ namespace Gestion_de_stock
                     return;
                 }
 
+                if (!int.TryParse(textBox1.Text, out int quantite) || quantite <= 0)
+                {
+                    MessageBox.Show("La quantité doit être un nombre entier positif.");
+                    return;
+                }
+
                 int id_produit = Convert.ToInt32(comboBox2.SelectedItem);
-                int quantite = Convert.ToInt32(textBox1.Text);
 
                 using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
@@ -96,14 +101,25 @@ namespace Gestion_de_stock
                                 int qte_stock = (int)reader["qte_stock"];
                                 decimal prix_unitaire = (decimal)reader["prix_unitaire"];
 
-                                if (qte_stock < quantite)
+                                // Un produit déjà présent dans le panier est fusionné avec la nouvelle quantité
+                                DataRow? ligneExistante = TrouverLignePanier(id_produit);
+                                int quantiteTotale = quantite + (ligneExistante != null ? (int)ligneExistante["Quantite"] : 0);
+
+                                if (qte_stock < quantiteTotale)
                                 {
                                     MessageBox.Show("Le stock est insuffisant.");
                                     return;
                                 }
 
-                                decimal prix_total = prix_unitaire * quantite;
-                                panier.Rows.Add(id_produit, quantite, prix_total);
+                                if (ligneExistante != null)
+                                {
+                                    ligneExistante["Quantite"] = quantiteTotale;
+                                    ligneExistante["Prix Total"] = prix_unitaire * quantiteTotale;
+                                }
+                                else
+                                {
+                                    panier.Rows.Add(id_produit, quantite, prix_unitaire * quantite);
+                                }
                                 dataGridView2.DataSource = panier;
                             }
                         }
@@ -127,36 +143,65 @@ namespace Gestion_de_stock
                 }
 
                 int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
+                decimal montant_total = panier.AsEnumerable().Sum(r => r.Field<decimal>("Prix Total"));
+
+                if (montant_total <= 0)
+                {
+                    MessageBox.Show("Le montant total de la vente doit être supérieur à zéro.");
+                    return;
+                }
 
                 using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
                     connect.Open();
-                    using (SqlCommand cmd = new SqlCommand("INSERT INTO Operation (type, id_personne, date_operation) VALUES ('vente', @id_personne, GETDATE()); SELECT SCOPE_IDENTITY();", connect))
+                    // Opération, lignes et mise à jour du stock : tout est validé ou tout est annulé
+                    using (SqlTransaction transaction = connect.BeginTransaction())
                     {
-                        cmd.Parameters.AddWithValue("@id_personne", id_personne);
-                        int lastOperationId = Convert.ToInt32(cmd.ExecuteScalar());
-
-                        foreach (DataRow row in panier.Rows)
+                        try
                         {
-                            int id_produit = Convert.ToInt32(row["Id Produit"]);
-                            int quantite = Convert.ToInt32(row["Quantite"]);
-                            decimal prix_total = Convert.ToDecimal(row["Prix Total"]);
-
-                            using (SqlCommand cmd2 = new SqlCommand("INSERT INTO LigneOperation (id_Operation, id_produit, quantite, prix_total) VALUES (@id_Operation, @id_produit, @quantite, @prix_total)", connect))
+                            int lastOperationId;
+                            using (SqlCommand cmd = new SqlCommand("INSERT INTO Operation (type, id_personne, date_operation, montant_total) VALUES ('vente', @id_personne, GETDATE(), @montant_total); SELECT SCOPE_IDENTITY();", connect, transaction))
                             {
-                                cmd2.Parameters.AddWithValue("@id_Operation", lastOperationId);
-                                cmd2.Parameters.AddWithValue("@id_produit", id_produit);
-                                cmd2.Parameters.AddWithValue("@quantite", quantite);
-                                cmd2.Parameters.AddWithValue("@prix_total", prix_total);
-                                cmd2.ExecuteNonQuery();
+                                cmd.Parameters.AddWithValue("@id_personne", id_personne);
+                                cmd.Parameters.AddWithValue("@montant_total", montant_total);
+                                lastOperationId = Convert.ToInt32(cmd.ExecuteScalar());
                             }
 
-                            using (SqlCommand cmd3 = new SqlCommand("UPDATE Produit SET qte_stock = qte_stock - @quantite WHERE id = @id_produit", connect))
+                            foreach (DataRow row in panier.Rows)
                             {
-                                cmd3.Parameters.AddWithValue("@quantite", quantite);
-                                cmd3.Parameters.AddWithValue("@id_produit", id_produit);
-                                cmd3.ExecuteNonQuery();
+                                int id_produit = row.Field<int>("Id Produit");
+                                int quantite = row.Field<int>("Quantite");
+                                decimal prix_total = row.Field<decimal>("Prix Total");
+
+                                // Revérifie le stock au moment de la confirmation : la mise à jour échoue si le stock est insuffisant
+                                using (SqlCommand cmd3 = new SqlCommand("UPDATE Produit SET qte_stock = qte_stock - @quantite WHERE id = @id_produit AND qte_stock >= @quantite", connect, transaction))
+                                {
+                                    cmd3.Parameters.AddWithValue("@quantite", quantite);
+                                    cmd3.Parameters.AddWithValue("@id_produit", id_produit);
+                                    if (cmd3.ExecuteNonQuery() == 0)
+                                    {
+                                        transaction.Rollback();
+                                        MessageBox.Show($"Le stock du produit {id_produit} est insuffisant. La vente a été annulée.");
+                                        return;
+                                    }
+                                }
+
+                                using (SqlCommand cmd2 = new SqlCommand("INSERT INTO LigneOperation (id_Operation, id_produit, quantite, prix_total) VALUES (@id_Operation, @id_produit, @quantite, @prix_total)", connect, transaction))
+                                {
+                                    cmd2.Parameters.AddWithValue("@id_Operation", lastOperationId);
+                                    cmd2.Parameters.AddWithValue("@id_produit", id_produit);
+                                    cmd2.Parameters.AddWithValue("@quantite", quantite);
+                                    cmd2.Parameters.AddWithValue("@prix_total", prix_total);
+                                    cmd2.ExecuteNonQuery();
+                                }
                             }
+
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
                         }
                     }
                 }
@@ -169,6 +214,11 @@ namespace Gestion_de_stock
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private DataRow? TrouverLignePanier(int id_produit)
+        {
+            return panier.AsEnumerable().FirstOrDefault(r => r.Field<int>("Id Produit") == id_produit);
         }
 
         private void button3_Click(object sender, EventArgs e)

@@ -123,11 +123,24 @@ namespace Gestion_de_stock
 
         private void buttonAjouter_Click(object sender, EventArgs e)
         {
-
+            if (comboBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un fournisseur.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!decimal.TryParse(montant.Text, out decimal valeurMontant) || valeurMontant <= 0)
+            {
+                MessageBox.Show("Le montant doit être un nombre supérieur à zéro.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            // payée / non payée sont des boutons radio du même panneau : un seul peut être coché
+            if (!checkPAYEE.Checked && !checkNONPAYEE.Checked)
+            {
+                MessageBox.Show("Veuillez indiquer si la facture est payée ou non payée.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             try
-
-
             {
                 using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                 {
@@ -139,8 +152,8 @@ namespace Gestion_de_stock
                         command.Parameters.AddWithValue("@date_facture", dateTimePicker1.Value);
                         command.Parameters.AddWithValue("@id_personne", id_personne);
                         command.Parameters.AddWithValue("@statut", checkPAYEE.Checked ? "payée" : "non payée");
-                        command.Parameters.AddWithValue("@type", "Achat");
-                        command.Parameters.AddWithValue("@montant", Convert.ToDecimal(montant.Text));
+                        command.Parameters.AddWithValue("@type", "achat");
+                        command.Parameters.AddWithValue("@montant", valeurMontant);
                     
                         command.ExecuteNonQuery();
                     }
