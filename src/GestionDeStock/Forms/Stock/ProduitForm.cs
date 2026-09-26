@@ -32,7 +32,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors du chargement des produits : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors du chargement des produits.");
             }
         }
 
@@ -69,13 +69,16 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de l'ajout du produit.");
             }
         }
 
         //bouton supprimer
         private void button2_Click(object sender, EventArgs e)
         {
+            if (!Session.EnsureAdmin())
+                return;
+
             // Verifier si une ligne est selectionnee dans le DataGridView
             if (dataGridView1.SelectedRows.Count == 0)
             {
@@ -113,7 +116,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la suppression du produit.");
             }
         }
 
@@ -215,7 +218,7 @@ namespace Gestion_de_stock
             catch (Exception ex)
             {
                 // Affiche un message d'erreur en cas d'exception
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la mise à jour du produit.");
             }
         }
         private void button5_Click(object sender, EventArgs e)
@@ -303,7 +306,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la recherche.");
             }
         }
 

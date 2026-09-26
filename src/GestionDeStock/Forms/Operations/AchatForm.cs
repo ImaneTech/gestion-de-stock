@@ -48,7 +48,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                ErrorHandler.Show(ex, "Erreur lors du chargement des fournisseurs et des produits.");
             }
         }
 
@@ -102,7 +102,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                ErrorHandler.Show(ex, "Erreur lors de l'ajout du produit au panier.");
             }
         }
 
@@ -180,7 +180,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                ErrorHandler.Show(ex, "Erreur lors de la confirmation de l'achat. Aucune modification n'a été enregistrée.");
             }
         }
 
@@ -205,7 +205,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors du chargement des achats : " + ex.Message);
+                ErrorHandler.Show(ex, "Erreur lors du chargement des achats.");
             }
         }
 

@@ -5,6 +5,15 @@
     password VARCHAR(255) NOT NULL
 );
 
+-- Sécurité : mots de passe hachés (PBKDF2), rôle, verrouillage après échecs de connexion
+ALTER TABLE users ALTER COLUMN password VARCHAR(255) NULL; -- ancien mot de passe en clair, vidé à la première connexion
+ALTER TABLE users ADD
+    password_hash VARBINARY(32) NULL,
+    password_salt VARBINARY(16) NULL,
+    role VARCHAR(10) NOT NULL CONSTRAINT DF_users_role DEFAULT 'user' CONSTRAINT CK_users_role CHECK (role IN ('admin', 'user')),
+    failed_attempts INT NOT NULL CONSTRAINT DF_users_failed_attempts DEFAULT 0,
+    lockout_until DATETIME2 NULL;
+
 SELECT * FROM users ;
 
 

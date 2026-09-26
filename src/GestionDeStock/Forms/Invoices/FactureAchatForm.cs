@@ -47,7 +47,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                ErrorHandler.Show(ex, "Erreur lors du chargement des fournisseurs.");
             }
         }
         private void LoadFactures()
@@ -66,7 +66,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading factures: {ex.Message}");
+                ErrorHandler.Show(ex, "Erreur lors du chargement des factures.");
             }
         }
 
@@ -162,7 +162,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error adding facture: {ex.Message}");
+                ErrorHandler.Show(ex, "Erreur lors de l'ajout de la facture.");
             }
 
         }

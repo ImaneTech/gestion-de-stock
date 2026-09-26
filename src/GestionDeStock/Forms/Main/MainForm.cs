@@ -237,12 +237,15 @@ namespace Gestion_de_stock
         }
         private void RedirigerVersPageConnexion()
         {
-            // Fermer le formulaire actuel
-            this.Hide();
+            // Oublier l'utilisateur connecté
+            Session.Clear();
 
             // Ouvrir la page de connexion
             LoginForm loginPage = new LoginForm();
             loginPage.Show();
+
+            // Fermer le formulaire actuel (et le formulaire enfant ouvert)
+            this.Close();
         }
         private void button8_Click_1(object sender, EventArgs e)
         {

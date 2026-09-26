@@ -56,6 +56,10 @@ namespace Gestion_de_stock
             {
                 MessageBox.Show("Tous les champs doivent être remplis.", "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else if (!PasswordPolicy.IsValid(password.Text))
+            {
+                MessageBox.Show(PasswordPolicy.Description, "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
             {
                 try
@@ -63,43 +67,58 @@ namespace Gestion_de_stock
                     using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
                     {
                         connect.Open();
-                        // Check if user already exists
-                        string selectUsername = "SELECT COUNT(id) FROM users WHERE username = @user";
-                        using (SqlCommand checkUser = new SqlCommand(selectUsername, connect))
+                        using (SqlTransaction transaction = connect.BeginTransaction())
                         {
-                            checkUser.Parameters.AddWithValue("@user", username.Text.Trim());
-                            int count = (int)checkUser.ExecuteScalar();
-
-                            if (count >= 1)
+                            // Verrou sur la table users : deux inscriptions simultanées ne peuvent pas devenir admin toutes les deux
+                            int nombreComptes;
+                            using (SqlCommand countUsers = new SqlCommand("SELECT COUNT(id) FROM users WITH (UPDLOCK, HOLDLOCK)", connect, transaction))
                             {
-                                MessageBox.Show(username.Text.Trim() + " est déjà pris.", "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                nombreComptes = (int)countUsers.ExecuteScalar();
                             }
-                            else
+
+                            // Check if user already exists
+                            string selectUsername = "SELECT COUNT(id) FROM users WHERE username = @user";
+                            using (SqlCommand checkUser = new SqlCommand(selectUsername, connect, transaction))
                             {
-                                // Corrected the SQL insert statement syntax
-                                string insertData = "INSERT INTO users (username, mail, password) VALUES (@username, @mail, @password)";
-                                using (SqlCommand cmd = new SqlCommand(insertData, connect))
+                                checkUser.Parameters.AddWithValue("@user", username.Text.Trim());
+                                int count = (int)checkUser.ExecuteScalar();
+
+                                if (count >= 1)
                                 {
-                                    cmd.Parameters.AddWithValue("@username", username.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@mail", mail.Text.Trim());
-                                    // Password should be hashed before storing
-                                    cmd.Parameters.AddWithValue("@password", password.Text.Trim()); // Hash this in real applications
-
-                                    cmd.ExecuteNonQuery();
-
-                                    MessageBox.Show("Inscription réussie avec succès.", "Message d'information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                    LoginForm loginForm = new LoginForm(); // Replace with actual login form initialization
-                                    loginForm.Show();
-                                    this.Hide();
+                                    transaction.Rollback();
+                                    MessageBox.Show(username.Text.Trim() + " est déjà pris.", "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
                                 }
                             }
+
+                            // Le premier compte créé est administrateur
+                            string role = nombreComptes == 0 ? Session.RoleAdmin : Session.RoleUser;
+                            var (hash, salt) = PasswordHasher.HashPassword(password.Text);
+
+                            string insertData = "INSERT INTO users (username, mail, password_hash, password_salt, role) VALUES (@username, @mail, @hash, @salt, @role)";
+                            using (SqlCommand cmd = new SqlCommand(insertData, connect, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@username", username.Text.Trim());
+                                cmd.Parameters.AddWithValue("@mail", mail.Text.Trim());
+                                cmd.Parameters.Add("@hash", SqlDbType.VarBinary, PasswordHasher.HashSize).Value = hash;
+                                cmd.Parameters.Add("@salt", SqlDbType.VarBinary, PasswordHasher.SaltSize).Value = salt;
+                                cmd.Parameters.AddWithValue("@role", role);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
                         }
                     }
+
+                    MessageBox.Show("Inscription réussie avec succès.", "Message d'information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LoginForm loginForm = new LoginForm();
+                    loginForm.Show();
+                    this.Hide();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Une erreur s'est produite: " + ex.Message, "Message d'erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorHandler.Show(ex, "Une erreur s'est produite lors de l'inscription.");
                 }
             }
         }

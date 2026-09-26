@@ -39,7 +39,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors du chargement des rapports : " + ex.Message);
+                ErrorHandler.Show(ex, "Erreur lors du chargement des rapports.");
             }
         }
 
@@ -54,7 +54,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors de la génération des rapports : " + ex.Message);
+                ErrorHandler.Show(ex, "Erreur lors de la génération des rapports.");
             }
         }
 

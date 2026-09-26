@@ -77,7 +77,7 @@ namespace Gestion_de_stock
             // Gestion des erreurs
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors du chargement des statistiques : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors du chargement des statistiques.");
             }
         }
 
@@ -146,7 +146,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors de la récupération des alertes : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la récupération des alertes.");
             }
         }
         private void label3_Click(object sender, EventArgs e)

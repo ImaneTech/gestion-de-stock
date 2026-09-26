@@ -30,7 +30,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors du chargement des Fournisseurs : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors du chargement des fournisseurs.");
             }
         }
 
@@ -78,12 +78,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                string errorMessage = "Erreur: " + ex.Message;
-                if (ex.InnerException != null)
-                {
-                    errorMessage += "\nInner Exception: " + ex.InnerException.Message;
-                }
-                MessageBox.Show(errorMessage + "\n" + ex.StackTrace, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de l'ajout du fournisseur.");
             }
         }
 
@@ -94,6 +89,8 @@ namespace Gestion_de_stock
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (!Session.EnsureAdmin())
+                return;
 
             // Vérifier si une ligne est sélectionnée dans le DataGridView
             if (dataGridView1.SelectedRows.Count == 0)
@@ -138,7 +135,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la suppression du fournisseur.");
             }
         }
 
@@ -196,7 +193,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la mise à jour du fournisseur.");
             }
         }
 
@@ -226,7 +223,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors de la recherche : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la recherche.");
             }
         }
 

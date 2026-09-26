@@ -30,7 +30,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors du chargement des Clients : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors du chargement des clients.");
             }
         }
 
@@ -63,7 +63,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de l'ajout du client.");
             }
         }
 
@@ -107,7 +107,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur lors de la recherche : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la recherche.");
             }
         }
 
@@ -170,12 +170,15 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la mise à jour du client.");
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (!Session.EnsureAdmin())
+                return;
+
             // Vérifier si une ligne est sélectionnée dans le DataGridView
             if (dataGridView1.SelectedRows.Count == 0)
             {
@@ -218,7 +221,7 @@ namespace Gestion_de_stock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur: " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.Show(ex, "Erreur lors de la suppression du client.");
             }
         }
     }
