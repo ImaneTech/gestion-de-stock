@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Metrics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using TestStack.White.UIItems.TreeItems;
-using System.Reflection.Metadata;
+﻿using System.Data;
 
 namespace Gestion_de_stock
 {
     public partial class FactureAchatForm : Form
     {
-        private SqlDataAdapter adapter;
         private DataTable factureTable;
         public FactureAchatForm()
         {
@@ -31,18 +17,9 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
+                foreach (DataRow row in Db.Query("SELECT id FROM Personne WHERE type = 'fournisseur'").Rows)
                 {
-                    connect.Open();
-
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Personne WHERE type = 'fournisseur'", connect))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            comboBox1.Items.Add(dr[0].ToString());
-                        }
-                    }
+                    comboBox1.Items.Add(row["id"].ToString()!);
                 }
             }
             catch (Exception ex)
@@ -54,15 +31,8 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "SELECT * FROM Factures where type='achat'";
-                    adapter = new SqlDataAdapter(query, connect);
-                    factureTable = new DataTable();
-                    adapter.Fill(factureTable);
-                    dataGridView1.DataSource = factureTable;
-                }
+                factureTable = Db.Query("SELECT * FROM Factures where type='achat'");
+                dataGridView1.DataSource = factureTable;
             }
             catch (Exception ex)
             {
@@ -70,33 +40,7 @@ namespace Gestion_de_stock
             }
         }
 
-
-        private void checkPAYEE_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void IDFACTURE_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textFACTURE_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void DATEFACTURE_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textDATE_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -106,17 +50,7 @@ namespace Gestion_de_stock
 
         }
 
-        private void textPERSONNE_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void STATUS_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkNONPAYEE_CheckedChanged(object sender, EventArgs e)
         {
 
         }
@@ -142,23 +76,15 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
-                    connect.Open();
-                    string query = "INSERT INTO Factures (date_facture, id_personne, statut,type,montant) VALUES (@date_facture, @id_personne, @statut,@type,@montant)";
-                    using (SqlCommand command = new SqlCommand(query, connect))
-                    {
-                        command.Parameters.AddWithValue("@date_facture", dateTimePicker1.Value);
-                        command.Parameters.AddWithValue("@id_personne", id_personne);
-                        command.Parameters.AddWithValue("@statut", checkPAYEE.Checked ? "payée" : "non payée");
-                        command.Parameters.AddWithValue("@type", "achat");
-                        command.Parameters.AddWithValue("@montant", valeurMontant);
-                    
-                        command.ExecuteNonQuery();
-                    }
-                    LoadFactures();
-                }
+                int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
+                Db.Execute("INSERT INTO Factures (date_facture, id_personne, statut,type,montant) VALUES (@date_facture, @id_personne, @statut,@type,@montant)",
+                    ("@date_facture", dateTimePicker1.Value),
+                    ("@id_personne", id_personne),
+                    ("@statut", checkPAYEE.Checked ? "payée" : "non payée"),
+                    ("@type", "achat"),
+                    ("@montant", valeurMontant));
+
+                LoadFactures();
             }
             catch (Exception ex)
             {

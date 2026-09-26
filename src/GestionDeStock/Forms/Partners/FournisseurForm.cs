@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-
-namespace Gestion_de_stock
+﻿namespace Gestion_de_stock
 {
     public partial class FournisseurForm : Form
     {
@@ -18,15 +12,7 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "SELECT * FROM Personne WHERE type = 'fournisseur'";
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    dataGridView1.DataSource = dataTable;
-                }
+                dataGridView1.DataSource = Db.Query("SELECT * FROM Personne WHERE type = 'fournisseur'");
             }
             catch (Exception ex)
             {
@@ -58,23 +44,12 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "INSERT INTO Personne (nom, adresse, telephone, email, type) VALUES (@nom, @adresse, @telephone, @email, 'fournisseur')";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-                        cmd.Parameters.AddWithValue("@nom", Nom.Text);
-                        cmd.Parameters.AddWithValue("@adresse", Adresse.Text);
-                        cmd.Parameters.AddWithValue("@telephone", Tele.Text);
-                        cmd.Parameters.AddWithValue("@email", Email.Text);
+                Db.Execute("INSERT INTO Personne (nom, adresse, telephone, email, type) VALUES (@nom, @adresse, @telephone, @email, 'fournisseur')",
+                    ("@nom", Nom.Text), ("@adresse", Adresse.Text), ("@telephone", Tele.Text), ("@email", Email.Text));
 
-                        cmd.ExecuteNonQuery();
-                        ChargerFournisseur();
+                ChargerFournisseur();
 
-                        MessageBox.Show("Fournisseur ajouté avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                MessageBox.Show("Fournisseur ajouté avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -111,27 +86,16 @@ namespace Gestion_de_stock
 
             try
             {
-
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
+                if (Db.Execute("DELETE FROM Personne WHERE id = @id AND type = 'fournisseur'", ("@id", idPersonne)) == 0)
                 {
-                    connect.Open();
-
-                    string queryDelete = "DELETE FROM Personne WHERE id = @id AND type = 'fournisseur'";
-                    using (SqlCommand cmdDelete = new SqlCommand(queryDelete, connect))
-                    {
-                        cmdDelete.Parameters.AddWithValue("@id", idPersonne);
-                        if (cmdDelete.ExecuteNonQuery() == 0)
-                        {
-                            MessageBox.Show("La personne sélectionnée n'a pas été trouvée.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        // Recharger les données dans le DataGridView (optionnel)
-                        ChargerFournisseur();
-
-                        MessageBox.Show("Personne supprimée avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    MessageBox.Show("La personne sélectionnée n'a pas été trouvée.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                // Recharger les données dans le DataGridView (optionnel)
+                ChargerFournisseur();
+
+                MessageBox.Show("Personne supprimée avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -167,29 +131,13 @@ namespace Gestion_de_stock
 
             try
             {
+                Db.Execute("UPDATE Personne SET nom = @nom, adresse = @adresse, telephone = @telephone, email = @email WHERE id = @id",
+                    ("@nom", Nom.Text), ("@adresse", Adresse.Text), ("@telephone", Tele.Text), ("@email", Email.Text), ("@id", idPersonne));
 
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "UPDATE Personne SET nom = @nom, adresse = @adresse, telephone = @telephone, email = @email WHERE id = @id";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-                        // Ajouter les paramètres à la commande
-                        cmd.Parameters.AddWithValue("@nom", Nom.Text);
-                        cmd.Parameters.AddWithValue("@adresse", Adresse.Text);
-                        cmd.Parameters.AddWithValue("@telephone", Tele.Text);
-                        cmd.Parameters.AddWithValue("@email", Email.Text);
-                        cmd.Parameters.AddWithValue("@id", idPersonne);
+                // Recharger les données dans le DataGridView (optionnel)
+                ChargerFournisseur();
 
-                        // Exécuter la commande pour mettre à jour les données
-                        cmd.ExecuteNonQuery();
-
-                        // Recharger les données dans le DataGridView (optionnel)
-                        ChargerFournisseur();
-
-                        MessageBox.Show("Informations mises à jour avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                MessageBox.Show("Informations mises à jour avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -209,17 +157,8 @@ namespace Gestion_de_stock
 
             try
             {
-
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "SELECT * FROM Personne WHERE type = 'fournisseur' AND nom LIKE @nom";
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
-                    dataAdapter.SelectCommand.Parameters.AddWithValue("@nom", "%" + rechercheNom + "%");
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    dataGridView1.DataSource = dataTable;
-                }
+                dataGridView1.DataSource = Db.Query("SELECT * FROM Personne WHERE type = 'fournisseur' AND nom LIKE @nom",
+                    ("@nom", "%" + rechercheNom + "%"));
             }
             catch (Exception ex)
             {

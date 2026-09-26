@@ -2,11 +2,6 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
-using System;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Diagnostics.Metrics;
-using TestStack.White.UIItems.TreeItems;
 namespace Gestion_de_stock
 {
     public partial class LoginForm : Form
@@ -152,11 +147,6 @@ namespace Gestion_de_stock
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }

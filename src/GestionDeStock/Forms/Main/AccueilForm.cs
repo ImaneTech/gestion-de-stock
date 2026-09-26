@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 
 namespace Gestion_de_stock
 {
@@ -20,59 +11,27 @@ namespace Gestion_de_stock
             AfficherAlertes();
         }
 
-
         //  Statistiques 
         private void ChargerStatistiques()
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
+                //la valeur totale du stock
+                object? result = Db.Scalar("SELECT SUM(prix_unitaire * qte_stock) FROM Produit");
+                decimal valeurStock = result != null && result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+                label2.Text = valeurStock.ToString();
 
-                    //la valeur totale du stock
-                    string queryValeurStock = "SELECT SUM(prix_unitaire * qte_stock) FROM Produit";
-                    using (SqlCommand cmdValeurStock = new SqlCommand(queryValeurStock, connect))
-                    {
-                        object result = cmdValeurStock.ExecuteScalar();
-                        decimal valeurStock = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
-                        label2.Text = valeurStock.ToString();
+                // le nombre de factures d'achat payees
+                label3.Text = Convert.ToInt32(Db.Scalar("SELECT COUNT(*) FROM Factures WHERE statut = 'payée'")).ToString();
 
-                    }
+                // le nombre de produits en rupture de stock
+                label5.Text = Convert.ToInt32(Db.Scalar("SELECT COUNT(*) FROM Produit WHERE qte_stock < qte_stock_min")).ToString();
 
-                    // le nombre de factures d'achat payees
-                    string queryFacturesPayees = "SELECT COUNT(*) FROM Factures WHERE statut = 'payée'";
-                    using (SqlCommand cmdFacturesPayees = new SqlCommand(queryFacturesPayees, connect))
-                    {
-                        int nombreFacturesPayees = Convert.ToInt32(cmdFacturesPayees.ExecuteScalar());
-                        label3.Text = nombreFacturesPayees.ToString();
-                    }
+                //Nombre de clients :
+                label7.Text = Convert.ToInt32(Db.Scalar("SELECT COUNT(*) FROM personne where type='client'")).ToString();
 
-                    // le nombre de produits en rupture de stock
-                    string queryProduitsRupture = "SELECT COUNT(*) FROM Produit WHERE qte_stock < qte_stock_min";
-                    using (SqlCommand cmdProduitsRupture = new SqlCommand(queryProduitsRupture, connect))
-                    {
-                        int nombreProduitsRupture = Convert.ToInt32(cmdProduitsRupture.ExecuteScalar());
-                        label5.Text = nombreProduitsRupture.ToString();
-
-                    }
-                    //Nombre de clients :
-                    string queryClient = "SELECT COUNT(*) FROM personne where type='client'";
-                    using (SqlCommand cmdClient = new SqlCommand(queryClient, connect))
-                    {
-                        int nombreClient = Convert.ToInt32(cmdClient.ExecuteScalar());
-                        label7.Text = nombreClient.ToString();
-
-                    }
-                    //Nombre de fournisseurs :
-                    string queryFournisseur = "SELECT COUNT(*) FROM personne where type='fournisseur'";
-                    using (SqlCommand cmdFournisseur = new SqlCommand(queryFournisseur, connect))
-                    {
-                        int nombreFournisseur = Convert.ToInt32(cmdFournisseur.ExecuteScalar());
-                        label10.Text = nombreFournisseur.ToString();
-                    }
-
-                }
+                //Nombre de fournisseurs :
+                label10.Text = Convert.ToInt32(Db.Scalar("SELECT COUNT(*) FROM personne where type='fournisseur'")).ToString();
             }
             // Gestion des erreurs
             catch (Exception ex)
@@ -80,7 +39,6 @@ namespace Gestion_de_stock
                 ErrorHandler.Show(ex, "Erreur lors du chargement des statistiques.");
             }
         }
-
 
         // Alertes  
         private void AfficherAlertes()
@@ -159,16 +117,8 @@ namespace Gestion_de_stock
 
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void label7_Click(object sender, EventArgs e)
         {
-
-
-
 
         }
 
@@ -183,6 +133,3 @@ namespace Gestion_de_stock
         }
     }
 }
-
-
-

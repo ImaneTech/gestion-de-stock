@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
+﻿using System.Data;
 
 namespace Gestion_de_stock
 {
@@ -15,7 +6,6 @@ namespace Gestion_de_stock
     public partial class FactureVenteForm : Form
     {
 
-        private SqlDataAdapter adapter;
         private DataTable factureTable;
         public FactureVenteForm()
         {
@@ -28,22 +18,13 @@ namespace Gestion_de_stock
         {
             try
             {
+                DataTable clients = Db.Query("SELECT id FROM Personne where type='client'");
+                comboBox1.Items.Clear();
 
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
+                // Parcourir les résultats et ajouter les id à la ComboBox
+                foreach (DataRow row in clients.Rows)
                 {
-                    connect.Open();
-                    string query = "SELECT id FROM Personne where type='client'";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        comboBox1.Items.Clear();
-
-                        // Parcourir les résultats et ajouter les id à la ComboBox
-                        while (dr.Read())
-                        {
-                            comboBox1.Items.Add(dr["id"].ToString());
-                        }
-                    }
+                    comboBox1.Items.Add(row["id"].ToString()!);
                 }
             }
             catch (Exception ex)
@@ -53,35 +34,17 @@ namespace Gestion_de_stock
             }
         }
 
-
         private void LoadFactures()
         {
             try
             {
-
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "SELECT * FROM Factures where type='vente'";
-                    adapter = new SqlDataAdapter(query, connect);
-                    factureTable = new DataTable();
-                    adapter.Fill(factureTable);
-                    dataGridView1.DataSource = factureTable;
-                }
+                factureTable = Db.Query("SELECT * FROM Factures where type='vente'");
+                dataGridView1.DataSource = factureTable;
             }
             catch (Exception ex)
             {
                 ErrorHandler.Show(ex, "Erreur lors du chargement des factures.");
             }
-
-        }
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
@@ -106,24 +69,15 @@ namespace Gestion_de_stock
 
             try
             {
+                int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
+                Db.Execute("INSERT INTO Factures (date_facture, id_personne, statut,type,montant) VALUES (@date_facture, @id_personne, @statut,@type,@montant)",
+                    ("@date_facture", dateTimePicker1.Value),
+                    ("@id_personne", id_personne),
+                    ("@statut", checkPAYEE.Checked ? "payée" : "non payée"),
+                    ("@type", "vente"),
+                    ("@montant", valeurMontant));
 
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    int id_personne = Convert.ToInt32(comboBox1.SelectedItem);
-                    string query = "INSERT INTO Factures (date_facture, id_personne, statut,type,montant) VALUES (@date_facture, @id_personne, @statut,@type,@montant)";
-                    using (SqlCommand command = new SqlCommand(query, connect))
-                    {
-                        command.Parameters.AddWithValue("@date_facture", dateTimePicker1.Value);
-                        command.Parameters.AddWithValue("@id_personne", id_personne);
-                        command.Parameters.AddWithValue("@statut", checkPAYEE.Checked ? "payée" : "non payée");
-                        command.Parameters.AddWithValue("@type", "vente");
-                        command.Parameters.AddWithValue("@montant", valeurMontant);
-
-                        command.ExecuteNonQuery();
-                    }
-                    LoadFactures();
-                }
+                LoadFactures();
             }
             catch (Exception ex)
             {
@@ -156,31 +110,6 @@ namespace Gestion_de_stock
 
         }
 
-        private void textIDFACTURE_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textIDPERSONNE_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkPAYEE_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkNONPAYEE_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -202,11 +131,6 @@ namespace Gestion_de_stock
         }
 
         private void FactureVenteForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
         }

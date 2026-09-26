@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-
-namespace Gestion_de_stock
+﻿namespace Gestion_de_stock
 {
     public partial class ClientForm : Form
     {
@@ -18,15 +12,7 @@ namespace Gestion_de_stock
         {
             try
             {
-                 using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                 {
-                    connect.Open();
-                    string query = "SELECT * FROM Personne WHERE type = 'client'";
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    dataGridView1.DataSource = dataTable;
-                }
+                dataGridView1.DataSource = Db.Query("SELECT * FROM Personne WHERE type = 'client'");
             }
             catch (Exception ex)
             {
@@ -44,22 +30,11 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "INSERT INTO Personne (nom, adresse, telephone, email, type) VALUES (@nom, @adresse, @telephone, @email, 'client')";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-                        cmd.Parameters.AddWithValue("@nom", Nom.Text);
-                        cmd.Parameters.AddWithValue("@adresse", Adresse.Text);
-                        cmd.Parameters.AddWithValue("@telephone", Tele.Text);
-                        cmd.Parameters.AddWithValue("@email", Email.Text);
+                Db.Execute("INSERT INTO Personne (nom, adresse, telephone, email, type) VALUES (@nom, @adresse, @telephone, @email, 'client')",
+                    ("@nom", Nom.Text), ("@adresse", Adresse.Text), ("@telephone", Tele.Text), ("@email", Email.Text));
 
-                        cmd.ExecuteNonQuery();
-                        ChargerClients();
-                        MessageBox.Show("Client ajoutée avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                ChargerClients();
+                MessageBox.Show("Client ajoutée avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -94,16 +69,8 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "SELECT * FROM Personne WHERE type = 'client' AND nom LIKE @nom";
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
-                    dataAdapter.SelectCommand.Parameters.AddWithValue("@nom", "%" + rechercheNom + "%");
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    dataGridView1.DataSource = dataTable;
-                }
+                dataGridView1.DataSource = Db.Query("SELECT * FROM Personne WHERE type = 'client' AND nom LIKE @nom",
+                    ("@nom", "%" + rechercheNom + "%"));
             }
             catch (Exception ex)
             {
@@ -145,28 +112,13 @@ namespace Gestion_de_stock
 
             try
             {
-                using(SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                 {
-                    connect.Open();
-                    string query = "UPDATE Personne SET nom = @nom, adresse = @adresse, telephone = @telephone, email = @email WHERE id = @id";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-                        // Ajouter les paramètres à la commande
-                        cmd.Parameters.AddWithValue("@nom", Nom.Text);
-                        cmd.Parameters.AddWithValue("@adresse", Adresse.Text);
-                        cmd.Parameters.AddWithValue("@telephone", Tele.Text);
-                        cmd.Parameters.AddWithValue("@email", Email.Text);
-                        cmd.Parameters.AddWithValue("@id", idPersonne);
+                Db.Execute("UPDATE Personne SET nom = @nom, adresse = @adresse, telephone = @telephone, email = @email WHERE id = @id",
+                    ("@nom", Nom.Text), ("@adresse", Adresse.Text), ("@telephone", Tele.Text), ("@email", Email.Text), ("@id", idPersonne));
 
-                        // Exécuter la commande pour mettre à jour les données
-                        cmd.ExecuteNonQuery();
+                // Recharger les données dans le DataGridView (optionnel)
+                ChargerClients();
 
-                        // Recharger les données dans le DataGridView (optionnel)
-                        ChargerClients();
-
-                        MessageBox.Show("Informations mises à jour avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                MessageBox.Show("Informations mises à jour avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -198,26 +150,16 @@ namespace Gestion_de_stock
 
             try
             {
-                using(SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                 {
-                    connect.Open();
-
-                    string queryDelete = "DELETE FROM Personne WHERE id = @id AND type = 'client'";
-                    using (SqlCommand cmdDelete = new SqlCommand(queryDelete, connect))
-                    {
-                        cmdDelete.Parameters.AddWithValue("@id", idPersonne);
-                        if (cmdDelete.ExecuteNonQuery() == 0)
-                        {
-                            MessageBox.Show("La personne sélectionnée n'a pas été trouvée.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        // Recharger les données dans le DataGridView (optionnel)
-                        ChargerClients();
-
-                        MessageBox.Show("Personne supprimée avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                if (Db.Execute("DELETE FROM Personne WHERE id = @id AND type = 'client'", ("@id", idPersonne)) == 0)
+                {
+                    MessageBox.Show("La personne sélectionnée n'a pas été trouvée.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                // Recharger les données dans le DataGridView (optionnel)
+                ChargerClients();
+
+                MessageBox.Show("Personne supprimée avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

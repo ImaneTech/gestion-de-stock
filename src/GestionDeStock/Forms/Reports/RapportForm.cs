@@ -1,15 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
 using System.Data;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace Gestion_de_stock
 {
     public partial class RapportForm : Form
     {
         private SqlCommand cmd;
-        private SqlDataReader dr;
 
         public RapportForm()
         {
@@ -27,15 +23,7 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    SqlDataAdapter da = new SqlDataAdapter("SELECT mois_annee AS Mois, recettes AS [Recettes (Dh)], depenses AS [Dépenses (Dh)], benefices AS [Bénéfices (Dh)] FROM Rapport_Mensuel", connect);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    dataGridView1.DataSource = dt;
-                }
+                dataGridView1.DataSource = Db.Query("SELECT mois_annee AS Mois, recettes AS [Recettes (Dh)], depenses AS [Dépenses (Dh)], benefices AS [Bénéfices (Dh)] FROM Rapport_Mensuel");
             }
             catch (Exception ex)
             {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Windows.Forms;
+﻿using System.Data;
 using Microsoft.Data.SqlClient;
 
 namespace Gestion_de_stock
@@ -15,20 +12,11 @@ namespace Gestion_de_stock
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
         }
 
-
         private void ChargerProduits()
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "SELECT * FROM Produit";
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connect);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    dataGridView1.DataSource = dataTable;
-                }
+                dataGridView1.DataSource = Db.Query("SELECT * FROM Produit");
             }
             catch (Exception ex)
             {
@@ -47,25 +35,17 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "INSERT INTO Produit (nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES ( @nom, @description, @categorie, @prix, @qteStock, @qteMax, @qteMin)";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-                        cmd.Parameters.AddWithValue("@nom", txtNom.Text);
-                        cmd.Parameters.AddWithValue("@description", txtDescription.Text);
-                        cmd.Parameters.AddWithValue("@categorie", comboBox1.SelectedItem.ToString());
-                        cmd.Parameters.AddWithValue("@prix", Convert.ToDecimal(txtPrix.Text));
-                        cmd.Parameters.AddWithValue("@qteStock", Convert.ToInt32(txtQteStock.Text));
-                        cmd.Parameters.AddWithValue("@qteMax", Convert.ToInt32(txtQteMax.Text));
-                        cmd.Parameters.AddWithValue("@qteMin", Convert.ToInt32(txtQteMin.Text));
+                Db.Execute("INSERT INTO Produit (nom, description, categorie, prix_unitaire, qte_stock, qte_stock_max, qte_stock_min) VALUES ( @nom, @description, @categorie, @prix, @qteStock, @qteMax, @qteMin)",
+                    ("@nom", txtNom.Text),
+                    ("@description", txtDescription.Text),
+                    ("@categorie", comboBox1.SelectedItem.ToString()!),
+                    ("@prix", Convert.ToDecimal(txtPrix.Text)),
+                    ("@qteStock", Convert.ToInt32(txtQteStock.Text)),
+                    ("@qteMax", Convert.ToInt32(txtQteMax.Text)),
+                    ("@qteMin", Convert.ToInt32(txtQteMin.Text)));
 
-                        cmd.ExecuteNonQuery();
-                        ChargerProduits();
-                        MessageBox.Show("Produit ajouté avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                ChargerProduits();
+                MessageBox.Show("Produit ajouté avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -98,21 +78,12 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    string query = "DELETE FROM Produit WHERE id = @id";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-                        cmd.Parameters.AddWithValue("@id", idProduit);
-                        cmd.ExecuteNonQuery();
+                Db.Execute("DELETE FROM Produit WHERE id = @id", ("@id", idProduit));
 
-                        // Recharger les produits dans le DataGridView
-                        ChargerProduits();
+                // Recharger les produits dans le DataGridView
+                ChargerProduits();
 
-                        MessageBox.Show("Produit supprimé avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                MessageBox.Show("Produit supprimé avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -134,7 +105,6 @@ namespace Gestion_de_stock
             ChargerProduits();
         }
 
-
         //  remplir les champs de texte avec les données de la ligne selectionnée pour que l'utilisateur puisse modifier uniquement les champs qu'il souhaite
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
@@ -151,7 +121,6 @@ namespace Gestion_de_stock
                 txtQteMin.Text = selectedRow.Cells["qte_stock_min"].Value.ToString();
             }
         }
-
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -181,38 +150,27 @@ namespace Gestion_de_stock
 
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
+                // Requete SQL pour mettre a jour un produit en fonction de son ID
+                int rowsAffected = Db.Execute("UPDATE Produit SET nom = @nom, description = @description, categorie = @categorie, prix_unitaire = @prix, qte_stock = @qteStock, qte_stock_max = @qteMax, qte_stock_min = @qteMin where id=@id",
+                    ("@nom", txtNom.Text),
+                    ("@description", txtDescription.Text),
+                    ("@categorie", comboBox1.SelectedItem.ToString()!),
+                    ("@prix", Convert.ToDecimal(txtPrix.Text)),
+                    ("@qteStock", Convert.ToInt32(txtQteStock.Text)),
+                    ("@qteMax", Convert.ToInt32(txtQteMax.Text)),
+                    ("@qteMin", Convert.ToInt32(txtQteMin.Text)),
+                    ("@id", idProduit));
+
+                // verifie si la mise à jour a reussi
+                if (rowsAffected > 0)
                 {
-                    connect.Open();
-                    // Requete SQL pour mettre a jour un produit en fonction de son ID
-                    string query = "UPDATE Produit SET nom = @nom, description = @description, categorie = @categorie, prix_unitaire = @prix, qte_stock = @qteStock, qte_stock_max = @qteMax, qte_stock_min = @qteMin where id=@id";
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-
-                        cmd.Parameters.AddWithValue("@nom", txtNom.Text);
-                        cmd.Parameters.AddWithValue("@description", txtDescription.Text);
-                        cmd.Parameters.AddWithValue("@categorie", comboBox1.SelectedItem.ToString());
-                        cmd.Parameters.AddWithValue("@prix", Convert.ToDecimal(txtPrix.Text));
-                        cmd.Parameters.AddWithValue("@qteStock", Convert.ToInt32(txtQteStock.Text));
-                        cmd.Parameters.AddWithValue("@qteMax", Convert.ToInt32(txtQteMax.Text));
-                        cmd.Parameters.AddWithValue("@qteMin", Convert.ToInt32(txtQteMin.Text));
-                        cmd.Parameters.AddWithValue("@id", Convert.ToInt32(idProduit));
-
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        // verifie si la mise à jour a reussi
-                        if (rowsAffected > 0)
-                        {
-                            // Recharge la liste des produits apres la mise a jour
-                            ChargerProduits();
-                            MessageBox.Show("Produit mis à jour avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Aucun produit trouvé avec cet ID.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
+                    // Recharge la liste des produits apres la mise a jour
+                    ChargerProduits();
+                    MessageBox.Show("Produit mis à jour avec succès.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Aucun produit trouvé avec cet ID.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -296,7 +254,6 @@ namespace Gestion_de_stock
                         // Afficher les resultats dans le DataGridView
                         dataGridView1.DataSource = dataTable;
 
-
                         if (dataTable.Rows.Count == 0)
                         {
                             MessageBox.Show("Aucun produit trouvé avec les critères spécifiés.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -310,32 +267,19 @@ namespace Gestion_de_stock
             }
         }
 
-
-        private void textBox1_TextChanged(object sender, EventArgs e) { }
         private void label10_Click(object sender, EventArgs e) { }
-        private void label9_Click(object sender, EventArgs e) { }
         private void label7_Click(object sender, EventArgs e) { }
         private void label9_Click_1(object sender, EventArgs e) { }
         private void label11_Click(object sender, EventArgs e) { }
-        private void textBox4_TextChanged(object sender, EventArgs e) { }
         private void label12_Click(object sender, EventArgs e) { }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         private void ProduitForm_Load(object sender, EventArgs e)
         {
 
-
         }
         private void label1_Click(object sender, EventArgs e) { }
-        private void label2_Click(object sender, EventArgs e) { }
         private void label3_Click(object sender, EventArgs e) { }
-        private void panel1_Paint(object sender, PaintEventArgs e) { }
-        private void panel4_Paint(object sender, PaintEventArgs e) { }
         private void panel5_Paint(object sender, PaintEventArgs e) { }
         private void panel6_Paint(object sender, PaintEventArgs e) { }
         private void label6_Click(object sender, EventArgs e) { }

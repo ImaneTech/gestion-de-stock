@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using TestStack.White.UIItems.WindowStripControls;
-
-namespace Gestion_de_stock
+﻿namespace Gestion_de_stock
 {
     public partial class MainForm : Form
     {
@@ -118,7 +107,6 @@ namespace Gestion_de_stock
             panel14.Visible = false;
             panel13.Visible = false;
 
-
         }
         private void hideSubMenu()
         {
@@ -138,7 +126,6 @@ namespace Gestion_de_stock
             {
                 panel13.Visible = false;
             }
-
 
         }
         private void showSubMenu(Panel subMenu)
@@ -176,21 +163,15 @@ namespace Gestion_de_stock
 
             showSubMenu(panel13);
         }
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-        }
         private void button9_Click(object sender, EventArgs e)
         {
             showSubMenu(panel2);
         }
 
-
         private void button18_Click(object sender, EventArgs e)
         {
             showSubMenu(panel14);
         }
-
 
         private void button13_Click(object sender, EventArgs e)
         {
@@ -226,8 +207,6 @@ namespace Gestion_de_stock
             hideSubMenu();
 
             openChildForm(new ProduitForm());
-
-
 
         }
 
@@ -280,23 +259,14 @@ namespace Gestion_de_stock
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
-
         }
         private void HomePage_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void label2_Click(object sender, EventArgs e)
         {
-
-
-
 
         }
 

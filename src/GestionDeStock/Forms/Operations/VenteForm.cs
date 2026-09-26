@@ -1,7 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
 using System.Data;
-using System.Windows.Forms;
 
 namespace Gestion_de_stock
 {
@@ -28,22 +26,11 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Personne WHERE type = 'client'", connect))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                            comboBox1.Items.Add(dr[0].ToString());
-                    }
-                    using (SqlCommand cmd = new SqlCommand("SELECT id FROM Produit", connect))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                            comboBox2.Items.Add(dr[0].ToString());
-                    }
-                }
+                foreach (DataRow row in Db.Query("SELECT id FROM Personne WHERE type = 'client'").Rows)
+                    comboBox1.Items.Add(row["id"].ToString()!);
+
+                foreach (DataRow row in Db.Query("SELECT id FROM Produit").Rows)
+                    comboBox2.Items.Add(row["id"].ToString()!);
             }
             catch (Exception ex)
             {
@@ -55,14 +42,7 @@ namespace Gestion_de_stock
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(DatabaseConfig.GetConnectionString()))
-                {
-                    connect.Open();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT * FROM Operation WHERE type = 'vente'", connect);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    bindingSource.DataSource = dataTable;
-                }
+                bindingSource.DataSource = Db.Query("SELECT * FROM Operation WHERE type = 'vente'");
             }
             catch (Exception ex)
             {
